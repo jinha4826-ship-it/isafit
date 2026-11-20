@@ -1,153 +1,933 @@
 <!doctype html>
-<html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#f7f6f2"><meta name="description" content="내 가구가 새집에 들어갈지 이사 전에 확인하는 이사핏"><title>이사핏 | 내 생활에 맞는 집 찾기</title><style>
-:root{--ink:#282b28;--muted:#858981;--paper:#f7f6f2;--line:#e9e8e1;--green:#536c58;--sage:#e8eee6}*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font:15px/1.55 -apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo",sans-serif}.top{position:sticky;top:0;background:#ffffffed;border-bottom:1px solid var(--line);padding:15px 5vw;display:flex;justify-content:space-between;align-items:center;z-index:2}.brand{font-weight:850;font-size:20px}.mark{display:inline-grid;place-items:center;background:var(--green);color:white;border-radius:9px;width:29px;height:29px;margin-right:8px}.wrap{max-width:1100px;margin:auto;padding:24px}.hero{background:#eaece4;border-radius:24px;padding:38px;margin:12px 0 42px;display:flex;justify-content:space-between;gap:20px;align-items:center}.hero h1{font-size:clamp(28px,4vw,43px);line-height:1.2;margin:10px 0}.hero em{color:var(--green);font-style:normal}.hero p,.muted{color:var(--muted)}.eyebrow{font-size:10px;letter-spacing:2px;color:#87917f;font-weight:800}.btn{border:0;border-radius:10px;padding:11px 15px;background:var(--green);color:white;font-weight:700;cursor:pointer;font-size:13px;display:inline-block;text-align:center;text-decoration:none}.btn.alt{background:white;color:var(--green);border:1px solid #dfe3da}.btn:disabled{opacity:.4;cursor:not-allowed}.head{display:flex;justify-content:space-between;align-items:end;margin:30px 0 15px}.head h2{margin:4px 0;font-size:23px}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:13px}.card{background:white;border:1px solid var(--line);border-radius:16px;padding:17px}.project{cursor:pointer;text-align:left;color:inherit;width:100%}.project h3{margin:10px 0 3px}.empty{padding:25px;text-align:center;color:var(--muted);border:1px dashed #cfd7ca;border-radius:14px}.furniture{font-size:13px}.actions{display:flex;gap:8px;flex-wrap:wrap}.dialog{border:0;border-radius:18px;width:min(680px,calc(100% - 24px));padding:22px;box-shadow:0 20px 70px #0003}.dialog::backdrop{background:#18201888}.dialog{max-height:90dvh;overflow:auto}.dialog h2{margin:4px 0 18px}.fields{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}.fields label{display:block;font-size:12px;color:#596357;font-weight:700}.fields input,.fields select,.fields textarea{display:block;width:100%;padding:10px;border:1px solid var(--line);border-radius:9px;margin-top:5px;background:#fff}.wide{grid-column:1/-1}.modal-actions{display:flex;justify-content:flex-end;gap:8px;margin-top:18px}.room-layout{display:grid;grid-template-columns:280px 1fr;gap:16px}.panel{background:#fbfaf7;border:1px solid var(--line);border-radius:13px;padding:13px;margin-bottom:10px}.panel h3{font-size:14px;margin:0 0 10px}.panel input,.panel select{width:100%;padding:9px;border:1px solid var(--line);border-radius:8px;margin:4px 0 8px}.canvasbox{background:#efeee8;border-radius:13px;padding:12px;overflow:auto;display:grid;place-items:center;min-height:300px}canvas{background:white;touch-action:none;max-width:100%}.small{font-size:11px;color:var(--muted)}.roomlist button{width:100%;text-align:left;margin:3px 0;background:white;color:var(--ink);border:1px solid var(--line);padding:8px 10px;border-radius:8px;font-size:12px;cursor:pointer}.roomlist button.active{background:var(--sage);border-color:#8ca18a}.status{padding:10px;background:white;border-radius:9px;margin-top:10px;font-size:12px}.status.err{background:#fbf0ec;color:#8d4b3c}.danger{background:transparent;color:#a15f50;border:0;cursor:pointer;font-size:13px}.footer{border-top:1px solid var(--line);padding:22px;text-align:center;color:var(--muted);font-size:11px}
-.tag{display:inline-block;font-size:10px;font-weight:800;padding:3px 7px;border-radius:6px;background:#eef1e8;color:#4c6250}.tag.warn{background:#fdf1e3;color:#96632c}
+<html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#f7f6f2"><meta name="description" content="내 가구가 새집에 실제로 들어갈지, 문 여닫힘과 동선까지 이사 전에 확인하는 이사핏"><title>이사핏 | 이사 전에 내 물건과 집이 맞는지 확인</title><style>
+:root{--ink:#282b28;--muted:#858981;--paper:#f7f6f2;--line:#e9e8e1;--green:#536c58;--sage:#e8eee6;--amber:#a8792f;--bad:#a14b3a}
+*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font:15px/1.55 -apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo",sans-serif;-webkit-text-size-adjust:100%}
+.top{position:sticky;top:0;background:#ffffffed;border-bottom:1px solid var(--line);padding:15px 5vw;display:flex;justify-content:space-between;align-items:center;z-index:2}
+.brand{font-weight:850;font-size:20px}.mark{display:inline-grid;place-items:center;background:var(--green);color:white;border-radius:9px;width:29px;height:29px;margin-right:8px}
+.wrap{max-width:1100px;margin:auto;padding:24px}
+.hero{background:#eaece4;border-radius:24px;padding:38px;margin:12px 0 42px;display:flex;justify-content:space-between;gap:20px;align-items:center}
+.hero h1{font-size:clamp(26px,4vw,42px);line-height:1.22;margin:10px 0}.hero em{color:var(--green);font-style:normal}.hero p,.muted{color:var(--muted)}
+.eyebrow{font-size:10px;letter-spacing:2px;color:#87917f;font-weight:800}
+.btn{border:0;border-radius:10px;padding:11px 15px;background:var(--green);color:white;font-weight:700;cursor:pointer;font-size:13px;display:inline-block;text-align:center;text-decoration:none;font-family:inherit}
+.btn.alt{background:white;color:var(--green);border:1px solid #dfe3da}.btn:disabled{opacity:.4;cursor:not-allowed}
+.head{display:flex;justify-content:space-between;align-items:end;margin:30px 0 15px}.head h2{margin:4px 0;font-size:23px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:13px}
+.card{background:white;border:1px solid var(--line);border-radius:16px;padding:17px}
+.project{cursor:pointer;text-align:left;color:inherit;width:100%}.project h3{margin:10px 0 3px}
+.empty{padding:25px;text-align:center;color:var(--muted);border:1px dashed #cfd7ca;border-radius:14px}
+.furniture{font-size:13px}.furniture b{font-size:14px}.furniture p{margin:5px 0;color:#5d6659}
+.actions{display:flex;gap:8px;flex-wrap:wrap}
+.dialog{border:0;border-radius:18px;width:min(680px,calc(100% - 24px));padding:22px;box-shadow:0 20px 70px #0003;max-height:90dvh;overflow:auto}
+.dialog::backdrop{background:#18201888}.dialog h2{margin:4px 0 18px}
+.fields{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.fields label{display:block;font-size:12px;color:#596357;font-weight:700}
+.fields input,.fields select,.fields textarea{display:block;width:100%;padding:10px;border:1px solid var(--line);border-radius:9px;margin-top:5px;background:#fff;font:inherit}
+.wide{grid-column:1/-1}.modal-actions{display:flex;justify-content:flex-end;gap:8px;margin-top:18px}
+.panel{background:#fbfaf7;border:1px solid var(--line);border-radius:13px;padding:13px;margin-bottom:10px}
+.panel h3{font-size:14px;margin:0 0 9px}
+.panel input[type=text],.panel input[type=number],.panel input:not([type]),.panel select{width:100%;padding:9px;border:1px solid var(--line);border-radius:8px;margin:3px 0 7px;background:#fff;font:inherit;font-size:13px;color:var(--ink)}
+.panel input[type=range]{width:100%;margin:4px 0 8px}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:7px}
+.row2>div>label{margin-top:0}
+.canvasbox{background:#efeee8;border-radius:13px;padding:10px;overflow:auto;display:grid;place-items:center;min-height:280px}
+canvas{background:white;touch-action:none;max-width:100%;display:block;border-radius:4px}
+.small{font-size:11px;color:var(--muted);line-height:1.5}
+.roomlist button{width:100%;text-align:left;margin:3px 0;background:white;color:var(--ink);border:1px solid var(--line);padding:8px 10px;border-radius:8px;font-size:12px;cursor:pointer;font-family:inherit}
+.roomlist button.active{background:var(--sage);border-color:#8ca18a}
+.status{padding:10px;background:white;border-radius:9px;margin-top:9px;font-size:12px;line-height:1.6}
+.status.err{background:#fbf0ec;color:#8d4b3c}
+.danger{background:transparent;color:#a15f50;border:0;cursor:pointer;font-size:13px;font-family:inherit}
+.footer{border-top:1px solid var(--line);padding:22px;text-align:center;color:var(--muted);font-size:11px}
+.tag{display:inline-block;font-size:10px;font-weight:800;padding:3px 7px;border-radius:6px;background:#eef1e8;color:#4c6250;white-space:nowrap}
+.tag.warn{background:#fdf1e3;color:#96632c}.tag.bad{background:#fbece8;color:#94483a}.tag.mute{background:#f0f0ec;color:#7b817a}
 .fpgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:7px;margin-top:9px}
 .fpcard{padding:0;border:1px solid var(--line);border-radius:10px;background:white;overflow:hidden;cursor:pointer;text-align:left;font:inherit}
 .fpcard img{width:100%;height:80px;object-fit:cover;display:block;background:#eee}
 .fpcard span{display:block;font-size:10px;line-height:1.3;padding:5px 6px;color:#5a6258;height:34px;overflow:hidden}
 .fpcard:active{border-color:var(--green)}
-.planpreview{display:flex;gap:11px;align-items:flex-start;background:#fff;border:1px solid var(--line);border-radius:12px;padding:9px;margin-bottom:9px}
-.planpreview img{width:110px;border-radius:8px;display:block;flex:0 0 auto}
-.planpreview .pp-body{min-width:0;font-size:12px}
-.planpreview .pp-body p{margin:6px 0 0;color:var(--muted);font-size:11px;line-height:1.45}
 .spin{display:inline-block;width:11px;height:11px;border:2px solid #cbd3c4;border-top-color:var(--green);border-radius:50%;animation:sp .8s linear infinite;vertical-align:-1px;margin-right:6px}
-@media(min-width:701px){.room-layout>section{position:sticky;top:6px;align-self:start}}
 @keyframes sp{to{transform:rotate(360deg)}}
-@media(max-width:700px){.wrap{padding:15px}.hero{padding:25px}.room-layout{grid-template-columns:1fr}.fields{grid-template-columns:1fr}.wide{grid-column:auto}.head h2{font-size:20px}.top{padding:12px 16px}.fpgrid{grid-template-columns:repeat(2,1fr)}}</style></head><body>
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{border:1px solid #dde3d8;background:#fff;border-radius:999px;padding:8px 11px;font-size:12px;font-weight:700;color:#3f4d42;cursor:pointer;font-family:inherit;line-height:1.25;text-align:left}
+.chip:active{background:var(--sage)}.chip .cs{display:block;font-size:10px;font-weight:500;color:var(--muted)}
+.chip.on{background:var(--green);color:#fff;border-color:var(--green)}.chip.on .cs{color:#dfe7da}
+.seg{display:grid;grid-template-columns:1fr 1fr;gap:5px;margin:4px 0 8px}
+.seg.four{grid-template-columns:repeat(4,1fr)}
+.seg button{border:1px solid var(--line);background:#fff;border-radius:8px;padding:8px 4px;font-size:11.5px;font-weight:700;color:#4a544a;cursor:pointer;font-family:inherit}
+.seg button.on{background:var(--green);color:#fff;border-color:var(--green)}
+.mini{border:1px solid var(--line);background:#fff;border-radius:8px;padding:8px 6px;font-size:12px;font-weight:700;color:#414b41;cursor:pointer;font-family:inherit}
+.mini:active{background:var(--sage)}.mini.wide2{grid-column:1/-1}
+.nudge{display:grid;grid-template-columns:repeat(3,1fr);gap:5px;margin:6px 0}
+.nud{display:grid;gap:5px;grid-template-columns:1fr 1fr}
+.selhead{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:8px}
+.itm{display:flex;justify-content:space-between;align-items:center;gap:6px;background:#fff;border:1px solid var(--line);border-radius:9px;padding:7px 9px;margin:4px 0;font-size:12px;cursor:pointer}
+.itm.on{border-color:#8ca18a;background:var(--sage)}
+.fitgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;margin:10px 0}
+.fitbox{background:#fff;border:1px solid var(--line);border-radius:12px;padding:9px 6px;text-align:center}
+.fitbox b{display:block;font-size:19px;line-height:1.2}.fitbox span{font-size:10.5px;color:var(--muted);font-weight:700}
+.fitbox.ok b{color:var(--green)}.fitbox.warn b{color:var(--amber)}.fitbox.bad b{color:var(--bad)}
+.rsec{background:#fff;border:1px solid var(--line);border-radius:14px;padding:13px 14px;margin-top:10px}
+.rsec h3{font-size:14px;margin:0 0 8px;display:flex;justify-content:space-between;align-items:center}
+.rsec h3 .small{font-weight:500}
+.ritem{padding:8px 0;border-top:1px solid #f1f1ea;font-size:13px}
+.ritem:first-of-type{border-top:0}
+.ritem .rn{font-weight:750}
+.ritem .rr{display:block;font-size:11.5px;color:#7c837a;margin-top:2px;line-height:1.5}
+.ritem .rec{display:block;font-size:11.5px;color:var(--amber);margin-top:3px;font-weight:650}
+.tabbar{display:flex;gap:5px;margin:0 0 12px;position:sticky;top:0;background:var(--paper);padding:6px 0 8px;z-index:6}
+.tabbar button{flex:1;border:1px solid var(--line);background:#fff;color:#4d574d;border-radius:10px;padding:10px 4px;font-size:12.5px;font-weight:800;cursor:pointer;font-family:inherit}
+.tabbar button.on{background:var(--green);color:#fff;border-color:var(--green)}
+.tabpane{display:none}.tabpane.active{display:block}
+.room-layout{display:grid;grid-template-columns:352px minmax(0,1fr);gap:16px;align-items:start}
+.side{min-width:0}
+.stage{position:sticky;top:6px;align-self:start;min-width:0}
+.roomchips{display:none;gap:6px;overflow-x:auto;padding:2px 0 8px;scrollbar-width:none}
+.roomchips::-webkit-scrollbar{display:none}
+.roomchips button{white-space:nowrap;border:1px solid var(--line);background:#fff;border-radius:999px;padding:7px 12px;font-size:12px;font-weight:700;color:#4a544a;font-family:inherit;cursor:pointer}
+.roomchips button.on{background:var(--green);color:#fff;border-color:var(--green)}
+.legend{font-size:10.5px;color:#8b9088;margin-top:6px;line-height:1.6}
+.legend i{display:inline-block;width:11px;height:8px;border-radius:2px;margin-right:3px;vertical-align:-1px;border:1px solid #b9c4b3}
+.detail{width:min(1120px,calc(100% - 20px));padding:0;overflow:hidden;height:auto}
+.dwrap{display:flex;flex-direction:column;max-height:90dvh}
+.dhead{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;padding:16px 18px 10px;border-bottom:1px solid var(--line);background:#fff;flex:0 0 auto}
+.dhead h2{margin:2px 0 2px;font-size:20px}
+.dbody{overflow:auto;padding:10px 18px 18px;flex:1 1 auto;-webkit-overflow-scrolling:touch}
+.dfoot{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:10px 18px;border-top:1px solid var(--line);background:#fff;flex:0 0 auto}
+.dfoot .btn{padding:9px 14px}
+.toast{position:fixed;left:50%;bottom:26px;transform:translateX(-50%) translateY(8px);background:#282b28f2;color:#fff;padding:11px 17px;border-radius:11px;font-size:13px;z-index:99;opacity:0;transition:.18s;pointer-events:none;max-width:88vw;text-align:center}
+.toast.on{opacity:1;transform:translateX(-50%) translateY(0)}
+.calnote{background:#fff8e8;border:1px solid #eadfc0;color:#7d6425;border-radius:8px;padding:8px;font-size:11.5px;margin-top:7px;line-height:1.5}
+@media(min-width:821px){.stage{position:sticky;top:6px}}
+@media(max-width:820px){
+  .wrap{padding:15px}.hero{padding:24px;flex-direction:column;align-items:flex-start}.hero>div:last-child{display:none}
+  .fields{grid-template-columns:1fr}.wide{grid-column:auto}.head h2{font-size:20px}.top{padding:12px 16px}
+  .dialog{width:calc(100% - 12px);padding:16px}
+  .detail{width:100vw;height:100dvh;max-height:100dvh;border-radius:0;margin:0;padding:0}
+  .dwrap{max-height:100dvh;height:100dvh}
+  .dhead{padding:12px 14px 8px}.dbody{padding:0 12px 14px}
+  .room-layout{display:flex;flex-direction:column;gap:8px}
+  .stage{order:0;position:sticky;top:0;background:var(--paper);padding-top:2px;z-index:5;padding-bottom:6px}
+  .side{order:1}
+  .roomchips{display:flex}
+  .canvasbox{min-height:0;padding:6px;border-radius:11px}
+  .fitgrid{grid-template-columns:repeat(4,1fr);gap:5px}.fitbox b{font-size:16px}.fitbox span{font-size:9.5px}
+  .rsec{padding:12px}
+  .tabbar{padding-top:4px}
+}
+</style></head><body>
 <header class="top"><div class="brand"><span class="mark">이</span>이사핏</div><div class="actions"><button class="btn alt" id="export">백업</button><label class="btn alt">불러오기<input id="import" type="file" accept="application/json" hidden></label></div></header>
-<main class="wrap"><section class="hero"><div><span class="eyebrow">MOVE WITH A PLAN</span><h1>집을 고르기 전에,<br><em>내 생활을 먼저 배치해요.</em></h1><p>아파트 단지를 고르면 평면도를 찾아<br>방과 치수를 AI가 자동으로 채워 드려요.</p><button class="btn" id="newProject">＋ 새 이사 프로젝트</button></div><div style="font-size:100px;color:#81927e">⌂</div></section>
+<main class="wrap">
+<section class="hero"><div><span class="eyebrow">MOVE WITH A PLAN</span><h1>이사 가기 전에,<br><em>내 가구가 들어갈지 먼저 확인해요.</em></h1><p>아파트 단지를 고르면 평면도를 찾아 방과 치수를 채우고,<br>문 여닫힘과 동선까지 검사해 이사 결정을 도와드려요.</p><button class="btn" id="newProject">＋ 새 이사 프로젝트</button></div><div style="font-size:100px;color:#81927e">⌂</div></section>
 <section><div class="head"><div><span class="eyebrow">MY MOVE</span><h2>나의 이사 프로젝트</h2></div><span class="muted" id="count">0개</span></div><div id="projects" class="grid"></div><div id="emptyP" class="empty">아직 등록한 프로젝트가 없어요. 첫 이사 프로젝트를 만들어 보세요.</div></section>
-<section><div class="head"><div><span class="eyebrow">MY FURNITURE</span><h2>내 가구 보관함</h2></div><button class="btn alt" id="newFurniture">＋ 가구 등록</button></div><div id="furniture" class="grid"></div><div id="emptyF" class="empty">침대, 소파, 책상 등 가구를 등록해 보세요.</div></section></main>
+<section><div class="head"><div><span class="eyebrow">MY FURNITURE</span><h2>내 가구 보관함</h2></div><button class="btn alt" id="newFurniture">＋ 직접 입력</button></div>
+<div class="panel" style="background:#fff"><h3>자로 재지 말고 한 번에 등록</h3><div class="chips" id="presetStrip"></div><p class="small" style="margin:8px 0 0">한국 표준 치수와 실사용 여유 공간(문 열림·의자 빼기·통로)이 함께 등록돼요.</p></div>
+<div id="furniture" class="grid"></div><div id="emptyF" class="empty">침대, 소파, 책상 등 가구를 등록해 보세요.</div></section>
+</main>
 <dialog class="dialog" id="projectDialog"><form id="projectForm"><h2>새 이사 프로젝트</h2><div class="fields"><label>프로젝트 이름<input name="name" required placeholder="예: 새집 후보 A"></label><label>지역<input name="area" placeholder="예: 경남 김해시"></label><label class="wide">아파트·단지명<input name="aptName" placeholder="예: 부원역푸르지오"></label><label>평형<input name="aptSize" placeholder="예: 84㎡ / 34평"></label><label>희망 이사일<input name="date" type="date"></label><label class="wide">메모<input name="memo" placeholder="원하는 조건"></label></div><div class="modal-actions"><button type="button" class="btn alt" data-close="projectDialog">취소</button><button class="btn">만들기</button></div></form></dialog>
-<dialog class="dialog" id="furnitureDialog"><form id="furnitureForm"><h2>내 가구 등록</h2><div class="fields"><label>종류<select name="type"><option>침대</option><option>소파</option><option>냉장고</option><option>책상</option><option>식탁</option><option>옷장</option><option>기타</option></select></label><label>가구 이름<input name="name" required placeholder="예: 퀸 침대"></label><label>가로(mm)<input name="w" type="number" min="500" required></label><label>세로(mm)<input name="d" type="number" min="500" required></label><label>높이(mm)<input name="h" type="number" min="0"></label><label>메모<input name="memo"></label></div><div class="modal-actions"><button type="button" class="btn alt" data-close="furnitureDialog">취소</button><button class="btn">저장</button></div></form></dialog>
-<dialog class="dialog" id="detail" style="width:min(1000px,calc(100% - 20px))"><div id="detailContent"></div></dialog>
-<footer class="footer">이사핏 초기 체험 버전 · 데이터는 현재 브라우저에 저장됩니다. 실제 치수와 현장 조건은 별도로 확인해 주세요.</footer>
+<dialog class="dialog" id="furnitureDialog"><form id="furnitureForm"><h2>내 가구 등록</h2><div class="fields"><label>종류<select name="type"><option>침대</option><option>소파</option><option>냉장고</option><option>식탁</option><option>책상</option><option>옷장</option><option>세탁기</option><option>기타</option></select></label><label>가구 이름<input name="name" required placeholder="예: 퀸 침대"></label><label>가로(mm)<input name="w" type="number" min="300" required></label><label>세로(mm)<input name="d" type="number" min="300" required></label><label>높이(mm)<input name="h" type="number" min="0"></label><label>메모<input name="memo"></label></div><div class="modal-actions"><button type="button" class="btn alt" data-close="furnitureDialog">취소</button><button class="btn">저장</button></div></form></dialog>
+<dialog class="dialog detail" id="detail"><div id="detailContent" class="dwrap"></div></dialog>
+<footer class="footer">이사핏 · 데이터는 현재 브라우저에 저장됩니다. 실제 치수와 현장 조건은 별도로 확인해 주세요.</footer>
+<div class="toast" id="toast"></div>
 <script>
 (()=>{
 const $=s=>document.querySelector(s);
+const $$=s=>[...document.querySelectorAll(s)];
 const KEY='isafit-v1';
 /* 자동 검색·평면도 AI 서버 (고정) */
 const API_BASE='https://isafit-apartment-api.cba4826.workers.dev';
 
-let data=load(),pid=null,rid=null,selected=null,drag=null,scale=.15;
-let fpItems=[],aiBusy=false,aptItems=[],detailFlash='';
-const planCache=new Map();
+const TYPES=['침대','소파','냉장고','식탁','책상','옷장','세탁기','기타'];
+/* 종류별 실사용 필수 여유 공간(mm). front = 문 열림·의자 빼기 방향 */
+const TYPE_CLR={
+  '침대':{front:500,back:0,left:500,right:500},
+  '소파':{front:600,back:0,left:0,right:0},
+  '냉장고':{front:700,back:0,left:0,right:0},
+  '식탁':{front:600,back:600,left:600,right:600},
+  '책상':{front:600,back:0,left:0,right:0},
+  '옷장':{front:600,back:0,left:0,right:0},
+  '세탁기':{front:600,back:0,left:0,right:0},
+  '기타':{front:0,back:0,left:0,right:0}
+};
+const PRESETS=[
+  {key:'bed-q',name:'퀸 침대',type:'침대',w:1500,d:2000,h:600},
+  {key:'bed-k',name:'킹 침대',type:'침대',w:1600,d:2050,h:600},
+  {key:'bed-ss',name:'슈퍼싱글 침대',type:'침대',w:1100,d:2000,h:600},
+  {key:'sofa-3',name:'3인 소파',type:'소파',w:2000,d:900,h:800},
+  {key:'sofa-4',name:'4인 소파',type:'소파',w:2400,d:950,h:800},
+  {key:'fridge-side',name:'양문형 냉장고',type:'냉장고',w:912,d:920,h:1800},
+  {key:'fridge-kimchi',name:'김치냉장고',type:'냉장고',w:910,d:900,h:1850},
+  {key:'table-4',name:'4인 식탁',type:'식탁',w:1400,d:800,h:750},
+  {key:'table-6',name:'6인 식탁',type:'식탁',w:1800,d:850,h:750},
+  {key:'desk',name:'책상',type:'책상',w:1200,d:600,h:730},
+  {key:'shelf-6',name:'6단 책장',type:'기타',w:800,d:300,h:1800},
+  {key:'washer',name:'드럼세탁기',type:'세탁기',w:600,d:650,h:850},
+  {key:'wardrobe',name:'옷장·행거',type:'옷장',w:1200,d:600,h:2000}
+];
+const STATUS={ok:{t:'배치 가능',c:''},clearance:{t:'여유 부족',c:'warn'},carry:{t:'반입 위험',c:'warn'},blocked:{t:'배치 불가',c:'bad'}};
+const SIDENAME={front:'앞쪽',back:'뒤쪽',left:'왼쪽',right:'오른쪽'};
 
-function load(){try{return JSON.parse(localStorage.getItem(KEY))||{projects:[],furniture:[]}}catch{return{projects:[],furniture:[]}}}
-function save(){try{localStorage.setItem(KEY,JSON.stringify(data));return true}catch(e){alert('브라우저 저장 공간이 부족해 저장하지 못했어요. 백업을 내려받고 도면 이미지를 줄여 주세요.');return false}}
+let data=load(),pid=null,rid=null,selected=null,drag=null,scale=.15,tab='space';
+let fpItems=[],aiBusy=false,aptItems=[],calMode=false,calPts=[];
+
+function load(){try{const v=JSON.parse(localStorage.getItem(KEY));return v&&Array.isArray(v.projects)?v:{projects:[],furniture:[]}}catch{return{projects:[],furniture:[]}}}
+function save(){
+  try{localStorage.setItem(KEY,JSON.stringify(data));return true}catch(e){alert('브라우저 저장 공간이 부족해 저장하지 못했어요. 백업을 내려받고 도면 이미지를 줄여 주세요.');return false}
+}
 function uid(){return Math.random().toString(36).slice(2,10)}
 function esc(s=''){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function num(v,def){const n=Number(v);return Number.isFinite(n)?n:def}
+function dim(v){return Number.isFinite(v)&&v>=300&&v<=30000}
 function project(){return data.projects.find(x=>x.id===pid)}
-function room(){return project()?.rooms.find(x=>x.id===rid)}
-function dim(v){return Number.isFinite(v)&&v>=500&&v<=30000}
+function room(){const p=project();return p?p.rooms.find(x=>x.id===rid):null}
+function toast(msg){const el=$('#toast');if(!el)return;el.textContent=msg;el.classList.add('on');clearTimeout(toast._t);toast._t=setTimeout(()=>el.classList.remove('on'),2200)}
+
+/* ---------------- IndexedDB (도면 이미지 분리 저장) ---------------- */
+const DBNAME='isafit-db',STORE='images';
+let dbPromise=null;
+function openDB(){
+  if(dbPromise)return dbPromise;
+  dbPromise=new Promise((res,rej)=>{
+    if(!('indexedDB' in window))return rej(new Error('no-idb'));
+    const rq=indexedDB.open(DBNAME,1);
+    rq.onupgradeneeded=()=>{const d=rq.result;if(!d.objectStoreNames.contains(STORE))d.createObjectStore(STORE)};
+    rq.onsuccess=()=>res(rq.result);
+    rq.onerror=()=>rej(rq.error);
+  });
+  return dbPromise;
+}
+async function idbSet(key,val){
+  try{const d=await openDB();return await new Promise((res,rej)=>{const t=d.transaction(STORE,'readwrite');t.objectStore(STORE).put(val,key);t.oncomplete=()=>res(true);t.onerror=()=>rej(t.error)})}
+  catch(e){return false}
+}
+async function idbGet(key){
+  try{const d=await openDB();return await new Promise((res,rej)=>{const t=d.transaction(STORE,'readonly');const q=t.objectStore(STORE).get(key);q.onsuccess=()=>res(q.result||null);q.onerror=()=>rej(q.error)})}
+  catch(e){return null}
+}
+async function idbDel(key){
+  try{const d=await openDB();return await new Promise((res,rej)=>{const t=d.transaction(STORE,'readwrite');t.objectStore(STORE).delete(key);t.oncomplete=()=>res(true);t.onerror=()=>rej(t.error)})}
+  catch(e){return false}
+}
+const planUrls=new Map(),pendingPlans=new Set();
+function getPlanUrl(key,cb){
+  if(!key)return null;
+  if(planUrls.has(key))return planUrls.get(key);
+  if(!pendingPlans.has(key)){
+    pendingPlans.add(key);
+    idbGet(key).then(v=>{planUrls.set(key,v||null);pendingPlans.delete(key);if(cb)cb()});
+  }
+  return null;
+}
+/* 예전 localStorage의 planImage(base64)를 IndexedDB로 옮김 */
+async function migrateImages(){
+  let changed=false;
+  for(const p of data.projects){
+    if(p.planImage){const k='p:'+p.id;if(await idbSet(k,p.planImage)){p.planImageKey=k;delete p.planImage;changed=true}}
+    for(const r of (p.rooms||[])){
+      if(r.planImage){const k='r:'+p.id+':'+r.id;if(await idbSet(k,r.planImage)){r.planImageKey=k;delete r.planImage;changed=true}}
+    }
+  }
+  if(changed){save();planUrls.clear()}
+}
+
+function normalize(){
+  data.projects=Array.isArray(data.projects)?data.projects:[];
+  data.furniture=Array.isArray(data.furniture)?data.furniture:[];
+  data.projects.forEach(p=>{
+    if(!num(p.entryWidth,0))p.entryWidth=900;
+    if(!Array.isArray(p.rooms)||!p.rooms.length)p.rooms=[{id:uid(),name:'거실',w:4000,d:3500,items:[]}];
+    p.rooms.forEach(r=>{
+      r.items=Array.isArray(r.items)?r.items:[];
+      if(!r.door||!r.door.wall)r.door={wall:'bottom',pos:.5,width:800,swing:'in',hinge:'start'};
+      r.items.forEach(it=>{
+        if(!it.type)it.type='기타';
+        if(!it.clr)it.clr={...(TYPE_CLR[it.type]||TYPE_CLR['기타'])};
+        it.rot=((num(it.rot,0)%360)+360)%360;
+        it.x=Math.max(0,num(it.x,0));it.y=Math.max(0,num(it.y,0));
+      });
+    });
+  });
+  data.furniture.forEach(f=>{
+    if(!f.type)f.type='기타';
+    if(!f.clr)f.clr={...(TYPE_CLR[f.type]||TYPE_CLR['기타'])};
+  });
+}
 
 /* ---------------- 목록 ---------------- */
 function render(){
   $('#count').textContent=data.projects.length+'개';
   $('#emptyP').hidden=!!data.projects.length;
-  $('#projects').innerHTML=data.projects.map(p=>'<button class="card project" data-project="'+p.id+'"><span class="eyebrow">MOVE PROJECT</span><h3>'+esc(p.name)+'</h3><span class="muted">'+esc(p.aptName||p.area||'지역 미입력')+' · '+p.rooms.length+'개 공간</span></button>').join('');
+  $('#projects').innerHTML=data.projects.map(p=>'<button class="card project" data-project="'+p.id+'"><span class="eyebrow">MOVE PROJECT</span><h3>'+esc(p.name)+'</h3><span class="muted">'+esc(p.aptName||p.area||'지역 미입력')+' · '+p.rooms.length+'개 공간 · 가구 '+p.rooms.reduce((a,r)=>a+r.items.length,0)+'개</span></button>').join('');
   $('#emptyF').hidden=!!data.furniture.length;
-  $('#furniture').innerHTML=data.furniture.map(f=>'<div class="card furniture"><b>'+esc(f.name)+'</b><p>'+esc(f.type)+' · '+f.w+' × '+f.d+'mm</p><button class="danger" data-del="'+f.id+'">삭제</button></div>').join('');
+  $('#furniture').innerHTML=data.furniture.map(f=>{
+    const c=f.clr||{};
+    const cl=[c.front?'앞 '+c.front:'',c.back?'뒤 '+c.back:'',c.left?'좌 '+c.left:'',c.right?'우 '+c.right:''].filter(Boolean).join(' · ');
+    return '<div class="card furniture"><b>'+esc(f.name)+'</b><p>'+esc(f.type)+' · '+f.w+' × '+f.d+'mm</p><p class="small">실사용 여유 '+(cl||'없음')+'</p><button class="danger" data-del="'+f.id+'">삭제</button></div>';
+  }).join('');
+  renderPresetStrip();
+}
+function renderPresetStrip(){
+  const el=$('#presetStrip');if(!el)return;
+  el.innerHTML=PRESETS.map(ps=>{
+    const has=data.furniture.some(f=>f.presetKey===ps.key);
+    return '<button class="chip'+(has?' on':'')+'" data-preset="'+ps.key+'">'+esc(ps.name)+'<span class="cs">'+ps.w+'×'+ps.d+(has?' · 등록됨':'')+'</span></button>';
+  }).join('');
+}
+function addFromPreset(key,place){
+  const ps=PRESETS.find(x=>x.key===key);if(!ps)return null;
+  let f=data.furniture.find(x=>x.presetKey===key),created=false;
+  if(!f){
+    f={id:uid(),presetKey:key,type:ps.type,name:ps.name,w:ps.w,d:ps.d,h:ps.h,memo:'',clr:{...(TYPE_CLR[ps.type]||TYPE_CLR['기타'])}};
+    data.furniture.push(f);save();created=true;render();
+  }
+  if(place){placeFurniture(f)}
+  else{toast(created?(ps.name+' 등록 · 실사용 여유 공간까지 함께 저장했어요'):(ps.name+'은 이미 보관함에 있어요'))}
+  return f;
+}
+function findSpot(r,it){
+  const fw=it.w,fh=it.d;
+  const cx=Math.max(0,(r.w-fw)/2),cy=Math.max(0,(r.d-fh)/2);
+  let best={x:Math.round(cx),y:Math.round(cy),score:Infinity,dist:Infinity};
+  const step=200;
+  const obs=r.items.map(footprint);
+  for(let y=0;y<=Math.max(0,r.d-fh);y+=step){
+    for(let x=0;x<=Math.max(0,r.w-fw);x+=step){
+      const t={x,y,w:fw,h:fh};
+      let score=0;
+      obs.forEach(o=>{const ox=Math.max(0,Math.min(t.x+t.w,o.x+o.w)-Math.max(t.x,o.x)),oy=Math.max(0,Math.min(t.y+t.h,o.y+o.h)-Math.max(t.y,o.y));score+=ox*oy});
+      if(t.x+t.w>r.w||t.y+t.h>r.d)score+=1e7;
+      const dist=Math.abs(x-cx)+Math.abs(y-cy);
+      if(score<best.score||(score===best.score&&dist<best.dist))best={x,y,score,dist};
+    }
+  }
+  return{x:best.x,y:best.y};
+}
+function placeFurniture(f){
+  const p=project(),r=room();if(!p||!r)return;
+  const it={id:uid(),fid:f.id,name:f.name,type:f.type,w:f.w,d:f.d,x:0,y:0,rot:0,clr:{...(f.clr||TYPE_CLR[f.type]||TYPE_CLR['기타'])}};
+  const pos=findSpot(r,it);it.x=pos.x;it.y=pos.y;
+  r.items.push(it);selected=it.id;save();
+  toast(f.name+' 배치 · 점선으로 여유 공간을 표시했어요');
+  if($('#detail').open)renderDetail();
+}
+function openProject(id0){
+  pid=id0;const p=project();if(!p)return;
+  rid=p.rooms[0].id;selected=null;aptItems=[];fpItems=[];tab='space';calMode=false;calPts=[];
+  planUrls.clear();
+  $('#detail').showModal();renderDetail();preparePlans(p);
+}
+function preparePlans(p){
+  const keys=[];
+  if(p.planImageKey)keys.push(p.planImageKey);
+  p.rooms.forEach(r=>{if(r.planImageKey)keys.push(r.planImageKey)});
+  Promise.all(keys.map(k=>new Promise(res=>{if(planUrls.has(k))return res();pendingPlans.add(k);idbGet(k).then(v=>{planUrls.set(k,v||null);pendingPlans.delete(k);res()})}))).then(()=>{if($('#detail').open)draw()});
 }
 
-function openProject(id0){pid=id0;const p=project();if(!p)return;if(!p.rooms.length)p.rooms.push({id:uid(),name:'거실',w:4000,d:3500,items:[]});rid=p.rooms[0].id;selected=null;aptItems=[];fpItems=[];detailFlash='';$('#detail').showModal();renderDetail();$('#detail').scrollTop=0}
-
-/* ---------------- 상세 ---------------- */
+/* ---------------- 상세 화면 ---------------- */
 function renderDetail(){
   const p=project();if(!p)return;
   const r=room()||p.rooms[0];rid=r.id;
   const meta=p.planMeta||null;
   const badge=meta?(meta.hasExplicitDimensions?'<span class="tag">도면 치수 직접 인식</span>':'<span class="tag warn">비율 추정치 · 직접 수정 가능</span>'):'';
   const naverHref='https://search.naver.com/search.naver?where=image&query='+encodeURIComponent([p.aptName||'',p.aptSize||'','평면도'].filter(Boolean).join(' '));
+  const hasPlan=!!(r.planImageKey||p.planImageKey);
+  const evs=roomEvals(r,p);
+  const sel=r.items.find(i=>i.id===selected);
+  const d=r.door;
+  $('#detailContent').dataset.tab=tab;
   $('#detailContent').innerHTML=`
-  <div class="head"><div><span class="eyebrow">YOUR SPACE</span><h2>${esc(p.name)}</h2><span class="muted">${esc(p.area||'지역 미입력')}${p.aptName?' · '+esc(p.aptName):''}${p.aptSize?' · '+esc(p.aptSize):''}</span></div><button class="btn alt" id="closeDetail">닫기</button></div>
-  <div class="room-layout"><aside>
-    <div class="panel"><h3>공간 목록</h3><div class="roomlist">${p.rooms.map(x=>'<button class="'+(x.id===rid?'active':'')+'" data-room="'+x.id+'">'+esc(x.name)+' · '+x.w+'×'+x.d+(x.estimated?' <span class="small">(추정)</span>':'')+'</button>').join('')}</div><button class="btn alt" id="addRoom" style="width:100%">＋ 공간 추가</button></div>
-
-    <div class="panel"><h3>아파트 평면도 찾기</h3>
-      <label class="small">아파트·단지명</label><input id="aptName" value="${esc(p.aptName||'')}" placeholder="예: 부원역푸르지오">
-      <label class="small">지역</label><input id="aptArea" value="${esc(p.area||'')}" placeholder="예: 경남 김해시">
-      <label class="small">평형 (선택)</label><input id="aptSize" value="${esc(p.aptSize||'')}" placeholder="예: 84㎡ / 34평">
-      <button class="btn alt" id="searchPlan" style="width:100%">아파트 단지 검색</button>
-      <div id="aptResults" class="status" aria-live="polite">${aptItems.length?'검색 결과 '+aptItems.length+'개가 있어요.':'단지명과 지역을 입력하고 검색해 보세요.'}</div>
-      <div class="actions" style="margin-top:9px">
-        <button class="btn" id="loadFloorplan" style="flex:1">🔍 도면 자동 불러오기</button>
+  <div class="dhead"><div><span class="eyebrow">YOUR SPACE</span><h2>${esc(p.name)}</h2><span class="muted small">${esc(p.area||'지역 미입력')}${p.aptName?' · '+esc(p.aptName):''}${p.aptSize?' · '+esc(p.aptSize):''} ${badge}</span></div>
+  <div class="actions"><button class="btn alt" id="print">리포트 인쇄</button><button class="btn alt" id="closeDetail">닫기</button></div></div>
+  <div class="dbody">
+  <nav class="tabbar"><button data-tab="space" class="${tab==='space'?'on':''}">공간·도면</button><button data-tab="furn" class="${tab==='furn'?'on':''}">가구 배치</button><button data-tab="report" class="${tab==='report'?'on':''}">의사결정 리포트</button></nav>
+  <div class="room-layout" ${tab==='report'?'hidden':''}>
+    <aside class="side">
+      <div class="tabpane ${tab==='space'?'active':''}" data-pane="space">
+        <div class="panel"><h3>공간</h3>
+          <div class="roomlist">${p.rooms.map(x=>'<button class="'+(x.id===rid?'active':'')+'" data-room="'+x.id+'">'+esc(x.name)+' · '+x.w+'×'+x.d+'mm'+(x.estimated?' <span class="small">(추정)</span>':'')+'</button>').join('')}</div>
+          <div class="row2" style="margin-top:7px"><input id="newRoomName" placeholder="새 공간 이름 (침실)"><button class="btn alt" id="addRoom">＋ 추가</button></div>
+          <div class="row2"><input id="newRoomW" type="number" placeholder="가로 mm" value="3000"><input id="newRoomD" type="number" placeholder="세로 mm" value="3000"></div>
+        </div>
+        <div class="panel"><h3>이 공간 정보</h3>
+          <label class="small">이름</label><input id="rname" value="${esc(r.name)}" placeholder="예: 거실">
+          <div class="row2"><div><label class="small">가로(mm)</label><input id="rw" type="number" value="${r.w}"></div><div><label class="small">세로(mm)</label><input id="rd" type="number" value="${r.d}"></div></div>
+          <button class="btn alt" id="applySize" style="width:100%">이 공간에 적용</button>
+          <p class="small" style="margin:6px 0 0">${(r.w*r.d/1e6).toFixed(1)}㎡ · ${(r.w*r.d/3305800).toFixed(1)}평</p>
+        </div>
+        <div class="panel"><h3>문 · 현관</h3>
+          <label class="small">방문 폭(mm)</label><input id="doorW" type="number" value="${num(d.width,800)}">
+          <label class="small">방문 벽면</label>
+          <div class="seg four" id="doorWall">${[['bottom','아래'],['top','위'],['left','왼쪽'],['right','오른쪽']].map(([k,v])=>'<button data-wall="'+k+'" class="'+(d.wall===k?'on':'')+'">'+v+'</button>').join('')}</div>
+          <label class="small">문 위치 <span class="small">${Math.round(num(d.pos,.5)*100)}%</span></label>
+          <input id="doorPos" type="range" min="12" max="88" value="${Math.round(num(d.pos,.5)*100)}">
+          <div class="row2"><div><label class="small">여닫이</label><div class="seg"><button data-swing="in" class="${d.swing!=='out'?'on':''}">안으로</button><button data-swing="out" class="${d.swing==='out'?'on':''}">밖으로</button></div></div>
+          <div><label class="small">경첩</label><div class="seg"><button data-hinge="start" class="${d.hinge!=='end'?'on':''}">왼쪽</button><button data-hinge="end" class="${d.hinge==='end'?'on':''}">오른쪽</button></div></div></div>
+          <label class="small">현관(집 전체) 폭(mm)</label><input id="entryW" type="number" value="${num(p.entryWidth,900)}">
+          <p class="small">문 호는 여닫이 회전 반경이에요. 가구가 이 안에 걸리면 문이 열리지 않아요.</p>
+        </div>
+        <div class="panel"><h3>도면</h3>
+          <label class="small">아파트·단지명</label><input id="aptName" value="${esc(p.aptName||'')}" placeholder="예: 부원역푸르지오">
+          <div class="row2"><div><label class="small">지역</label><input id="aptArea" value="${esc(p.area||'')}" placeholder="예: 경남 김해시"></div><div><label class="small">평형</label><input id="aptSize" value="${esc(p.aptSize||'')}" placeholder="예: 84㎡"></div></div>
+          <div class="row2"><button class="btn alt" id="searchPlan">단지 검색</button><button class="btn" id="loadFloorplan">도면 자동 찾기</button></div>
+          <div id="aptResults" class="status" aria-live="polite">${aptItems.length?'검색 결과 '+aptItems.length+'개가 있어요.':'단지명과 지역을 넣고 검색해 보세요.'}</div>
+          <div id="fpGrid" class="fpgrid"></div>
+          <div id="aiStatus" class="status" hidden></div>
+          <a class="btn alt" id="naverPlan" href="${naverHref}" target="_blank" rel="noopener" style="width:100%;margin-top:7px">네이버에서 평면도 찾기</a>
+          <div class="row2" style="margin-top:7px"><label class="btn alt" style="margin:0">이미지 선택<input id="planUpload" type="file" accept="image/png,image/jpeg,image/webp" hidden></label><button class="btn alt" id="aiFromUpload" ${hasPlan?'':'disabled'}>AI 인식</button></div>
+          <div class="row2" style="margin-top:7px"><button class="btn alt" id="calBtn">축척 보정 (2점)</button><button class="btn alt" id="removePlan" ${hasPlan?'':'disabled'}>도면 제거</button></div>
+          ${calMode?'<div class="calnote">도면에서 실제 길이를 아는 두 점을 차례로 눌러 주세요. ('+calPts.length+'/2)</div>':''}
+          ${calPts.length===2?'<div class="calnote">두 점 사이의 실제 거리(mm)<div class="row2" style="margin-top:5px"><input id="calMm" type="number" placeholder="예: 3600"><button class="mini" id="calApply">적용</button></div></div>':''}
+          <p class="small">도면은 원본 비율을 유지해 표시해요. 후보를 누르면 AI가 방과 치수를 읽어 채웁니다.</p>
+        </div>
       </div>
-      <a class="btn alt" id="naverPlan" href="${naverHref}" target="_blank" rel="noopener" style="width:100%;margin-top:6px">네이버에서 평면도 찾기</a>
-      <div id="fpGrid" class="fpgrid"></div>
-      <div id="aiStatus" class="status" hidden></div>
-      <p class="small">단지를 고르고 평형을 넣으면 평면도 후보를 찾아 보여 줘요. 후보를 누르면 AI가 방과 치수를 읽어 공간을 채웁니다.</p>
-    </div>
-
-    <div class="panel"><h3>평면도 직접 올리기</h3>
-      <label class="btn alt" style="display:block">이미지 선택<input id="planUpload" type="file" accept="image/png,image/jpeg,image/webp" hidden></label>
-      <button class="btn" id="aiFromUpload" style="width:100%;margin-top:6px" ${r.planImage?'':'disabled'}>✨ AI로 방·치수 자동 인식</button>
-      <p class="small" id="planStatus">${r.planImage?'도면이 등록되어 있어요.':'JPG·PNG·WebP 이미지 가능 · PDF 미지원'}</p>
-      <button class="btn alt" id="removePlan" style="width:100%" ${r.planImage?'':'disabled'}>도면 제거</button>
-    </div>
-
-    <div class="panel"><h3>공간 정보(mm)</h3>
-      <label class="small">이름</label><input id="rname" value="${esc(r.name)}" placeholder="예: 거실">
-      <label class="small">가로</label><input id="rw" type="number" value="${r.w}">
-      <label class="small">세로</label><input id="rd" type="number" value="${r.d}">
-      <button class="btn alt" id="applySize" style="width:100%">이 공간에 적용</button>
-    </div>
-
-    <div class="panel"><h3>가구 배치</h3>
-      <select id="fselect"><option value="">가구 선택</option>${data.furniture.map(f=>'<option value="'+f.id+'">'+esc(f.name)+' · '+f.w+'×'+f.d+'</option>').join('')}</select>
-      <button class="btn" id="place" style="width:100%" ${data.furniture.length?'':'disabled'}>선택한 가구 배치</button>
-      <p class="small">가구를 클릭한 뒤 드래그해 이동하고 회전할 수 있어요.</p>
-      <button class="btn alt" id="rotate" ${selected?'':'disabled'}>↻ 90° 회전</button>
-      <button class="btn alt" id="remove" ${selected?'':'disabled'}>선택 삭제</button>
-    </div>
-  </aside>
-  <section>
-    ${meta&&p.planImage?'<div class="planpreview"><img src="'+p.planImage+'" alt="인식한 평면도"><div class="pp-body"><b>'+esc(p.aptName||'평면도')+'</b> '+badge+'<p>'+esc(meta.summary||'')+'</p></div></div>':''}
-    <div class="canvasbox"><canvas id="floor"></canvas></div>
-    <div id="report" class="status"></div>
-    <div class="actions" style="margin-top:10px"><button class="btn alt" id="check">공간 검사</button><button class="btn alt" id="print">리포트 인쇄</button></div>
-    <p class="small">검사는 가구 외곽 사각형의 겹침과 방 경계만 확인합니다. 문·창문·벽 두께·운반 경로는 판정하지 않아요.</p>
-  </section></div>
-  <div style="display:flex;justify-content:space-between;margin-top:15px"><button class="danger" id="deleteProject">프로젝트 삭제</button><button class="btn" id="saveProject">저장</button></div>`;
-  bind();draw();report(false);
+      <div class="tabpane ${tab==='furn'?'active':''}" data-pane="furn">
+        <div class="panel"><h3>한 번 눌러 추가</h3>
+          <div class="chips">${PRESETS.map(ps=>'<button class="chip'+(data.furniture.some(f=>f.presetKey===ps.key)?' on':'')+'" data-preset-place="'+ps.key+'">'+esc(ps.name)+'<span class="cs">'+ps.w+'×'+ps.d+'</span></button>').join('')}</div>
+          <p class="small" style="margin:8px 0 0">누르면 보관함에 등록하고 이 방에 바로 놓아요. 치수를 몰라도 시작할 수 있어요.</p>
+        </div>
+        <div class="panel"><h3>보관함에서 배치</h3>
+          <select id="fselect"><option value="">가구 선택</option>${data.furniture.map(f=>'<option value="'+f.id+'">'+esc(f.name)+' · '+f.w+'×'+f.d+'</option>').join('')}</select>
+          <button class="btn" id="place" style="width:100%" ${data.furniture.length?'':'disabled'}>선택한 가구 배치</button>
+        </div>
+        <div id="selPanelWrap">${selPanelHTML(sel,evs.get(selected))}</div>
+        <div class="panel"><h3>이 방의 가구 <span class="small">${r.items.length}개</span></h3><div id="itemList">${itemListHTML(r,p)}</div>
+          <button class="btn alt" id="fitRoom" style="width:100%;margin-top:7px">방 밖으로 나간 가구 안으로</button>
+        </div>
+      </div>
+    </aside>
+    <section class="stage">
+      <div class="roomchips">${p.rooms.map(x=>'<button class="'+(x.id===rid?'on':'')+'" data-room="'+x.id+'">'+esc(x.name)+'</button>').join('')}</div>
+      <div class="canvasbox"><canvas id="floor"></canvas></div>
+      <div class="legend">실선 <i style="background:#e5eadd"></i>가구 본체 · 점선 <i style="background:#dbe6d6;border-style:dashed"></i>필수 여유 공간 · <i style="background:#f0e3c6;border-style:dashed"></i>문 여닫이 반경</div>
+      <div id="roomreport" class="status"></div>
+      <div class="actions" style="margin-top:8px"><button class="btn alt" id="check">이 방 상세 검사</button><button class="btn alt" id="showAll">전체 여유 공간 표시</button></div>
+    </section>
+  </div>
+  <div class="reportWrap" id="reportWrap" ${tab==='report'?'':'hidden'}></div>
+  </div>
+  <div class="dfoot"><button class="danger" id="deleteProject">프로젝트 삭제</button><span class="small">바뀐 내용은 자동 저장돼요</span><button class="btn" id="saveProject">저장</button></div>`;
+  bind();draw();roomSummary();
+  if(tab==='report')renderDecision();
   if(aptItems.length)renderAptResults();
   if(detailFlash){setAiStatus(detailFlash,false);detailFlash=''}
 }
+let detailFlash='';
+let showAllClr=false;
 
-function setAiStatus(msg,isErr){
-  const el=$('#aiStatus');if(!el)return;
-  el.hidden=!msg;
-  el.className='status'+(isErr?' err':'');
-  el.innerHTML=msg?msg:'';
+function selPanelHTML(it,ev){
+  if(!it)return '<div class="panel"><h3>선택한 가구</h3><p class="small">캔버스에서 가구를 누르면 위치·크기·여유 공간을 조정할 수 있어요. 점선이 필수 여유 공간이에요.</p></div>';
+  const st=STATUS[ev?ev.status:'ok'];
+  const c=it.clr||{};
+  return `<div class="panel" id="selPanel"><h3>선택한 가구</h3>
+  <div class="selhead"><b>${esc(it.name)}</b><span class="tag ${st.c}">${st.t}</span></div>
+  <div class="row2"><div><label class="small">X(mm)</label><input id="itemX" type="number" value="${Math.round(it.x)}"></div><div><label class="small">Y(mm)</label><input id="itemY" type="number" value="${Math.round(it.y)}"></div></div>
+  <div class="nud"><button class="mini" data-move="-50,0">← 50</button><button class="mini" data-move="0,-50">↑ 50</button><button class="mini" data-move="50,0">50 →</button><button class="mini" data-move="-10,0">← 10</button><button class="mini" data-move="0,10">10 ↓</button><button class="mini" data-move="10,0">10 →</button></div>
+  <div class="row2"><button class="mini" id="rotL">↺ 90° 회전</button><button class="mini" id="rotR">↻ 90° 회전</button></div>
+  <div class="row2" style="margin-top:6px"><div><label class="small">가로(mm)</label><input id="itemW" type="number" value="${it.w}"></div><div><label class="small">세로(mm)</label><input id="itemD" type="number" value="${it.d}"></div></div>
+  <div class="row2"><button class="mini" id="applyItemSize">크기 적용</button><button class="mini" id="remove">선택 삭제</button></div>
+  <h3 style="margin:12px 0 5px">실사용 여유 공간(mm)</h3>
+  <p class="small" style="margin:0 0 3px">앞 = 문 열림·의자 빼기 방향</p>
+  <div class="row2"><div><label class="small">앞</label><input id="clrFront" type="number" value="${num(c.front,0)}"></div><div><label class="small">뒤</label><input id="clrBack" type="number" value="${num(c.back,0)}"></div></div>
+  <div class="row2"><div><label class="small">왼쪽</label><input id="clrLeft" type="number" value="${num(c.left,0)}"></div><div><label class="small">오른쪽</label><input id="clrRight" type="number" value="${num(c.right,0)}"></div></div>
+  <button class="mini" id="applyClr" style="width:100%;margin-top:5px">여유 공간 적용</button>
+  <div id="selReasons" style="margin-top:8px">${ev&&ev.reasons.length?'<p class="small">'+ev.reasons.map(x=>'· '+esc(x.text)).join('<br>')+'</p>':'<p class="small">이 자리에서는 필요한 여유 공간이 모두 확보돼요.</p>'}</div>
+  </div>`;
+}
+function itemListHTML(r,p){
+  if(!r.items.length)return '<p class="small">아직 놓인 가구가 없어요. 위에서 가구를 골라 배치해 보세요.</p>';
+  return r.items.map(it=>{const ev=evalItem(r,it,p);const st=STATUS[ev.status];return '<div class="itm '+(it.id===selected?'on':'')+'" data-sel="'+it.id+'"><span>'+esc(it.name)+' <span class="small">'+it.w+'×'+it.d+'</span></span><span class="tag '+st.c+'">'+st.t+'</span></div>'}).join('');
+}
+function refreshFurnPanes(){
+  const p=project(),r=room();if(!p||!r)return;
+  const evs=roomEvals(r,p);
+  const sel=r.items.find(i=>i.id===selected);
+  const w=$('#selPanelWrap');if(w)w.innerHTML=selPanelHTML(sel,evs.get(selected));
+  const il=$('#itemList');if(il)il.innerHTML=itemListHTML(r,p);
+  bindFurn();bindIcons();roomSummary();
+  draw();
 }
 
-/* ---------------- 아파트 단지 검색 ---------------- */
-function aptQuery(){return{apt:$('#aptName').value.trim(),area:$('#aptArea').value.trim(),size:$('#aptSize').value.trim()}}
+/* ---------------- 형상·판정 ---------------- */
+function footprint(it){const rot=((((it.rot||0)%360)+360)%360);const sw=(rot/90)%2===1;return{x:it.x,y:it.y,w:sw?it.d:it.w,h:sw?it.w:it.d}}
+function sideVec(it,side){
+  const order=['front','right','back','left'];
+  const base={front:[0,1],right:[1,0],back:[0,-1],left:[-1,0]};
+  const k=Math.round(((((it.rot||0)%360)+360)%360)/90)%4;
+  const idx=(order.indexOf(side)+k)%4;
+  const v=base[order[idx]];
+  return{nx:v[0],ny:v[1]};
+}
+function rectOverlap(a,b,t){t=t||0;return a.x<b.x+b.w-t&&a.x+a.w>b.x+t&&a.y<b.y+b.h-t&&a.y+a.h>b.y+t}
+function rectPoly(r){return[{x:r.x,y:r.y},{x:r.x+r.w,y:r.y},{x:r.x+r.w,y:r.y+r.h},{x:r.x,y:r.y+r.h}]}
+function projPoly(poly,ax,ay){let mn=1e18,mx=-1e18;for(const p of poly){const v=p.x*ax+p.y*ay;if(v<mn)mn=v;if(v>mx)mx=v}return[mn,mx]}
+function polyOverlap(A,B){
+  for(const poly of [A,B]){
+    for(let i=0;i<poly.length;i++){
+      const p1=poly[i],p2=poly[(i+1)%poly.length];
+      let ax=-(p2.y-p1.y),ay=p2.x-p1.x;
+      const l=Math.hypot(ax,ay);if(!l)continue;
+      ax/=l;ay/=l;
+      const a=projPoly(A,ax,ay),b=projPoly(B,ax,ay);
+      if(a[1]<=b[0]+1e-9||b[1]<=a[0]+1e-9)return false;
+    }
+  }
+  return true;
+}
+function clearanceBands(it){
+  const fp=footprint(it),c=it.clr||{},out=[];
+  ['front','back','left','right'].forEach(s=>{
+    const t=num(c[s],0);if(t<=0)return;
+    const v=sideVec(it,s);
+    const x=v.nx>0?fp.x+fp.w:v.nx<0?fp.x-t:fp.x;
+    const y=v.ny>0?fp.y+fp.h:v.ny<0?fp.y-t:fp.y;
+    const w=v.nx!==0?t:fp.w;
+    const h=v.ny!==0?t:fp.h;
+    out.push({side:s,t,x,y,w,h,nx:v.nx,ny:v.ny});
+  });
+  return out;
+}
+/* 방문(현관문) 위치·여닫이 회전 반경. poly는 hinge에서 시작하는 부채꼴 */
+function doorGeom(r){
+  const d=r.door||{};
+  const width=Math.max(300,num(d.width,800));
+  const wall=['bottom','top','left','right'].includes(d.wall)?d.wall:'bottom';
+  const pos=Math.min(.9,Math.max(.1,num(d.pos,.5)));
+  const swing=d.swing==='out'?'out':'in';
+  const hinge=d.hinge==='end'?'end':'start';
+  const len=(wall==='bottom'||wall==='top')?r.w:r.d;
+  const a=Math.max(0,Math.min(Math.max(0,len-width),len*pos-width/2));
+  const b=a+width;
+  let hp,A,N,gap;
+  if(wall==='bottom'){hp={x:hinge==='start'?a:b,y:r.d};A={x:hinge==='start'?1:-1,y:0};N={x:0,y:swing==='in'?-1:1};gap={x1:a,y1:r.d,x2:b,y2:r.d}}
+  else if(wall==='top'){hp={x:hinge==='start'?a:b,y:0};A={x:hinge==='start'?1:-1,y:0};N={x:0,y:swing==='in'?1:-1};gap={x1:a,y1:0,x2:b,y2:0}}
+  else if(wall==='left'){hp={x:0,y:hinge==='start'?a:b};A={x:0,y:hinge==='start'?1:-1};N={x:swing==='in'?1:-1,y:0};gap={x1:0,y1:a,x2:0,y2:b}}
+  else{hp={x:r.w,y:hinge==='start'?a:b};A={x:0,y:hinge==='start'?1:-1};N={x:swing==='in'?-1:1,y:0};gap={x1:r.w,y1:a,x2:r.w,y2:b}}
+  const poly=[{x:hp.x,y:hp.y}];
+  for(let i=0;i<=10;i++){
+    const t=i/10*Math.PI/2;
+    poly.push({x:hp.x+width*(A.x*Math.cos(t)+N.x*Math.sin(t)),y:hp.y+width*(A.y*Math.cos(t)+N.y*Math.sin(t))});
+  }
+  return{width,wall,hinge:hp,poly,gap,open:poly[poly.length-1]};
+}
+function evalItem(r,it,p){
+  const fp=footprint(it),reasons=[],badSides=[];
+  const push=(kind,text)=>{if(!reasons.some(x=>x.kind===kind&&x.text===text))reasons.push({kind,text})};
+  const overX=Math.max(0,fp.x+fp.w-r.w),overY=Math.max(0,fp.y+fp.h-r.d);
+  if(fp.x<-1||fp.y<-1||overX>1||overY>1){
+    const parts=[];
+    if(overX>1)parts.push('가로 '+Math.round(overX)+'mm 초과');
+    if(overY>1)parts.push('세로 '+Math.round(overY)+'mm 초과');
+    if(fp.x<-1||fp.y<-1)parts.push('벽 밖으로 나감');
+    push('blocked','방 경계를 넘음 ('+parts.join(', ')+')');
+  }
+  r.items.forEach(o=>{if(o.id!==it.id&&rectOverlap(fp,footprint(o),2))push('blocked','「'+o.name+'」와 겹침')});
+  const minDim=Math.min(it.w,it.d);
+  const dw=num(r.door&&r.door.width,800),ew=num(p.entryWidth,900);
+  if(minDim>dw)push('carry','최소 폭 '+Math.round(minDim)+'mm가 방문 폭 '+Math.round(dw)+'mm보다 커서 방문 통과 불가');
+  else if(minDim>ew)push('carry','최소 폭 '+Math.round(minDim)+'mm가 현관 폭 '+Math.round(ew)+'mm보다 커서 현관 통과 불가');
+  const g=doorGeom(r);
+  if(polyOverlap(g.poly,rectPoly(fp)))push('clearance','방문 여닫이 반경과 겹침');
+  clearanceBands(it).forEach(b=>{
+    let avail=0;
+    if(b.ny>0)avail=r.d-(fp.y+fp.h);
+    else if(b.ny<0)avail=fp.y;
+    else if(b.nx>0)avail=r.w-(fp.x+fp.w);
+    else avail=fp.x;
+    avail=Math.max(0,avail);
+    if(avail<b.t-1){push('clearance',SIDENAME[b.side]+' 여유 '+b.t+'mm 필요 · 확보 '+Math.round(avail)+'mm');if(!badSides.includes(b.side))badSides.push(b.side)}
+    r.items.forEach(o=>{
+      if(o.id===it.id)return;
+      if(rectOverlap(b,footprint(o),1)){push('clearance',SIDENAME[b.side]+' 여유 공간을 「'+o.name+'」가 막고 있음');if(!badSides.includes(b.side))badSides.push(b.side)}
+    });
+    if(polyOverlap(g.poly,rectPoly(b))){push('clearance',SIDENAME[b.side]+' 여유 공간이 문 여닫이와 겹침');if(!badSides.includes(b.side))badSides.push(b.side)}
+  });
+  const status=reasons.some(x=>x.kind==='blocked')?'blocked':reasons.some(x=>x.kind==='carry')?'carry':reasons.length?'clearance':'ok';
+  return{status,reasons,badSides};
+}
+function roomEvals(r,p){const m=new Map();(r.items||[]).forEach(it=>m.set(it.id,evalItem(r,it,p)));return m}
+function rank(s){return s==='blocked'?3:s==='carry'?2:s==='clearance'?1:0}
 
+/* 방 안에서 가장 큰 빈 사각형 (가구·문 여닫이 제외) */
+function largestEmptyRect(r){
+  const obs=r.items.map(footprint).filter(o=>o.w>0&&o.h>0);
+  const g=doorGeom(r);
+  const bx1=Math.max(0,Math.min(...g.poly.map(p=>p.x))),bx2=Math.min(r.w,Math.max(...g.poly.map(p=>p.x)));
+  const by1=Math.max(0,Math.min(...g.poly.map(p=>p.y))),by2=Math.min(r.d,Math.max(...g.poly.map(p=>p.y)));
+  if(bx2-bx1>10&&by2-by1>10)obs.push({x:bx1,y:by1,w:bx2-bx1,h:by2-by1});
+  const xs=[0,r.w],ys=[0,r.d];
+  obs.forEach(o=>{xs.push(Math.max(0,Math.min(r.w,o.x)),Math.max(0,Math.min(r.w,o.x+o.w)));ys.push(Math.max(0,Math.min(r.d,o.y)),Math.max(0,Math.min(r.d,o.y+o.h)))});
+  const uniq=a=>[...new Set(a.map(v=>Math.round(v)))].sort((m,n)=>m-n);
+  const X=uniq(xs),Y=uniq(ys);
+  const nx=X.length-1,ny=Y.length-1;
+  if(nx<1||ny<1)return{x:0,y:0,w:0,h:0,area:0};
+  const heights=new Array(nx).fill(0);
+  let best={x:0,y:0,w:0,h:0,area:0};
+  for(let j=0;j<ny;j++){
+    for(let i=0;i<nx;i++){
+      const cx=X[i],cy=Y[j],cw=X[i+1]-X[i],ch=Y[j+1]-Y[j];
+      const blocked=obs.some(o=>cx<o.x+o.w&&cx+cw>o.x&&cy<o.y+o.h&&cy+ch>o.y);
+      heights[i]=blocked?0:heights[i]+ch;
+    }
+    const st=[];
+    for(let i=0;i<=nx;i++){
+      const hcur=i<nx?heights[i]:0;
+      while(st.length&&heights[st[st.length-1]]>=hcur){
+        const idx=st.pop(),h=heights[idx];
+        const left=st.length?st[st.length-1]+1:0;
+        const width=X[i]-X[left];
+        const area=h*width;
+        if(area>best.area)best={area,x:X[left],y:Y[j+1]-h,w:width,h};
+      }
+      if(i<nx)st.push(i);
+    }
+  }
+  return best;
+}
+
+/* ---------------- 캔버스 ---------------- */
+const planCache=new Map();
+function planImage(url){
+  if(!url)return null;
+  let im=planCache.get(url);
+  if(!im){im=new Image();im.onload=()=>{if($('#detail')&&$('#detail').open)draw()};im.src=url;planCache.set(url,im)}
+  return(im.complete&&im.naturalWidth)?im:null;
+}
+function preload(url){return new Promise(res=>{if(!url)return res(false);const im=new Image();im.onload=()=>res(true);im.onerror=()=>res(false);im.src=url;planCache.set(url,im)})}
+
+function paintRoom(ctx,p,r,W,H,sc,opt){
+  opt=opt||{};
+  ctx.save();
+  ctx.fillStyle='#fff';ctx.fillRect(0,0,W,H);
+  const url=('planImg' in opt)?opt.planImg:getPlanUrl(r.planImageKey||p.planImageKey);
+  const im=planImage(url);
+  if(im){
+    const s=Math.min(W/im.naturalWidth,H/im.naturalHeight);
+    const dw=im.naturalWidth*s,dh=im.naturalHeight*s;
+    ctx.save();ctx.globalAlpha=.45;ctx.drawImage(im,(W-dw)/2,(H-dh)/2,dw,dh);ctx.restore();
+  }
+  ctx.strokeStyle='#f0f2ec';ctx.lineWidth=1;
+  for(let a=20;a<W;a+=20){ctx.beginPath();ctx.moveTo(a+.5,0);ctx.lineTo(a+.5,H);ctx.stroke()}
+  for(let b=20;b<H;b+=20){ctx.beginPath();ctx.moveTo(0,b+.5);ctx.lineTo(W,b+.5);ctx.stroke()}
+  /* 외벽 */
+  ctx.strokeStyle='#5d6b5f';ctx.lineWidth=4;ctx.strokeRect(2,2,Math.max(1,W-4),Math.max(1,H-4));
+  const g=doorGeom(r);
+  /* 문틈 */
+  ctx.save();ctx.strokeStyle='#fff';ctx.lineWidth=7;
+  ctx.beginPath();ctx.moveTo(g.gap.x1*sc,g.gap.y1*sc);ctx.lineTo(g.gap.x2*sc,g.gap.y2*sc);ctx.stroke();
+  ctx.restore();
+  ctx.save();ctx.strokeStyle='#87957f';ctx.lineWidth=2;
+  [[g.gap.x1,g.gap.y1],[g.gap.x2,g.gap.y2]].forEach(pt=>{
+    ctx.beginPath();
+    if(g.wall==='bottom'||g.wall==='top'){ctx.moveTo(pt[0]*sc,pt[1]*sc-5);ctx.lineTo(pt[0]*sc,pt[1]*sc+5)}
+    else{ctx.moveTo(pt[0]*sc-5,pt[1]*sc);ctx.lineTo(pt[0]*sc+5,pt[1]*sc)}
+    ctx.stroke();
+  });
+  ctx.restore();
+  /* 여닫이 반경 */
+  ctx.save();
+  ctx.beginPath();
+  g.poly.forEach((pt,i)=>{const X=pt.x*sc,Y=pt.y*sc;i?ctx.lineTo(X,Y):ctx.moveTo(X,Y)});
+  ctx.closePath();
+  ctx.fillStyle='rgba(214,183,110,.16)';ctx.fill();
+  ctx.setLineDash([4,4]);ctx.lineWidth=1;ctx.strokeStyle='rgba(158,126,58,.55)';ctx.stroke();
+  ctx.restore();
+  ctx.save();
+  ctx.strokeStyle='rgba(160,130,62,.85)';ctx.lineWidth=1.2;
+  ctx.beginPath();ctx.moveTo(g.hinge.x*sc,g.hinge.y*sc);ctx.lineTo(g.open.x*sc,g.open.y*sc);ctx.stroke();
+  ctx.restore();
+  /* 여유 공간 */
+  const evs=opt.evs||new Map();
+  r.items.forEach(it=>{
+    const isSel=opt.selected===it.id;
+    if(!isSel&&!opt.showAllClr)return;
+    const ev=evs.get(it.id);
+    clearanceBands(it).forEach(b=>{
+      const bad=!!(ev&&ev.badSides&&ev.badSides.includes(b.side));
+      ctx.save();
+      ctx.globalAlpha=isSel?1:.55;
+      ctx.fillStyle=bad?'rgba(209,150,90,.26)':'rgba(120,160,120,.18)';
+      ctx.fillRect(b.x*sc,b.y*sc,b.w*sc,b.h*sc);
+      ctx.setLineDash([5,4]);ctx.lineWidth=isSel?1.3:1;
+      ctx.strokeStyle=bad?'rgba(170,110,40,.8)':'rgba(90,130,95,.65)';
+      ctx.strokeRect(b.x*sc+.5,b.y*sc+.5,Math.max(.5,b.w*sc),Math.max(.5,b.h*sc));
+      ctx.restore();
+    });
+  });
+  /* 가구 */
+  r.items.forEach(it=>{
+    const ev=evs.get(it.id),st=ev?ev.status:'ok';
+    const fp=footprint(it);
+    const X=fp.x*sc,Y=fp.y*sc,FW=Math.max(1,fp.w*sc),FH=Math.max(1,fp.h*sc);
+    const sel=opt.selected===it.id;
+    const fill=st==='blocked'?'#f4d7cf':st==='carry'?'#f6e4c4':sel?'#cbd9c7':'#e5eadd';
+    const line=st==='blocked'?'#a14b3a':st==='carry'?'#a8792f':sel?'#4d6b52':'#8a9a88';
+    ctx.fillStyle=fill;ctx.strokeStyle=line;ctx.lineWidth=sel?2:1.4;
+    ctx.fillRect(X,Y,FW,FH);ctx.strokeRect(X+.5,Y+.5,FW,FH);
+    const v=sideVec(it,'front');
+    ctx.beginPath();ctx.lineWidth=3;ctx.strokeStyle=line;
+    if(v.ny>0){ctx.moveTo(X+2,Y+FH-1.5);ctx.lineTo(X+FW-2,Y+FH-1.5)}
+    else if(v.ny<0){ctx.moveTo(X+2,Y+1.5);ctx.lineTo(X+FW-2,Y+1.5)}
+    else if(v.nx>0){ctx.moveTo(X+FW-1.5,Y+2);ctx.lineTo(X+FW-1.5,Y+FH-2)}
+    else{ctx.moveTo(X+1.5,Y+2);ctx.lineTo(X+1.5,Y+FH-2)}
+    ctx.stroke();
+    if(FW>30&&FH>12){
+      ctx.save();ctx.beginPath();ctx.rect(X+1,Y+1,Math.max(1,FW-2),Math.max(1,FH-2));ctx.clip();
+      ctx.fillStyle='#364437';ctx.font='600 10.5px -apple-system,"Apple SD Gothic Neo",sans-serif';
+      ctx.fillText(it.name.length>9?safeName(it.name):it.name,X+4,Y+Math.min(FH-3,13));
+      ctx.restore();
+    }
+  });
+  /* 축척 보정 점 */
+  if(opt.calPts&&opt.calPts.length){
+    ctx.save();
+    ctx.strokeStyle='#c0392b';ctx.fillStyle='#c0392b';ctx.lineWidth=1.5;
+    opt.calPts.forEach(pt=>{ctx.beginPath();ctx.arc(pt.px,pt.py,4,0,7);ctx.fill()});
+    if(opt.calPts.length===2){ctx.beginPath();ctx.moveTo(opt.calPts[0].px,opt.calPts[0].py);ctx.lineTo(opt.calPts[1].px,opt.calPts[1].py);ctx.stroke()}
+    ctx.restore();
+  }
+  ctx.restore();
+}
+function safeName(n){return n.slice(0,9)}
+function draw(){
+  const c=$('#floor');if(!c)return;
+  const p=project(),r=room();if(!p||!r)return;
+  const box=c.parentElement;
+  const maxW=Math.max(160,Math.min(760,box.clientWidth-16));
+  const mob=window.innerWidth<=820;
+  const maxH=mob?Math.max(150,Math.min(300,Math.round(window.innerHeight*0.32))):400;
+  const sc=Math.min(maxW/r.w,maxH/r.d);
+  const W=Math.max(1,Math.round(r.w*sc)),H=Math.max(1,Math.round(r.d*sc));
+  const dpr=Math.min(3,window.devicePixelRatio||1);
+  c.width=Math.round(W*dpr);c.height=Math.round(H*dpr);
+  c.style.width=W+'px';c.style.height=H+'px';
+  const ctx=c.getContext('2d');
+  ctx.setTransform(dpr,0,0,dpr,0,0);
+  scale=sc;
+  paintRoom(ctx,p,r,W,H,sc,{selected,evs:roomEvals(r,p),showAllClr,calPts});
+}
+function syncSel(){}
+function canvasPos(e){
+  const c=$('#floor'),b=c.getBoundingClientRect();
+  return{x:(e.clientX-b.left)/scale,y:(e.clientY-b.top)/scale,px:e.clientX-b.left,py:e.clientY-b.top};
+}
+function down(e){
+  e.preventDefault();
+  const p=project(),r=room();if(!r)return;
+  const pt=canvasPos(e);
+  if(calMode){
+    if(calPts.length>=2)calPts=[];
+    calPts.push({px:pt.px,py:pt.py});
+    draw();
+    if(calPts.length===2)renderDetail();
+    return;
+  }
+  const hit=[...r.items].reverse().find(i=>{const f=footprint(i);return pt.x>=f.x&&pt.x<=f.x+f.w&&pt.y>=f.y&&pt.y<=f.y+f.h});
+  const changed=(hit?hit.id:null)!==selected;
+  selected=hit?hit.id:null;
+  drag=hit?{id:hit.id,dx:pt.x-hit.x,dy:pt.y-hit.y,moved:false}:null;
+  if(drag&&e.currentTarget.setPointerCapture)try{e.currentTarget.setPointerCapture(e.pointerId)}catch(err){}
+  if(changed)refreshFurnPanes();else draw();
+}
+function move(e){
+  if(!drag)return;
+  const r=room();if(!r)return;
+  const it=r.items.find(z=>z.id===drag.id);if(!it)return;
+  const pt=canvasPos(e),f=footprint(it);
+  let nx=pt.x-drag.dx,ny=pt.y-drag.dy;
+  nx=Math.max(0,Math.min(r.w-f.w,nx));ny=Math.max(0,Math.min(r.d-f.h,ny));
+  if(Math.abs(nx-it.x)>0.5||Math.abs(ny-it.y)>0.5)drag.moved=true;
+  it.x=Math.round(nx);it.y=Math.round(ny);
+  draw();
+}
+function up(){
+  if(!drag)return;
+  const moved=drag.moved;drag=null;
+  if(moved){save();refreshFurnPanes();}
+}
+function nudge(dx,dy){
+  const r=room();if(!r)return;
+  const it=r.items.find(z=>z.id===selected);if(!it)return;
+  const f=footprint(it);
+  it.x=Math.round(Math.max(0,Math.min(r.w-f.w,it.x+dx)));
+  it.y=Math.round(Math.max(0,Math.min(r.d-f.h,it.y+dy)));
+  save();refreshFurnPanes();
+}
+function rotate(dir){
+  const r=room();if(!r)return;
+  const it=r.items.find(z=>z.id===selected);if(!it)return;
+  const f0=footprint(it),cx=it.x+f0.w/2,cy=it.y+f0.h/2;
+  it.rot=(((it.rot||0)+(dir>0?-90:90))%360+360)%360;
+  const f=footprint(it);
+  it.x=Math.round(Math.max(0,Math.min(r.w-f.w,cx-f.w/2)));
+  it.y=Math.round(Math.max(0,Math.min(r.d-f.h,cy-f.h/2)));
+  save();refreshFurnPanes();
+}
+function setXY(x,y){
+  const r=room();if(!r)return;
+  const it=r.items.find(z=>z.id===selected);if(!it)return;
+  const f=footprint(it);
+  it.x=Math.round(Math.max(0,Math.min(r.w-f.w,num(x,it.x))));
+  it.y=Math.round(Math.max(0,Math.min(r.d-f.h,num(y,it.y))));
+  save();refreshFurnPanes();
+}
+
+/* ---------------- 방 요약 ---------------- */
+function roomSummary(){
+  const p=project(),r=room(),el=$('#roomreport');if(!p||!r||!el)return;
+  const evs=roomEvals(r,p);
+  const c={ok:0,clearance:0,carry:0,blocked:0};
+  r.items.forEach(it=>c[evs.get(it.id).status]++);
+  const st=r.items.map(it=>({it,ev:evs.get(it.id)})).filter(x=>x.ev.status!=='ok').sort((a,b)=>rank(b.ev.status)-rank(a.ev.status))[0];
+  el.innerHTML='<b>'+esc(r.name)+'</b> '+r.w+'×'+r.d+'mm · '+(r.w*r.d/1e6).toFixed(1)+'㎡ · 가구 '+r.items.length+'개<br>배치 가능 <b>'+c.ok+'</b> · 여유 부족 <b>'+c.clearance+'</b> · 반입 위험 <b>'+c.carry+'</b> · 배치 불가 <b>'+c.blocked+'</b>'+(st?'<br>가장 큰 문제: 「'+esc(st.it.name)+'」 '+esc(st.ev.reasons[0].text):'');
+}
+
+/* ---------------- 의사결정 리포트 ---------------- */
+function catOf(places){
+  if(!places.length)return'unplaced';
+  const st=places.map(x=>x.ev.status);
+  if(st.includes('ok'))return'keep';
+  if(st.includes('clearance')||st.includes('carry'))return'caution';
+  return'dispose';
+}
+function decisionData(p){
+  const lib=data.furniture,list=[];
+  p.rooms.forEach(r=>(r.items||[]).forEach(it=>list.push({room:r,it,ev:evalItem(r,it,p)})));
+  const byKey=new Map();
+  list.forEach(o=>{const k=o.it.fid||('name:'+o.it.name);if(!byKey.has(k))byKey.set(k,[]);byKey.get(k).push(o)});
+  const groups=[];
+  lib.forEach(f=>{const places=byKey.get(f.id)||[];byKey.delete(f.id);groups.push({key:f.id,f,places,cat:catOf(places)})});
+  byKey.forEach((places,k)=>groups.push({key:k,f:{name:places[0].it.name,type:places[0].it.type,w:places[0].it.w,d:places[0].it.d},places,cat:catOf(places)}));
+  return{list,groups};
+}
+function adviceFor(g,p){
+  const pl=g.places[0];if(!pl)return'';
+  const r=pl.room,ev=pl.ev;
+  const txt=ev.reasons.map(x=>x.text).join(' ');
+  if(txt.includes('방문 통과'))return'권장: 최소 폭 '+(num(r.door.width,800)-50)+'mm 이하 슬림형 구매 또는 분해 반입';
+  if(txt.includes('현관 통과'))return'권장: 최소 폭 '+(num(p.entryWidth,900)-50)+'mm 이하 또는 분해 반입';
+  const free=largestEmptyRect(r);
+  if(free.w>50)return'권장: 「'+esc(r.name)+'」에 맞추려면 가로 '+Math.floor(free.w/50)*50+'mm 이하';
+  return'권장: 이 방에는 여유 있게 들어갈 자리가 없어요';
+}
+function decisionBody(p){
+  const {groups}=decisionData(p);
+  const keep=groups.filter(g=>g.cat==='keep'),cau=groups.filter(g=>g.cat==='caution'),dis=groups.filter(g=>g.cat==='dispose'),un=groups.filter(g=>g.cat==='unplaced');
+  const total=groups.length,placed=total-un.length;
+  const roomRecs=p.rooms.map(r=>({r,free:largestEmptyRect(r)}));
+  const sec=(title,count,body)=>'<div class="rsec"><h3>'+title+' <span class="small">'+count+'개</span></h3>'+(body||'<p class="small" style="margin:0">해당 없음</p>')+'</div>';
+  const row=(name,cls,label,line,rec)=>'<div class="ritem"><span class="rn">'+esc(name)+'</span> <span class="tag '+cls+'">'+label+'</span><span class="rr">'+line+'</span>'+(rec?'<span class="rec">'+rec+'</span>':'')+'</div>';
+  let h='';
+  h+='<div class="fitgrid"><div class="fitbox ok"><b>'+keep.length+'</b><span>그대로 유지</span></div><div class="fitbox warn"><b>'+cau.length+'</b><span>조건부 주의</span></div><div class="fitbox bad"><b>'+dis.length+'</b><span>처분·교체</span></div><div class="fitbox"><b>'+un.length+'</b><span>아직 미배치</span></div></div>';
+  h+='<p class="small" style="margin:0">등록 가구 '+total+'개 중 '+placed+'개 배치 · 배치 가능 '+keep.length+'개 · 조건부 주의 '+cau.length+'개 · 배치 불가 '+dis.length+'개<br>기준: 가구 본체 + 필수 여유 공간 + 방문 여닫이 반경 + 문 폭 통과</p>';
+  h+=sec('유지 가능 — 이 방에 여유 있게 들어가요',keep.length,keep.map(g=>{
+    const okRooms=g.places.filter(x=>x.ev.status==='ok').map(x=>esc(x.room.name));
+    return row(g.f.name,'','유지',okRooms.join(', ')+' · '+g.f.w+'×'+g.f.d+'mm 여유 확보');
+  }).join(''));
+  h+=sec('주의 — 들어가지만 여유가 부족해요',cau.length,cau.map(g=>{
+    const bad=g.places.filter(x=>x.ev.status!=='ok');
+    return row(g.f.name,'warn','주의',bad.map(x=>esc(x.room.name)+' · '+x.ev.reasons.slice(0,2).map(r0=>esc(r0.text)).join(' / ')).join('<br>'));
+  }).join(''));
+  h+=sec('처분·교체 권장 — 그대로는 어려워요',dis.length,dis.map(g=>{
+    const bad=g.places.filter(x=>x.ev.status==='blocked');
+    const line=(bad.length?bad:g.places).map(x=>esc(x.room.name)+' · '+x.ev.reasons.map(r0=>esc(r0.text)).join(' / ')).join('<br>');
+    return row(g.f.name,'bad','처분·교체',line,adviceFor(g,p));
+  }).join(''));
+  h+=sec('아직 배치하지 않은 가구',un.length,un.map(g=>row(g.f.name,'mute','미배치',g.f.w+'×'+g.f.d+'mm · 어느 방에도 놓지 않았어요')).join(''));
+  h+=sec('새로 살 때 권장 최대 치수',roomRecs.length,roomRecs.map(({r,free})=>{
+    if(!(free.area>0))return '<div class="ritem"><span class="rn">'+esc(r.name)+'</span><span class="rr">가구로 가득 차 새 가구를 놓을 자리가 없어요.</span></div>';
+    const w=Math.floor(free.w/50)*50,h2=Math.floor(free.h/50)*50;
+    return '<div class="ritem"><span class="rn">'+esc(r.name)+'</span><span class="rr">가장 큰 빈자리 '+w.toLocaleString()+'×'+h2.toLocaleString()+'mm</span><span class="rec">이 자리에는 가로 '+w.toLocaleString()+'mm 이하 가구 권장 (앞쪽 동선은 별도 확보)</span></div>';
+  }).join(''));
+  h+=sec('공간별 상세',p.rooms.length,p.rooms.map(r=>{
+    const evs=roomEvals(r,p);
+    const rows=r.items.map(it=>{const ev=evs.get(it.id),st=STATUS[ev.status];return row(it.name,st.c,st.t,esc(ev.reasons.map(x=>x.text).join(' / ')||'문제 없음'))}).join('');
+    return '<div style="margin:8px 0 3px"><b>'+esc(r.name)+'</b> <span class="small">'+r.w+'×'+r.d+'mm · 가구 '+r.items.length+'개</span></div>'+(rows||'<p class="small" style="margin:0">가구 없음</p>');
+  }).join(''));
+  return h;
+}
+function renderDecision(){
+  const p=project(),el=$('#reportWrap');if(!p||!el)return;
+  el.innerHTML='<div style="padding-bottom:10px"><span class="eyebrow">DECISION REPORT</span><h2 style="margin:2px 0 3px;font-size:21px">이사 의사결정 리포트</h2><span class="small">'+esc(p.name)+' · 공간 '+p.rooms.length+'개 · 등록 가구 '+data.furniture.length+'개</span></div>'+decisionBody(p);
+}
+
+/* ---------------- 인쇄 ---------------- */
+async function printReport(){
+  const p=project();if(!p)return;
+  const w=window.open('','_blank');
+  if(!w)return alert('팝업이 차단됐어요. 브라우저에서 팝업을 허용한 뒤 다시 눌러 주세요.');
+  try{w.document.write('<!doctype html><meta charset="utf-8"><title>이사핏 리포트</title><body style="font-family:-apple-system,sans-serif;padding:24px">리포트를 준비하고 있어요…</body>')}catch(e){}
+  const imgs={};
+  for(const r of p.rooms){
+    const k=r.planImageKey||p.planImageKey;
+    if(k){const u=planUrls.get(k)||await idbGet(k);if(u){planUrls.set(k,u);await preload(u);imgs[r.id]=u}}
+  }
+  const shots=p.rooms.map(r=>{
+    const c=document.createElement('canvas');
+    const sc=Math.min(720/r.w,520/r.d);
+    const W=Math.max(1,Math.round(r.w*sc)),H=Math.max(1,Math.round(r.d*sc));
+    c.width=W*2;c.height=H*2;
+    const ctx=c.getContext('2d');ctx.setTransform(2,0,0,2,0,0);
+    paintRoom(ctx,p,r,W,H,sc,{evs:roomEvals(r,p),showAllClr:true,planImg:imgs[r.id]||null});
+    return{r,src:c.toDataURL('image/png')};
+  });
+  const d=new Date(),dateStr=d.getFullYear()+'.'+String(d.getMonth()+1).padStart(2,'0')+'.'+String(d.getDate()).padStart(2,'0');
+  const css="body{font-family:-apple-system,BlinkMacSystemFont,'Apple SD Gothic Neo',sans-serif;color:#282b28;margin:0;padding:26px 30px;font-size:12px;line-height:1.55}"
+  +"h1{font-size:20px;margin:0 0 2px}.meta{color:#7b817a;font-size:11.5px;margin:0 0 14px}"
+  +"h2{font-size:13px;margin:18px 0 6px;border-bottom:1px solid #e5e5dd;padding-bottom:4px}"
+  +".fitgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:10px 0}"
+  +".fitbox{border:1px solid #e5e5dd;border-radius:8px;padding:8px;text-align:center}.fitbox b{display:block;font-size:18px}.fitbox span{font-size:10px;color:#7b817a}"
+  +".rsec{border:1px solid #e9e8e1;border-radius:10px;padding:10px 12px;margin-top:10px;page-break-inside:avoid}.rsec h3{font-size:12.5px;margin:0 0 6px}"
+  +".ritem{padding:5px 0;border-top:1px solid #f1f1ea}.ritem:first-of-type{border-top:0}"
+  +".rn{font-weight:700}.rr{display:block;color:#6d746c;font-size:11px}.rec{display:block;color:#a8792f;font-size:11px;font-weight:600}"
+  +".tag{display:inline-block;font-size:9.5px;font-weight:800;padding:2px 6px;border-radius:5px;background:#eef1e8;color:#4c6250}"
+  +".tag.warn{background:#fdf1e3;color:#96632c}.tag.bad{background:#fbece8;color:#94483a}.tag.mute{background:#f0f0ec;color:#7b817a}"
+  +".small{font-size:10.5px;color:#7b817a}"
+  +".room{margin-top:14px;page-break-inside:avoid}.room h2{margin:0 0 4px}.room img{width:100%;max-width:520px;border:1px solid #e9e8e1;border-radius:6px;display:block;margin:6px 0}"
+  +"@media print{@page{margin:12mm}}";
+  const roomsHtml=shots.map(({r,src})=>{
+    const evs=roomEvals(r,p);
+    const rows=r.items.map(it=>{const ev=evs.get(it.id),st=STATUS[ev.status];return '<div class="ritem"><span class="rn">'+esc(it.name)+'</span> <span class="tag '+st.c+'">'+st.t+'</span><span class="rr">'+it.w+'×'+it.d+'mm · '+esc(ev.reasons.map(x=>x.text).join(' / ')||'문제 없음')+'</span></div>'}).join('');
+    return '<div class="room"><h2>'+esc(r.name)+' · '+r.w+'×'+r.d+'mm · '+(r.w*r.d/1e6).toFixed(1)+'㎡</h2><img src="'+src+'">'+(rows||'<p class="small">가구 없음</p>')+'</div>';
+  }).join('');
+  const html='<!doctype html><html lang="ko"><head><meta charset="utf-8"><title>이사핏 의사결정 리포트</title><style>'+css+'</style></head><body>'
+  +'<h1>이사 의사결정 리포트</h1><p class="meta">'+esc(p.name)+' · '+esc(p.area||'')+' '+esc(p.aptName||'')+' '+esc(p.aptSize||'')+' · '+dateStr+'</p>'
+  +decisionBody(p)
+  +'<h2>공간별 도면과 배치</h2>'+roomsHtml
+  +'<p class="small" style="margin-top:18px">이사핏 · 입력한 치수와 도면으로 계산한 결과입니다. 실제 현장(문틀·기둥·벽 두께·엘리베이터)은 이사 전에 직접 확인해 주세요.</p>'
+  +'</body></html>';
+  try{
+    w.document.open();w.document.write(html);w.document.close();
+    setTimeout(()=>{try{w.focus();w.print()}catch(e){}},600);
+  }catch(e){
+    w.location.href='data:text/html;charset=utf-8,'+encodeURIComponent(html);
+  }
+}
+
+/* ---------------- AI·검색 ---------------- */
+function setAiStatus(msg,isErr){
+  const el=$('#aiStatus');if(!el)return;
+  el.hidden=!msg;el.className='status'+(isErr?' err':'');el.innerHTML=msg||'';
+}
+function aptQuery(){const g=s=>{const el=$(s);return el&&el.value?el.value.trim():''};return{apt:g('#aptName'),area:g('#aptArea'),size:g('#aptSize')}}
+function updateNaverLink(){
+  const p=project(),a=$('#naverPlan');if(!p||!a)return;
+  a.href='https://search.naver.com/search.naver?where=image&query='+encodeURIComponent([p.aptName||'',p.aptSize||'','평면도'].filter(Boolean).join(' '));
+}
 function renderAptResults(){
   const box=$('#aptResults');if(!box)return;
-  if(!aptItems.length){box.textContent='일치하는 단지를 찾지 못했어요. 단지명 일부만 입력하거나 지역명을 확인해 주세요.';return}
+  if(!aptItems.length){box.textContent='일치하는 단지를 찾지 못했어요. 단지명 일부만 넣거나 지역명을 확인해 주세요.';return}
   box.innerHTML='<b>검색 결과 '+aptItems.length+'개</b>'+aptItems.map((a,i)=>'<button type="button" class="btn alt" data-apt-index="'+i+'" style="display:block;width:100%;text-align:left;margin-top:7px;font-weight:600"><b>'+esc(a.kaptName||'이름 미상')+'</b><br><span class="small">'+esc([a.as1,a.as2,a.as3,a.doroJuso].filter(Boolean).join(' · '))+'</span></button>').join('');
   box.querySelectorAll('[data-apt-index]').forEach(b=>{b.onclick=()=>{
     const p=project(),a=aptItems[Number(b.dataset.aptIndex)];
-    p.aptName=a.kaptName||$('#aptName').value.trim();
+    p.aptName=a.kaptName||($('#aptName')||{}).value||'';
     p.aptCode=a.kaptCode||'';
     p.area=[a.as1,a.as2,a.as3].filter(Boolean).join(' ');
     save();
-    $('#aptName').value=p.aptName;$('#aptArea').value=p.area;
+    if($('#aptName'))$('#aptName').value=p.aptName;
+    if($('#aptArea'))$('#aptArea').value=p.area;
     updateNaverLink();
-    box.innerHTML='<b>단지를 선택했어요.</b><br>'+esc(p.aptName)+'<br><span class="small">'+esc(p.area)+' · 단지코드 '+esc(p.aptCode)+'</span><br><span class="small">이제 [🔍 도면 자동 불러오기]를 눌러 평면도 후보를 확인하세요.</span>';
+    box.innerHTML='<b>단지를 선택했어요.</b><br>'+esc(p.aptName)+'<br><span class="small">'+esc(p.area)+' · 단지코드 '+esc(p.aptCode)+'</span><br><span class="small">이제 [도면 자동 찾기]를 눌러 평면도 후보를 확인하세요.</span>';
   }});
 }
-
-function updateNaverLink(){
-  const p=project();if(!p)return;
-  const a=$('#naverPlan');if(!a)return;
-  a.href='https://search.naver.com/search.naver?where=image&query='+encodeURIComponent([p.aptName||'',p.aptSize||'','평면도'].filter(Boolean).join(' '));
-}
-
-/* ---------------- 평면도 후보 ---------------- */
 async function loadFloorplans(){
   const p=project();if(!p)return;
   const q=aptQuery();
@@ -156,8 +936,7 @@ async function loadFloorplans(){
   if(q.size)p.aptSize=q.size;
   save();updateNaverLink();
   if(!p.aptName){setAiStatus('먼저 아파트·단지명을 입력해 주세요.',true);return}
-  const grid=$('#fpGrid');
-  grid.innerHTML='';
+  const grid=$('#fpGrid');if(grid)grid.innerHTML='';
   setAiStatus('<span class="spin"></span>평면도 후보 이미지를 찾고 있어요…');
   try{
     const u=new URL(API_BASE+'/floorplan-search');
@@ -177,16 +956,13 @@ async function loadFloorplans(){
     setAiStatus('평면도 후보를 불러오지 못했어요. ('+esc(err.message)+') 아래 [네이버에서 평면도 찾기]로 직접 저장해 올릴 수 있어요.',true);
   }
 }
-
 function pickFloorplan(i){
   const it=fpItems[i];if(!it||!it.image)return;
   const p=project();
   const grid=$('#fpGrid');
   if(grid)grid.querySelectorAll('[data-fp]').forEach((b,k)=>b.style.outline=k===i?'2px solid var(--green)':'');
-  analyzeFloorplan({imageUrl:it.image,aptName:p.aptName,sourceLabel:'평면도 후보'});
+  analyzeFloorplan({imageUrl:it.image,aptName:p.aptName});
 }
-
-/* ---------------- AI 분석 ---------------- */
 function resizeImage(dataUrl,maxSide,quality){
   return new Promise((resolve,reject)=>{
     const img=new Image();
@@ -202,19 +978,16 @@ function resizeImage(dataUrl,maxSide,quality){
     img.src=dataUrl;
   });
 }
-
 async function analyzeFloorplan({dataUrl,imageUrl,aptName}){
   if(aiBusy)return;
   aiBusy=true;
-  const p=project();
   const btns=['#loadFloorplan','#aiFromUpload'].map(s=>$(s)).filter(Boolean);
   btns.forEach(b=>b.disabled=true);
   setAiStatus('<span class="spin"></span>AI가 평면도에서 방과 치수를 읽고 있어요…');
   try{
     let body;
-    if(imageUrl){
-      body={imageUrl,aptName:aptName||''};
-    }else{
+    if(imageUrl)body={imageUrl,aptName:aptName||''};
+    else{
       if(!dataUrl){setAiStatus('올린 평면도 이미지가 없어요.',true);return}
       const small=await resizeImage(dataUrl,1280,.85);
       body={imageBase64:small.split(',')[1],mimeType:'image/jpeg',aptName:aptName||''};
@@ -225,9 +998,7 @@ async function analyzeFloorplan({dataUrl,imageUrl,aptName}){
     const rooms=(payload.rooms||[]).filter(x=>x&&dim(Number(x.w))&&dim(Number(x.d)));
     if(!rooms.length)throw new Error('도면에서 방을 찾지 못했어요. 다른 이미지로 시도해 주세요.');
     let bg=null;
-    if(payload.image&&payload.image.dataUrl){
-      try{bg=await resizeImage(payload.image.dataUrl,1400,.8)}catch(e){bg=null}
-    }
+    if(payload.image&&payload.image.dataUrl){try{bg=await resizeImage(payload.image.dataUrl,1400,.8)}catch(e){bg=null}}
     applyAi({rooms,summary:payload.summary||'',hasExplicitDimensions:!!payload.hasExplicitDimensions,bg});
   }catch(err){
     setAiStatus('자동 인식에 실패했어요. '+(err.message||'')+' · 이미지를 직접 올려 다시 시도할 수 있어요.',true);
@@ -236,91 +1007,71 @@ async function analyzeFloorplan({dataUrl,imageUrl,aptName}){
     btns.forEach(b=>b.disabled=false);
   }
 }
-
 function applyAi({rooms,summary,hasExplicitDimensions,bg}){
-  const p=project();
+  const p=project();if(!p)return;
   const hasFurniture=p.rooms.some(x=>x.items&&x.items.length);
   if(hasFurniture&&!confirm('배치해 둔 가구가 있어요. AI 결과로 공간을 새로 만들면 가구 배치가 사라져요. 계속할까요?'))return;
-  p.rooms=rooms.map(x=>({id:uid(),name:String(x.name||'공간').slice(0,14),w:Math.round(Number(x.w)),d:Math.round(Number(x.d)),estimated:!!x.estimated,items:[]}));
-  if(bg)p.planImage=bg;
+  p.rooms=rooms.map(x=>({id:uid(),name:String(x.name||'공간').slice(0,14),w:Math.round(Number(x.w)),d:Math.round(Number(x.d)),estimated:!!x.estimated,items:[],door:{wall:'bottom',pos:.5,width:800,swing:'in',hinge:'start'}}));
+  if(bg){const key='p:'+p.id;planUrls.set(key,bg);idbSet(key,bg);p.planImageKey=key}
   p.planMeta={summary:summary||'',hasExplicitDimensions:!!hasExplicitDimensions,at:new Date().toISOString()};
-  rid=p.rooms[0].id;selected=null;
-  const saved=save();
-  detailFlash=(saved?'✅ ':'')+p.rooms.length+'개 공간을 채웠어요. '+(hasExplicitDimensions?'도면에 적힌 치수를 직접 읽었어요.':'치수 표기가 없어 표준 문 폭·가구 비율로 추정했어요. 필요하면 직접 고쳐 주세요.');
-  render();
-  renderDetail();
-  $('#detail').scrollTop=0;
-  if(!saved)save();
-}
-
-/* ---------------- 캔버스 ---------------- */
-function draw(){
-  const c=$('#floor'),r=room(),p=project();if(!c||!r)return;
-  const box=$('.canvasbox');
-  const maxW=Math.max(120,Math.min(600,box.clientWidth-24)),maxH=380;
-  scale=Math.min(maxW/r.w,maxH/r.d);
-  let w=Math.max(1,Math.round(r.w*scale)),h=Math.max(1,Math.round(r.d*scale)),dpr=devicePixelRatio||1;
-  c.width=w*dpr;c.height=h*dpr;c.style.width=w+'px';c.style.height=h+'px';
-  let x=c.getContext('2d');x.scale(dpr,dpr);
-  x.fillStyle='#fff';x.fillRect(0,0,w,h);
-  const bg=r.planImage||p?.planImage||null;
-  if(bg){
-    let im=planCache.get(bg);
-    if(!im){im=new Image();im.src=bg;planCache.set(bg,im);im.onload=()=>{if($('#detail').open&&room()?.id===r.id)draw()}}
-    if(im.complete&&im.naturalWidth){
-      const s=Math.min(w/im.naturalWidth,h/im.naturalHeight);
-      const dw=im.naturalWidth*s,dh=im.naturalHeight*s;
-      x.save();x.globalAlpha=r.planImage?.55:.4;x.drawImage(im,(w-dw)/2,(h-dh)/2,dw,dh);x.restore();
-    }
-  }
-  x.strokeStyle='#edf0e9';
-  for(let a=0;a<w;a+=20){x.beginPath();x.moveTo(a,0);x.lineTo(a,h);x.stroke()}
-  for(let a=0;a<h;a+=20){x.beginPath();x.moveTo(0,a);x.lineTo(w,a);x.stroke()}
-  x.strokeStyle='#667568';x.lineWidth=4;x.strokeRect(2,2,w-4,h-4);
-  r.items.forEach(i=>{
-    let iw=(i.rot?i.d:i.w)*scale,ih=(i.rot?i.w:i.d)*scale;
-    x.fillStyle=i.id===selected?'#cbd9c7':'#e5eadd';x.strokeStyle='#667d68';
-    x.fillRect(i.x*scale,i.y*scale,iw,ih);x.strokeRect(i.x*scale,i.y*scale,iw,ih);
-    x.fillStyle='#334';x.font='11px sans-serif';x.fillText(i.name.slice(0,10),i.x*scale+3,i.y*scale+14);
-  });
-  syncSelection();
-}
-function syncSelection(){const ok=!!selected;const a=$('#rotate'),b=$('#remove');if(a)a.disabled=!ok;if(b)b.disabled=!ok}
-function down(e){
-  let c=e.currentTarget,b=c.getBoundingClientRect(),x=(e.clientX-b.left)/scale,y=(e.clientY-b.top)/scale,r0=room();
-  let hit=[...r0.items].reverse().find(i=>x>=i.x&&x<=i.x+(i.rot?i.d:i.w)&&y>=i.y&&y<=i.y+(i.rot?i.w:i.d));
-  selected=hit?.id||null;
-  if(hit){drag={id:hit.id,dx:x-hit.x,dy:y-hit.y};c.setPointerCapture(e.pointerId)}
-  draw();
-}
-function move(e){
-  if(!drag)return;
-  let b=e.currentTarget.getBoundingClientRect(),x=(e.clientX-b.left)/scale,y=(e.clientY-b.top)/scale;
-  let i=room().items.find(z=>z.id===drag.id);if(!i)return;
-  i.x=Math.max(0,Math.min(room().w-(i.rot?i.d:i.w),x-drag.dx));
-  i.y=Math.max(0,Math.min(room().d-(i.rot?i.w:i.d),y-drag.dy));
-  draw();
-}
-function up(){if(drag){drag=null;save();report(false)}}
-function analyze(r){
-  return r.items.map((a,i)=>{
-    let aw=a.rot?a.d:a.w,ah=a.rot?a.w:a.d,why='가능';
-    if(a.x+aw>r.w||a.y+ah>r.d)why='공간 초과';
-    else if(r.items.slice(0,i).some(b=>{let bw=b.rot?b.d:b.w,bh=b.rot?b.w:b.d;return a.x<b.x+bw&&a.x+aw>b.x&&a.y<b.y+bh&&a.y+ah>b.y}))why='가구 겹침';
-    return{name:a.name,result:why};
-  });
-}
-function report(show){
-  const r=room();if(!r)return;
-  let a=analyze(r),bad=a.filter(x=>x.result!=='가능').length;
-  $('#report').innerHTML='배치 가구 '+a.length+'개 · 배치 가능 '+(a.length-bad)+'개 · 확인 필요 '+bad+'개'+(show?'<hr>'+a.map(x=>esc(x.name)+' : '+x.result).join('<br>'):'');
+  rid=p.rooms[0].id;selected=null;calMode=false;calPts=[];
+  detailFlash='✅ '+p.rooms.length+'개 공간을 채웠어요. '+(hasExplicitDimensions?'도면에 적힌 치수를 직접 읽었어요.':'치수 표기가 없어 비율로 추정했어요. 필요하면 직접 고쳐 주세요.');
+  save();render();renderDetail();
 }
 
 /* ---------------- 바인딩 ---------------- */
+function setTab(t){
+  tab=t;
+  $$('.tabbar [data-tab]').forEach(b=>b.classList.toggle('on',b.dataset.tab===t));
+  $$('.tabpane').forEach(pn=>pn.classList.toggle('active',pn.dataset.pane===t));
+  const layout=$('.room-layout'),rep=$('#reportWrap');
+  if(layout)layout.hidden=t==='report';
+  if(rep)rep.hidden=t!=='report';
+  if(t==='report')renderDecision();
+  else setTimeout(()=>{if($('#detail').open)draw()},30);
+  const body=$('.dbody');if(body)body.scrollTop=0;
+}
 function bind(){
-  const p=project(),r=room();
-  $('#closeDetail').onclick=()=>$('#detail').close();
-  $('#searchPlan').onclick=async()=>{
+  const p=project(),r=room();if(!p||!r)return;
+  const cd=$('#closeDetail');if(cd)cd.onclick=()=>{calMode=false;calPts=[];$('#detail').close()};
+  const pr=$('#print');if(pr)pr.onclick=printReport;
+  $$('.tabbar [data-tab]').forEach(b=>b.onclick=()=>setTab(b.dataset.tab));
+  $$('[data-room]').forEach(b=>b.onclick=()=>{rid=b.dataset.room;selected=null;calMode=false;calPts=[];renderDetail()});
+  bindSpace(p,r);bindFurn();
+  const c=$('#floor');
+  if(c){
+    c.addEventListener('pointerdown',down);
+    c.addEventListener('pointermove',move);
+    c.addEventListener('pointerup',up);
+    c.addEventListener('pointercancel',up);
+  }
+}
+function bindSpace(p,r){
+  const add=$('#addRoom');
+  if(add)add.onclick=()=>{
+    const n=(($('#newRoomName')||{}).value||'').trim()||'새 공간';
+    const w=num(($('#newRoomW')||{}).value,0),d=num(($('#newRoomD')||{}).value,0);
+    if(!dim(w)||!dim(d))return alert('가로·세로를 300~30,000mm로 입력해 주세요.');
+    const x={id:uid(),name:n.slice(0,14),w:Math.round(w),d:Math.round(d),items:[],door:{wall:'bottom',pos:.5,width:800,swing:'in',hinge:'start'}};
+    p.rooms.push(x);rid=x.id;save();renderDetail();
+  };
+  const ap=$('#applySize');
+  if(ap)ap.onclick=()=>{
+    const w=num($('#rw').value,0),d=num($('#rd').value,0),n=($('#rname').value||'').trim();
+    if(!dim(w)||!dim(d))return alert('가로·세로를 300~30,000mm로 입력해 주세요.');
+    r.w=Math.round(w);r.d=Math.round(d);if(n)r.name=n.slice(0,14);
+    r.items.forEach(it=>{const f=footprint(it);it.x=Math.min(it.x,Math.max(0,r.w-f.w));it.y=Math.min(it.y,Math.max(0,r.d-f.h))});
+    save();renderDetail();
+  };
+  const dw=$('#doorW');if(dw)dw.oninput=()=>{r.door.width=Math.max(300,Math.round(num(dw.value,800)));save();draw();roomSummary()};
+  const dp=$('#doorPos');if(dp)dp.oninput=()=>{r.door.pos=Math.max(.1,Math.min(.9,num(dp.value,.5)/100));save();draw();roomSummary()};
+  const ew=$('#entryW');if(ew)ew.oninput=()=>{p.entryWidth=Math.max(300,Math.round(num(ew.value,900)));save();draw();roomSummary()};
+  $$('#doorWall [data-wall]').forEach(b=>b.onclick=()=>{r.door.wall=b.dataset.wall;$$('#doorWall [data-wall]').forEach(x=>x.classList.toggle('on',x.dataset.wall===r.door.wall));save();draw();roomSummary()});
+  $$('[data-swing]').forEach(b=>b.onclick=()=>{r.door.swing=b.dataset.swing;$$('[data-swing]').forEach(x=>x.classList.toggle('on',x.dataset.swing===r.door.swing));save();draw();roomSummary()});
+  $$('[data-hinge]').forEach(b=>b.onclick=()=>{r.door.hinge=b.dataset.hinge;$$('[data-hinge]').forEach(x=>x.classList.toggle('on',x.dataset.hinge===r.door.hinge));save();draw();roomSummary()});
+
+  const sp=$('#searchPlan');
+  if(sp)sp.onclick=async()=>{
     const q=aptQuery();
     if(!q.apt)return alert('아파트 또는 단지명을 입력해 주세요.');
     if(q.apt.length<2)return alert('단지명을 두 글자 이상 입력해 주세요.');
@@ -333,115 +1084,171 @@ function bind(){
       if(q.area)u.searchParams.set('region',q.area);
       const res=await fetch(u.toString(),{headers:{Accept:'application/json'}});
       const payload=await res.json().catch(()=>({}));
-      if(!res.ok){const detail=payload.detail||payload.error||('HTTP '+res.status);throw new Error(detail)}
+      if(!res.ok)throw new Error(payload.detail||payload.error||('HTTP '+res.status));
       aptItems=Array.isArray(payload.items)?payload.items:[];
       renderAptResults();
-    }catch(err){
-      box.textContent='자동 검색에 연결하지 못했어요. ('+err.message+')';
-    }
+    }catch(err){box.textContent='자동 검색에 연결하지 못했어요. ('+err.message+')'}
   };
-  $('#loadFloorplan').onclick=loadFloorplans;
-  $('#aptSize').onchange=()=>{p.aptSize=$('#aptSize').value.trim();save();updateNaverLink()};
+  const lf=$('#loadFloorplan');if(lf)lf.onclick=loadFloorplans;
+  const as=$('#aptSize');if(as)as.onchange=()=>{p.aptSize=(as.value||'').trim();save();updateNaverLink()};
 
-  $('#addRoom').onclick=()=>{
-    const n=prompt('공간 이름','침실');if(!n)return;
-    const w=Number(prompt('가로(mm)','3000')),d=Number(prompt('세로(mm)','3000'));
-    if(!dim(w)||!dim(d))return alert('500~30,000mm로 입력해 주세요.');
-    const x={id:uid(),name:n,w,d,items:[]};p.rooms.push(x);rid=x.id;save();renderDetail();
+  const up=$('#planUpload');
+  if(up)up.onchange=e=>{
+    const file=e.target.files&&e.target.files[0];if(!file)return;
+    if(!['image/jpeg','image/png','image/webp'].includes(file.type))return alert('JPG, PNG, WebP 이미지 파일만 올릴 수 있어요.');
+    if(file.size>12*1024*1024)return alert('원본 이미지가 12MB를 넘어요. 더 작은 이미지로 올려 주세요.');
+    const rd=new FileReader();
+    rd.onload=async()=>{
+      try{
+        const dataUrl=await resizeImage(rd.result,1600,.82);
+        const key='r:'+p.id+':'+r.id;
+        const ok=await idbSet(key,dataUrl);
+        if(!ok){setAiStatus('도면을 저장하지 못했어요. 브라우저 저장 공간을 확인해 주세요.',true);return}
+        r.planImageKey=key;planUrls.set(key,dataUrl);save();renderDetail();
+        setAiStatus('도면 등록 완료 · [AI 인식]으로 방·치수를 읽거나 [축척 보정]을 써 보세요.',false);
+      }catch(err){alert('이미지를 읽을 수 없어요. 다른 파일로 시도해 주세요.')}
+    };
+    rd.readAsDataURL(file);
   };
-  $('#applySize').onclick=()=>{
-    let w=Number($('#rw').value),d=Number($('#rd').value),n=$('#rname').value.trim();
-    if(!dim(w)||!dim(d))return alert('500~30,000mm로 입력해 주세요.');
-    r.w=w;r.d=d;if(n)r.name=n.slice(0,14);
+  const ai=$('#aiFromUpload');
+  if(ai)ai.onclick=()=>{
+    const url=getPlanUrl(r.planImageKey||p.planImageKey);
+    if(!url)return alert('먼저 평면도 이미지를 올려 주세요.');
+    analyzeFloorplan({dataUrl:url,aptName:p.aptName});
+  };
+  const rp=$('#removePlan');
+  if(rp)rp.onclick=async()=>{
+    if(r.planImageKey){await idbDel(r.planImageKey);planUrls.delete(r.planImageKey);r.planImageKey=null}
+    else if(p.planImageKey){
+      if(!confirm('이 도면은 프로젝트 공통 도면이에요. 모든 공간에서 지울까요?'))return;
+      await idbDel(p.planImageKey);planUrls.delete(p.planImageKey);p.planImageKey=null;
+    }
     save();renderDetail();
   };
-  $('#planUpload').onchange=e=>{
-    const file=e.target.files?.[0];if(!file)return;
-    if(!['image/jpeg','image/png','image/webp'].includes(file.type))return alert('JPG, PNG, WebP 이미지 파일만 올릴 수 있어요.');
-    if(file.size>8*1024*1024)return alert('원본 이미지가 8MB를 초과해요. 더 작은 이미지로 올려 주세요.');
-    const reader=new FileReader();
-    reader.onload=()=>{
-      resizeImage(reader.result,1400,.78).then(dataUrl=>{
-        r.planImage=dataUrl;
-        if(!save()){r.planImage=null;return}
-        $('#planStatus').textContent='도면 등록 완료 · AI로 방·치수를 읽을 수 있어요.';
-        $('#removePlan').disabled=false;
-        const ai=$('#aiFromUpload');if(ai)ai.disabled=false;
-        draw();
-      }).catch(()=>alert('이미지를 읽을 수 없어요. 다른 파일로 시도해 주세요.'));
-    };
-    reader.readAsDataURL(file);
+  const cb=$('#calBtn');
+  if(cb)cb.onclick=()=>{calMode=!calMode;calPts=[];renderDetail();if(calMode)toast('도면에서 실제 길이를 아는 두 점을 차례로 눌러 주세요')};
+  const ca=$('#calApply');
+  if(ca)ca.onclick=()=>{
+    if(calPts.length!==2)return;
+    const mm=num($('#calMm').value,0);
+    if(!(mm>100))return alert('두 점의 실제 거리를 mm로 입력해 주세요.');
+    const dpx=Math.hypot(calPts[0].px-calPts[1].px,calPts[0].py-calPts[1].py);
+    if(dpx<6)return alert('두 점이 너무 가까워요. 다시 찍어 주세요.');
+    const k=mm*scale/dpx;
+    if(!(k>0.2&&k<8))return alert('보정 폭이 너무 커요. 두 점을 다시 찍어 주세요.');
+    const nw=Math.round(r.w*k),nd=Math.round(r.d*k);
+    if(!dim(nw)||!dim(nd))return alert('보정 결과가 범위를 벗어났어요.');
+    r.w=nw;r.d=nd;calMode=false;calPts=[];save();renderDetail();
+    toast('축척 보정 완료 · 이 방 '+r.w+'×'+r.d+'mm');
   };
-  $('#aiFromUpload').onclick=()=>{
-    if(!r.planImage)return alert('먼저 평면도 이미지를 올려 주세요.');
-    analyzeFloorplan({dataUrl:r.planImage,aptName:p.aptName});
+}
+function bindFurn(){
+  const p=project(),r=room();if(!p||!r)return;
+  const fs=$('#fselect'),pl=$('#place');
+  if(fs&&pl)pl.onclick=()=>{const f=data.furniture.find(x=>x.id===fs.value);if(!f)return alert('가구를 먼저 선택해 주세요.');placeFurniture(f)};
+  $$('[data-sel]').forEach(b=>b.onclick=()=>{selected=b.dataset.sel;refreshFurnPanes()});
+  $$('[data-move]').forEach(b=>b.onclick=()=>{const v=b.dataset.move.split(',').map(Number);nudge(v[0],v[1])});
+  const it=()=>r.items.find(x=>x.id===selected);
+  const rl=$('#rotL');if(rl)rl.onclick=()=>rotate(-1);
+  const rr=$('#rotR');if(rr)rr.onclick=()=>rotate(1);
+  const aps=$('#applyItemSize');
+  if(aps)aps.onclick=()=>{
+    const o=it();if(!o)return;
+    const w=num($('#itemW').value,0),d=num($('#itemD').value,0);
+    if(!dim(w)||!dim(d))return alert('가로·세로를 300~30,000mm로 입력해 주세요.');
+    o.w=Math.round(w);o.d=Math.round(d);
+    const f=footprint(o);o.x=Math.min(o.x,Math.max(0,r.w-f.w));o.y=Math.min(o.y,Math.max(0,r.d-f.h));
+    save();refreshFurnPanes();
   };
-  $('#removePlan').onclick=()=>{
-    r.planImage=null;save();
-    $('#planStatus').textContent='등록된 도면이 없어요.';$('#removePlan').disabled=true;
-    const ai=$('#aiFromUpload');if(ai)ai.disabled=true;
-    draw();
+  const ac=$('#applyClr');
+  if(ac)ac.onclick=()=>{
+    const o=it();if(!o)return;
+    o.clr={front:Math.max(0,Math.round(num($('#clrFront').value,0))),back:Math.max(0,Math.round(num($('#clrBack').value,0))),left:Math.max(0,Math.round(num($('#clrLeft').value,0))),right:Math.max(0,Math.round(num($('#clrRight').value,0)))};
+    save();refreshFurnPanes();
   };
-  $('#place').onclick=()=>{
-    const f=data.furniture.find(x=>x.id===$('#fselect').value);if(!f)return;
-    const x={id:uid(),name:f.name,w:f.w,d:f.d,x:Math.max(0,Math.min(r.w-f.w,(r.w-f.w)/2)),y:Math.max(0,Math.min(r.d-f.d,(r.d-f.d)/2)),rot:0};
-    r.items.push(x);selected=x.id;save();renderDetail();
+  const rm=$('#remove');
+  if(rm)rm.onclick=()=>{if(!it())return;r.items=r.items.filter(x=>x.id!==selected);selected=null;save();renderDetail()};
+  const ix=$('#itemX'),iy=$('#itemY');
+  if(ix)ix.onchange=()=>{const o=it();if(o)setXY(ix.value,o.y)};
+  if(iy)iy.onchange=()=>{const o=it();if(o)setXY(o.x,iy.value)};
+  const fr=$('#fitRoom');
+  if(fr)fr.onclick=()=>{
+    r.items.forEach(o=>{const f=footprint(o);o.x=Math.round(Math.max(0,Math.min(r.w-f.w,o.x)));o.y=Math.round(Math.max(0,Math.min(r.d-f.h,o.y)))});
+    save();refreshFurnPanes();
   };
-  $('#rotate').onclick=()=>{const x=r.items.find(i=>i.id===selected);if(x){x.rot=(x.rot+90)%180;save();draw();report(false)}};
-  $('#remove').onclick=()=>{r.items=r.items.filter(x=>x.id!==selected);selected=null;save();renderDetail()};
-  $('#check').onclick=()=>report(true);
-  $('#saveProject').onclick=()=>{if(save())alert('저장했어요.')};
-  $('#deleteProject').onclick=()=>{if(confirm('프로젝트를 삭제할까요?')){data.projects=data.projects.filter(x=>x.id!==pid);save();$('#detail').close();render()}};
-  $('#print').onclick=()=>{
-    const r0=room(),w=window.open('','_blank');if(!w)return;
-    w.document.write('<h1>이사핏 공간 리포트</h1><p>'+esc(p.name)+' · '+esc(r0.name)+' · '+r0.w+'×'+r0.d+'mm</p><pre>'+esc(JSON.stringify(analyze(r0),null,2))+'</pre>');
-    w.print();
+  const sa=$('#showAll');
+  if(sa){sa.textContent=showAllClr?'선택 가구만 표시':'전체 여유 공간 표시';sa.onclick=()=>{showAllClr=!showAllClr;sa.textContent=showAllClr?'선택 가구만 표시':'전체 여유 공간 표시';draw()}}
+  const ck=$('#check');
+  if(ck)ck.onclick=()=>{
+    const evs=roomEvals(r,p);
+    const lines=r.items.map(o=>{const ev=evs.get(o.id),st=STATUS[ev.status];return '<div style="margin-top:5px"><b>'+esc(o.name)+'</b> <span class="tag '+st.c+'">'+st.t+'</span>'+(ev.reasons.length?'<br><span class="small">'+ev.reasons.map(x=>'· '+esc(x.text)).join('<br>')+'</span>':' <span class="small">문제 없음</span>')+'</div>'});
+    $('#roomreport').innerHTML='<b>'+esc(r.name)+' 상세 검사</b>'+(lines.join('')||'<p class="small">가구가 없어요.</p>');
   };
-  const c=$('#floor');
-  c.addEventListener('pointerdown',down);c.addEventListener('pointermove',move);c.addEventListener('pointerup',up);c.addEventListener('pointercancel',up);
 }
 
 /* ---------------- 전역 ---------------- */
-$('#projects').onclick=e=>{let b=e.target.closest('[data-project]');if(b)openProject(b.dataset.project)};
-$('#furniture').onclick=e=>{let b=e.target.closest('[data-del]');if(b){data.furniture=data.furniture.filter(x=>x.id!==b.dataset.del);save();render()}};
 document.addEventListener('click',e=>{
-  let b=e.target.closest('[data-room]');
-  if(b&&$('#detail').open){rid=b.dataset.room;selected=null;renderDetail()}
-  let c=e.target.closest('[data-close]');
-  if(c)$('#'+c.dataset.close).close();
+  const t=e.target;
+  if(!t||!t.closest)return;
+  const pr=t.closest('[data-preset]');
+  if(pr){addFromPreset(pr.dataset.preset,false);return}
+  const pp=t.closest('[data-preset-place]');
+  if(pp){addFromPreset(pp.dataset.presetPlace,true);return}
+  const pj=t.closest('[data-project]');
+  if(pj){openProject(pj.dataset.project);return}
+  const del=t.closest('[data-del]');
+  if(del){data.furniture=data.furniture.filter(x=>x.id!==del.dataset.del);save();render();return}
+  const cl=t.closest('[data-close]');
+  if(cl){const d=document.getElementById(cl.dataset.close);if(d)d.close()}
 });
 $('#newProject').onclick=()=>$('#projectDialog').showModal();
 $('#newFurniture').onclick=()=>$('#furnitureDialog').showModal();
 $('#projectForm').onsubmit=e=>{
   e.preventDefault();
-  let f=new FormData(e.target);
-  let p={id:uid(),name:f.get('name'),area:f.get('area'),aptName:f.get('aptName'),aptSize:f.get('aptSize'),date:f.get('date'),memo:f.get('memo'),rooms:[{id:uid(),name:'거실',w:4000,d:3500,items:[]}]};
+  const f=new FormData(e.target);
+  const p={id:uid(),name:f.get('name'),area:f.get('area'),aptName:f.get('aptName'),aptSize:f.get('aptSize'),date:f.get('date'),memo:f.get('memo'),entryWidth:900,
+    rooms:[{id:uid(),name:'거실',w:4000,d:3500,items:[],door:{wall:'bottom',pos:.5,width:800,swing:'in',hinge:'start'}}]};
   data.projects.unshift(p);save();render();e.target.reset();$('#projectDialog').close();openProject(p.id);
 };
 $('#furnitureForm').onsubmit=e=>{
   e.preventDefault();
-  let f=new FormData(e.target);
-  let x={id:uid(),type:f.get('type'),name:f.get('name'),w:Number(f.get('w')),d:Number(f.get('d')),h:Number(f.get('h'))||0,memo:f.get('memo')};
-  if(!dim(x.w)||!dim(x.d))return alert('가로와 세로는 500~30,000mm로 입력해 주세요.');
+  const f=new FormData(e.target),type=f.get('type')||'기타';
+  const x={id:uid(),type,name:f.get('name'),w:Number(f.get('w')),d:Number(f.get('d')),h:Number(f.get('h'))||0,memo:f.get('memo'),clr:{...(TYPE_CLR[type]||TYPE_CLR['기타'])}};
+  if(!dim(x.w)||!dim(x.d))return alert('가로와 세로는 300~30,000mm로 입력해 주세요.');
   data.furniture.push(x);save();render();e.target.reset();$('#furnitureDialog').close();
 };
-$('#export').onclick=()=>{
-  let a=document.createElement('a'),u=URL.createObjectURL(new Blob([JSON.stringify(data,null,2)],{type:'application/json'}));
+$('#export').onclick=async()=>{
+  const keys=[];
+  data.projects.forEach(p=>{if(p.planImageKey)keys.push(p.planImageKey);(p.rooms||[]).forEach(r=>{if(r.planImageKey)keys.push(r.planImageKey)})});
+  const images={};
+  for(const k of keys){const v=planUrls.get(k)||await idbGet(k);if(v)images[k]=v}
+  const blob=new Blob([JSON.stringify({...data,images},null,2)],{type:'application/json'});
+  const a=document.createElement('a'),u=URL.createObjectURL(blob);
   a.href=u;a.download='isafit-backup.json';a.click();URL.revokeObjectURL(u);
+  toast(keys.length?'백업 파일에 도면 이미지 '+Object.keys(images).length+'장도 함께 담았어요':'백업 파일을 내려받았어요');
 };
 $('#import').onchange=e=>{
-  let f=e.target.files[0];if(!f)return;
-  let r=new FileReader();
-  r.onload=()=>{
+  const file=e.target.files&&e.target.files[0];if(!file)return;
+  const rd=new FileReader();
+  rd.onload=async()=>{
     try{
-      let v=JSON.parse(r.result);
-      if(!v||!Array.isArray(v.projects)||!Array.isArray(v.furniture)||!v.projects.every(p=>p&&typeof p.name==='string'&&Array.isArray(p.rooms)&&p.rooms.every(r=>r&&Number.isFinite(r.w)&&Number.isFinite(r.d)&&Array.isArray(r.items)))||!v.furniture.every(f=>f&&typeof f.name==='string'&&Number.isFinite(f.w)&&Number.isFinite(f.d)))throw 0;
-      data=v;save();render();alert('백업을 불러왔어요.');
-    }catch{alert('올바른 백업 파일이 아니에요.')}
+      const v=JSON.parse(rd.result);
+      if(!v||!Array.isArray(v.projects)||!Array.isArray(v.furniture))throw 0;
+      if(!v.projects.every(p=>p&&typeof p.name==='string'&&Array.isArray(p.rooms)&&p.rooms.every(r=>r&&Number.isFinite(r.w)&&Number.isFinite(r.d)&&Array.isArray(r.items))))throw 0;
+      const images=(v.images&&typeof v.images==='object')?v.images:{};
+      delete v.images;
+      data=v;normalize();
+      for(const k of Object.keys(images)){await idbSet(k,images[k]);planUrls.set(k,images[k])}
+      await migrateImages();
+      save();render();
+      alert('백업을 불러왔어요. (도면 이미지 '+Object.keys(images).length+'장)');
+    }catch(err){alert('올바른 백업 파일이 아니에요.')}
   };
-  r.readAsText(f);
+  rd.readAsText(file);
 };
-window.addEventListener('resize',()=>{if($('#detail').open)draw()});
-render();
+window.addEventListener('resize',()=>{if($('#detail')&&$('#detail').open)draw()});
+window.addEventListener('beforeunload',()=>{});
+normalize();save();render();
+migrateImages().then(()=>render());
 })();
 </script></body></html>
