@@ -247,6 +247,7 @@ function applyAi({rooms,summary,hasExplicitDimensions,bg}){
   rid=p.rooms[0].id;selected=null;
   const saved=save();
   detailFlash=(saved?'✅ ':'')+p.rooms.length+'개 공간을 채웠어요. '+(hasExplicitDimensions?'도면에 적힌 치수를 직접 읽었어요.':'치수 표기가 없어 표준 문 폭·가구 비율로 추정했어요. 필요하면 직접 고쳐 주세요.');
+  render();
   renderDetail();
   if(!saved)save();
 }
