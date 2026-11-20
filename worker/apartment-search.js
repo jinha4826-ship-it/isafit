@@ -59,8 +59,41 @@ function normalizeItems(data) {
   })).filter(x => x.kaptName);
 }
 
+const CITY_TO_SIDO = [
+  [/강남|서초|송파|강동|마포|용산|성동|광진|동대문|중랑|성북|강북|도봉|노원|은평|서대문|양천|강서|구로|금천|영등포|동작|관악|종로/, "11"],
+  [/해운대|수영|동래|연제|부산진|사하|사상|금정|영도|기장/, "26"],
+  [/수성|달서|달성/, "27"],
+  [/연수|남동|부평|계양|미추홀/, "28"],
+  [/유성/, "30"],
+  [/수원|성남|분당|판교|용인|고양|일산|화성|동탄|부천|안양|평택|안산|남양주|시흥|파주|김포|의정부|하남|광명|과천|구리|군포|의왕|오산|이천|안성|양주|포천|여주/, "41"],
+  [/춘천|원주|강릉|속초|동해/, "42"],
+  [/청주|충주|제천/, "43"],
+  [/천안|아산|서산|당진/, "44"],
+  [/전주|익산|군산/, "45"],
+  [/여수|순천|목포|광양/, "46"],
+  [/포항|구미|경산|경주|안동|김천/, "47"],
+  [/김해|창원|양산|진주|거제|통영|사천|밀양|함안|거창/, "48"],
+  [/제주시|서귀포/, "50"]
+];
+
 function findSidoCode(region) {
-  return SIDO_CODES.find(([pattern]) => pattern.test(region))?.[1] || null;
+  return (
+    SIDO_CODES.find(([pattern]) => pattern.test(region))?.[1] ||
+    CITY_TO_SIDO.find(([pattern]) => pattern.test(region))?.[1] ||
+    null
+  );
+}
+
+function extractSubRegionTokens(region) {
+  const withoutSido = region
+    .replace(/서울특별시|서울시|서울|부산광역시|부산시|부산|대구광역시|대구시|대구|인천광역시|인천시|인천|광주광역시|광주시|광주|대전광역시|대전시|대전|울산광역시|울산시|울산|세종특별자치시|세종시|세종|경기도|경기|강원특별자치도|강원도|강원|충청북도|충북|충청남도|충남|전북특별자치도|전라북도|전북|전라남도|전남|경상북도|경북|경상남도|경남|제주특별자치도|제주도|제주/g, " ")
+    .trim();
+  if (!withoutSido) return [];
+  return withoutSido
+    .split(/[\s,·]+/)
+    .map(tok => tok.trim().toLocaleLowerCase("ko-KR"))
+    .map(tok => (tok.length > 2 ? tok.replace(/(시|군|구|읍|면|동)$/g, "") : tok))
+    .filter(Boolean);
 }
 
 async function apiPage(env, sidoCode, pageNo) {
@@ -145,11 +178,11 @@ export default {
 
     try {
       const dataset = await loadApartments(env, sidoCode);
-      const normalizedRegion = region.replace(/특별자치도|특별자치시|특별시|광역시|도|시|군|구/g, "").toLocaleLowerCase("ko-KR");
+      const subTokens = extractSubRegionTokens(region);
       const matches = dataset.items.filter(item => {
         const name = item.kaptName.toLocaleLowerCase("ko-KR");
-        const address = [item.as1, item.as2, item.as3, item.doroJuso].join(" ").toLocaleLowerCase("ko-KR");
-        return name.includes(query) && (!normalizedRegion || address.replace(/\s/g, "").includes(normalizedRegion.replace(/\s/g, "")));
+        const address = [item.as1, item.as2, item.as3, item.doroJuso].join(" ").replace(/\s/g, "").toLocaleLowerCase("ko-KR");
+        return name.includes(query) && subTokens.every(tok => address.includes(tok));
       }).slice(0, 30);
 
       return json({
