@@ -444,7 +444,7 @@ function refreshFurnPanes(){
   const sel=r.items.find(i=>i.id===selected);
   const w=$('#selPanelWrap');if(w)w.innerHTML=selPanelHTML(sel,evs.get(selected));
   const il=$('#itemList');if(il)il.innerHTML=itemListHTML(r,p);
-  bindFurn();bindIcons();roomSummary();
+  bindFurn();roomSummary();
   draw();
 }
 
