@@ -25,3 +25,19 @@ GitHub Pages에서 `main` 브랜치의 `/(root)`를 배포 대상으로 선택�
 
 ## 기술
 HTML, CSS, Vanilla JavaScript, Canvas 2D, localStorage.
+
+
+## 아파트 자동 검색 API 연결 (Cloudflare Worker)
+
+현재 웹앱은 GitHub Pages에서 실행되므로 공공데이터 인증키를 브라우저 코드에 넣지 않습니다. 인증키를 보관하는 중계 서버를 별도로 배포해야 합니다.
+
+1. Cloudflare 계정에서 **Workers & Pages → Create → Worker**를 선택합니다.
+2. `worker/apartment-search.js`의 전체 코드를 Worker 편집기에 붙여넣고 배포합니다.
+3. Worker의 **Settings → Variables and Secrets**에서 `DATA_GO_KR_SERVICE_KEY` 이름으로 공공데이터포털의 일반 인증키를 **Secret**으로 등록합니다. 키를 GitHub 저장소, HTML, 공개 이슈에 올리지 마세요.
+4. Worker의 Settings에서 CORS 허용 출처를 코드의 `ALLOWED_ORIGIN`과 동일하게 유지합니다. 기본값은 `https://jinha4826-ship-it.github.io`입니다.
+5. 배포된 Worker 주소(예: `https://이름.계정.workers.dev`)를 이사핏의 **아파트 자동 검색 서버 주소** 칸에 한 번 입력하고 저장합니다.
+6. 아파트 단지명과 지역을 입력해 검색을 테스트합니다.
+
+Worker는 국토교통부 공동주택 단지 목록 API를 조회하고 결과를 6시간 캐시합니다. API 제공량과 응답 구조에 따라 초기 전체 목록 수집이 실패할 수 있습니다. 이 API는 단지 기본정보를 제공하며 평형별 평면도 이미지나 도면 좌표를 제공하지 않습니다. 평면도 자동 확보는 별도의 공개 데이터·사용권 검토와 후속 개발이 필요합니다.
+
+공식 API: https://www.data.go.kr/data/15057332/openapi.do
