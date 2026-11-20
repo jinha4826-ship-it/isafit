@@ -28,47 +28,39 @@ function extractItems(data) {
 }
 
 async function loadAllApartments(env) {
-  const cache = caches.default;
-  const cached = await cache.match(CACHE_KEY);
-  if (cached) return cached.json();
-
   if (!env.DATA_GO_KR_SERVICE_KEY) throw new Error("Worker secret DATA_GO_KR_SERVICE_KEY is missing");
 
-  const all = [];
-  for (let pageNo = 1; pageNo <= 30; pageNo++) {
-    const url = new URL(UPSTREAM);
-    // data.go.kr documents serviceKey as URL-encoded. If the portal's
-    // Encoding key was stored, decode it once before URLSearchParams encodes it.
-    let serviceKey = String(env.DATA_GO_KR_SERVICE_KEY || "").trim();
-    try { serviceKey = decodeURIComponent(serviceKey); } catch (_) {}
-    url.searchParams.set("serviceKey", serviceKey);
-    url.searchParams.set("pageNo", String(pageNo));
-    url.searchParams.set("numOfRows", "1000");
+  // First validate the API with a small request. The official specification
+  // documents pageNo and numOfRows as optional, with 10 rows as the sample.
+  const url = new URL(UPSTREAM);
+  let serviceKey = String(env.DATA_GO_KR_SERVICE_KEY || "").trim();
+  try { serviceKey = decodeURIComponent(serviceKey); } catch (_) {}
+  url.searchParams.set("serviceKey", serviceKey);
+  url.searchParams.set("pageNo", "1");
+  url.searchParams.set("numOfRows", "10");
+  url.searchParams.set("_type", "json");
 
-    const response = await fetch(url.toString(), { headers: { "Accept": "application/json, application/xml, text/xml" } });
-    const rawText = await response.text();
-    if (!response.ok) {
-      // Preserve the provider's diagnostic message, but never log or return the secret.
-      const diagnostic = rawText.replace(/(serviceKey=)[^&\s<]+/gi, "$1[REDACTED]").slice(0, 900);
-      throw new Error("공공데이터 API HTTP " + response.status + ": " + diagnostic);
-    }
-    let data;
-    try {
-      data = JSON.parse(rawText);
-    } catch (_) {
-      throw new Error("공공데이터 API가 JSON이 아닌 응답을 반환했습니다: " + rawText.slice(0, 500));
-    }
-    const header = data?.response?.header || data?.header || {};
-    if (header.resultCode && header.resultCode !== "00") {
-      throw new Error("공공데이터 API 오류 " + header.resultCode + ": " + (header.resultMsg || "알 수 없는 오류"));
-    }
-    const items = extractItems(data);
-    all.push(...items);
-    const total = Number(data?.response?.body?.totalCount ?? data?.body?.totalCount ?? 0);
-    if (!items.length || (total && all.length >= total) || items.length < 1000) break;
+  const response = await fetch(url.toString(), {
+    headers: { "Accept": "application/json" }
+  });
+  const rawText = await response.text();
+  if (!response.ok) {
+    const diagnostic = rawText.replace(/(serviceKey=)[^&\\s<]+/gi, "$1[REDACTED]").slice(0, 900);
+    throw new Error("공공데이터 API HTTP " + response.status + ": " + diagnostic);
   }
 
-  const cleaned = all.map(x => ({
+  let data;
+  try {
+    data = JSON.parse(rawText);
+  } catch (_) {
+    throw new Error("공공데이터 API가 JSON이 아닌 응답을 반환했습니다: " + rawText.slice(0, 500));
+  }
+  const header = data?.response?.header || data?.header || {};
+  if (header.resultCode && header.resultCode !== "00") {
+    throw new Error("공공데이터 API 오류 " + header.resultCode + ": " + (header.resultMsg || "알 수 없는 오류"));
+  }
+  const items = extractItems(data);
+  return items.map(x => ({
     kaptCode: x.kaptCode || "",
     kaptName: x.kaptName || "",
     bjdCode: x.bjdCode || "",
@@ -77,12 +69,6 @@ async function loadAllApartments(env) {
     as3: x.as3 || "",
     doroJuso: x.doroJuso || ""
   })).filter(x => x.kaptName);
-
-  const cacheResponse = new Response(JSON.stringify(cleaned), {
-    headers: { "content-type": "application/json", "cache-control": "public, max-age=21600" }
-  });
-  await cache.put(CACHE_KEY, cacheResponse);
-  return cleaned;
 }
 
 export default {
