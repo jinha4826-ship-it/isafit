@@ -78,6 +78,7 @@ canvas{background:white;touch-action:none;max-width:100%;display:block;border-ra
 .tabbar button{flex:1;border:1px solid var(--line);background:#fff;color:#4d574d;border-radius:10px;padding:10px 4px;font-size:12.5px;font-weight:800;cursor:pointer;font-family:inherit}
 .tabbar button.on{background:var(--green);color:#fff;border-color:var(--green)}
 .tabpane{display:none}.tabpane.active{display:block}
+.room-layout[hidden]{display:none!important}
 .room-layout{display:grid;grid-template-columns:352px minmax(0,1fr);gap:16px;align-items:start}
 .side{min-width:0}
 .stage{position:sticky;top:6px;align-self:start;min-width:0}
@@ -232,6 +233,10 @@ async function migrateImages(){
 function normalize(){
   data.projects=Array.isArray(data.projects)?data.projects:[];
   data.furniture=Array.isArray(data.furniture)?data.furniture:[];
+  data.furniture.forEach(f=>{
+    if(!f.type)f.type='기타';
+    if(!f.clr)f.clr={...(TYPE_CLR[f.type]||TYPE_CLR['기타'])};
+  });
   data.projects.forEach(p=>{
     if(!num(p.entryWidth,0))p.entryWidth=900;
     if(!Array.isArray(p.rooms)||!p.rooms.length)p.rooms=[{id:uid(),name:'거실',w:4000,d:3500,items:[]}];
@@ -241,14 +246,11 @@ function normalize(){
       r.items.forEach(it=>{
         if(!it.type)it.type='기타';
         if(!it.clr)it.clr={...(TYPE_CLR[it.type]||TYPE_CLR['기타'])};
+        if(!Number.isFinite(it.h)){const lf=data.furniture.find(x=>x.id===it.fid);it.h=lf?num(lf.h,0):0}
         it.rot=((num(it.rot,0)%360)+360)%360;
         it.x=Math.max(0,num(it.x,0));it.y=Math.max(0,num(it.y,0));
       });
     });
-  });
-  data.furniture.forEach(f=>{
-    if(!f.type)f.type='기타';
-    if(!f.clr)f.clr={...(TYPE_CLR[f.type]||TYPE_CLR['기타'])};
   });
 }
 
@@ -303,7 +305,7 @@ function findSpot(r,it){
 }
 function placeFurniture(f){
   const p=project(),r=room();if(!p||!r)return;
-  const it={id:uid(),fid:f.id,name:f.name,type:f.type,w:f.w,d:f.d,x:0,y:0,rot:0,clr:{...(f.clr||TYPE_CLR[f.type]||TYPE_CLR['기타'])}};
+  const it={id:uid(),fid:f.id,name:f.name,type:f.type,w:f.w,d:f.d,h:num(f.h,0),x:0,y:0,rot:0,clr:{...(f.clr||TYPE_CLR[f.type]||TYPE_CLR['기타'])}};
   const pos=findSpot(r,it);it.x=pos.x;it.y=pos.y;
   r.items.push(it);selected=it.id;save();
   toast(f.name+' 배치 · 점선으로 여유 공간을 표시했어요');
@@ -520,10 +522,11 @@ function evalItem(r,it,p){
     push('blocked','방 경계를 넘음 ('+parts.join(', ')+')');
   }
   r.items.forEach(o=>{if(o.id!==it.id&&rectOverlap(fp,footprint(o),2))push('blocked','「'+o.name+'」와 겹침')});
-  const minDim=Math.min(it.w,it.d);
+  const dims=[it.w,it.d,it.h].filter(v=>Number.isFinite(v)&&v>0);
+  const minDim=dims.length?Math.min.apply(null,dims):Math.min(it.w,it.d);
   const dw=num(r.door&&r.door.width,800),ew=num(p.entryWidth,900);
-  if(minDim>dw)push('carry','최소 폭 '+Math.round(minDim)+'mm가 방문 폭 '+Math.round(dw)+'mm보다 커서 방문 통과 불가');
-  else if(minDim>ew)push('carry','최소 폭 '+Math.round(minDim)+'mm가 현관 폭 '+Math.round(ew)+'mm보다 커서 현관 통과 불가');
+  if(minDim+50>dw)push('carry','가장 작은 변 '+Math.round(minDim)+'mm(문틀 여유 포함)가 방문 폭 '+Math.round(dw)+'mm보다 커서 방문 통과가 어려움');
+  else if(minDim+50>ew)push('carry','가장 작은 변 '+Math.round(minDim)+'mm(문틀 여유 포함)가 현관 폭 '+Math.round(ew)+'mm보다 커서 현관 통과가 어려움');
   const g=doorGeom(r);
   if(polyOverlap(g.poly,rectPoly(fp)))push('clearance','방문 여닫이 반경과 겹침');
   clearanceBands(it).forEach(b=>{
