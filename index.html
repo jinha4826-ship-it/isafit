@@ -12,9 +12,9 @@
 .planpreview .pp-body{min-width:0;font-size:12px}
 .planpreview .pp-body p{margin:6px 0 0;color:var(--muted);font-size:11px;line-height:1.45}
 .spin{display:inline-block;width:11px;height:11px;border:2px solid #cbd3c4;border-top-color:var(--green);border-radius:50%;animation:sp .8s linear infinite;vertical-align:-1px;margin-right:6px}
+@media(min-width:701px){.room-layout>section{position:sticky;top:6px;align-self:start}}
 @keyframes sp{to{transform:rotate(360deg)}}
-@media(max-width:700px){.wrap{padding:15px}.hero{padding:25px}.room-layout{grid-template-columns:1fr}.fields{grid-template-columns:1fr}.wide{grid-column:auto}.head h2{font-size:20px}.top{padding:12px 16px}.fpgrid{grid-template-columns:repeat(2,1fr)}}
-</style></head><body>
+@media(max-width:700px){.wrap{padding:15px}.hero{padding:25px}.room-layout{grid-template-columns:1fr}.fields{grid-template-columns:1fr}.wide{grid-column:auto}.head h2{font-size:20px}.top{padding:12px 16px}.fpgrid{grid-template-columns:repeat(2,1fr)}}</style></head><body>
 <header class="top"><div class="brand"><span class="mark">이</span>이사핏</div><div class="actions"><button class="btn alt" id="export">백업</button><label class="btn alt">불러오기<input id="import" type="file" accept="application/json" hidden></label></div></header>
 <main class="wrap"><section class="hero"><div><span class="eyebrow">MOVE WITH A PLAN</span><h1>집을 고르기 전에,<br><em>내 생활을 먼저 배치해요.</em></h1><p>아파트 단지를 고르면 평면도를 찾아<br>방과 치수를 AI가 자동으로 채워 드려요.</p><button class="btn" id="newProject">＋ 새 이사 프로젝트</button></div><div style="font-size:100px;color:#81927e">⌂</div></section>
 <section><div class="head"><div><span class="eyebrow">MY MOVE</span><h2>나의 이사 프로젝트</h2></div><span class="muted" id="count">0개</span></div><div id="projects" class="grid"></div><div id="emptyP" class="empty">아직 등록한 프로젝트가 없어요. 첫 이사 프로젝트를 만들어 보세요.</div></section>
@@ -51,7 +51,7 @@ function render(){
   $('#furniture').innerHTML=data.furniture.map(f=>'<div class="card furniture"><b>'+esc(f.name)+'</b><p>'+esc(f.type)+' · '+f.w+' × '+f.d+'mm</p><button class="danger" data-del="'+f.id+'">삭제</button></div>').join('');
 }
 
-function openProject(id0){pid=id0;const p=project();if(!p)return;if(!p.rooms.length)p.rooms.push({id:uid(),name:'거실',w:4000,d:3500,items:[]});rid=p.rooms[0].id;selected=null;aptItems=[];fpItems=[];detailFlash='';$('#detail').showModal();renderDetail()}
+function openProject(id0){pid=id0;const p=project();if(!p)return;if(!p.rooms.length)p.rooms.push({id:uid(),name:'거실',w:4000,d:3500,items:[]});rid=p.rooms[0].id;selected=null;aptItems=[];fpItems=[];detailFlash='';$('#detail').showModal();renderDetail();$('#detail').scrollTop=0}
 
 /* ---------------- 상세 ---------------- */
 function renderDetail(){
@@ -249,6 +249,7 @@ function applyAi({rooms,summary,hasExplicitDimensions,bg}){
   detailFlash=(saved?'✅ ':'')+p.rooms.length+'개 공간을 채웠어요. '+(hasExplicitDimensions?'도면에 적힌 치수를 직접 읽었어요.':'치수 표기가 없어 표준 문 폭·가구 비율로 추정했어요. 필요하면 직접 고쳐 주세요.');
   render();
   renderDetail();
+  $('#detail').scrollTop=0;
   if(!saved)save();
 }
 
