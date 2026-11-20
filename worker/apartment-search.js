@@ -37,16 +37,30 @@ async function loadAllApartments(env) {
   const all = [];
   for (let pageNo = 1; pageNo <= 30; pageNo++) {
     const url = new URL(UPSTREAM);
-    url.searchParams.set("serviceKey", env.DATA_GO_KR_SERVICE_KEY);
+    // data.go.kr documents serviceKey as URL-encoded. If the portal's
+    // Encoding key was stored, decode it once before URLSearchParams encodes it.
+    let serviceKey = String(env.DATA_GO_KR_SERVICE_KEY || "").trim();
+    try { serviceKey = decodeURIComponent(serviceKey); } catch (_) {}
+    url.searchParams.set("serviceKey", serviceKey);
     url.searchParams.set("pageNo", String(pageNo));
     url.searchParams.set("numOfRows", "1000");
 
-    const response = await fetch(url.toString(), { headers: { "Accept": "application/json" } });
-    if (!response.ok) throw new Error("Public apartment API returned HTTP " + response.status);
-    const data = await response.json();
+    const response = await fetch(url.toString(), { headers: { "Accept": "application/json, application/xml, text/xml" } });
+    const rawText = await response.text();
+    if (!response.ok) {
+      // Preserve the provider's diagnostic message, but never log or return the secret.
+      const diagnostic = rawText.replace(/(serviceKey=)[^&\s<]+/gi, "$1[REDACTED]").slice(0, 900);
+      throw new Error("공공데이터 API HTTP " + response.status + ": " + diagnostic);
+    }
+    let data;
+    try {
+      data = JSON.parse(rawText);
+    } catch (_) {
+      throw new Error("공공데이터 API가 JSON이 아닌 응답을 반환했습니다: " + rawText.slice(0, 500));
+    }
     const header = data?.response?.header || data?.header || {};
     if (header.resultCode && header.resultCode !== "00") {
-      throw new Error(header.resultMsg || "Public apartment API error");
+      throw new Error("공공데이터 API 오류 " + header.resultCode + ": " + (header.resultMsg || "알 수 없는 오류"));
     }
     const items = extractItems(data);
     all.push(...items);
