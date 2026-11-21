@@ -1,81 +1,81 @@
 <!doctype html>
-<html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#f7f6f2"><meta name="description" content="내 가구가 새집에 실제로 들어갈지, 문 여닫힘과 동선까지 이사 전에 확인하는 이사핏"><title>이사핏 | 이사 전에 내 물건과 집이 맞는지 확인</title><style>
-:root{--ink:#282b28;--muted:#858981;--paper:#f7f6f2;--line:#e9e8e1;--green:#536c58;--sage:#e8eee6;--amber:#a8792f;--bad:#a14b3a}
-*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font:15px/1.55 -apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo",sans-serif;-webkit-text-size-adjust:100%}
-.top{position:sticky;top:0;background:#ffffffed;border-bottom:1px solid var(--line);padding:15px 5vw;display:flex;justify-content:space-between;align-items:center;z-index:2}
-.brand{font-weight:850;font-size:20px}.mark{display:inline-grid;place-items:center;background:var(--green);color:white;border-radius:9px;width:29px;height:29px;margin-right:8px}
+<html lang="ko"><head><meta charset="utf-8"><meta name="isafit-build" content="v4-white-proptech-2026-11-21"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#FFFFFF"><meta name="description" content="내 가구가 새집에 실제로 들어갈지, 문 여닫힘과 동선까지 이사 전에 확인하는 이사핏"><title>이사핏 | 이사 전에 내 물건과 집이 맞는지 확인</title><style>
+:root{--ink:#191F28;--muted:#7B8794;--paper:#F6F8FA;--line:#E7ECF2;--green:#0284C7;--green2:#0EA5E9;--sage:#E8F4FD;--amber:#B45309;--bad:#D93F3F;--soft:#FBFDFF;--brandline:#CFE8F9;--shadow:0 1px 2px #0F172A0A,0 8px 24px #0F172A0A;--shadow-lg:0 18px 50px #0F172A1F}
+*{box-sizing:border-box}body{margin:0;background:linear-gradient(180deg,#FFFFFF 0,#F6F8FA 420px,#F6F8FA 100%);background-color:var(--paper);color:var(--ink);font:15px/1.55 -apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo",sans-serif;-webkit-text-size-adjust:100%}
+.top{position:sticky;top:0;background:#FFFFFFF2;backdrop-filter:saturate(180%) blur(12px);-webkit-backdrop-filter:saturate(180%) blur(12px);border-bottom:1px solid var(--line);padding:15px 5vw;display:flex;justify-content:space-between;align-items:center;z-index:2}
+.brand{font-weight:850;font-size:20px}.mark{display:inline-grid;place-items:center;background:linear-gradient(145deg,#38BDF8,#0284C7);color:white;border-radius:9px;width:29px;height:29px;margin-right:8px;box-shadow:0 2px 8px #0EA5E940}
 .wrap{max-width:1100px;margin:auto;padding:24px}
-.hero{background:#eaece4;border-radius:24px;padding:38px;margin:12px 0 42px;display:flex;justify-content:space-between;gap:20px;align-items:center}
-.hero h1{font-size:clamp(26px,4vw,42px);line-height:1.22;margin:10px 0}.hero em{color:var(--green);font-style:normal}.hero p,.muted{color:var(--muted)}
-.eyebrow{font-size:10px;letter-spacing:2px;color:#87917f;font-weight:800}
-.btn{border:0;border-radius:10px;padding:11px 15px;background:var(--green);color:white;font-weight:700;cursor:pointer;font-size:13px;display:inline-block;text-align:center;text-decoration:none;font-family:inherit}
-.btn.alt{background:white;color:var(--green);border:1px solid #dfe3da}.btn:disabled{opacity:.4;cursor:not-allowed}
+.hero{background:linear-gradient(135deg,#FFFFFF 0%,#F2F9FE 52%,#E4F2FC 100%);border:1px solid #DDEBF7;border-radius:24px;padding:38px;margin:12px 0 42px;display:flex;justify-content:space-between;gap:20px;align-items:center;box-shadow:var(--shadow)}
+.hero h1{font-size:clamp(26px,4vw,42px);line-height:1.22;margin:10px 0;letter-spacing:-.6px}.hero em{color:var(--green);font-style:normal}.hero p,.muted{color:var(--muted)}
+.eyebrow{font-size:10px;letter-spacing:2px;color:#8AA2B4;font-weight:800}
+.btn{border:0;border-radius:10px;padding:11px 15px;background:linear-gradient(180deg,#0EA5E9,#0284C7);color:white;font-weight:700;cursor:pointer;font-size:13px;display:inline-block;text-align:center;text-decoration:none;font-family:inherit;box-shadow:0 1px 2px #0284C73D,0 6px 14px #0EA5E91F}
+.btn.alt{background:#fff;color:var(--green);border:1px solid #D3E3EF;box-shadow:0 1px 2px #0F172A08}.btn:disabled{opacity:.4;cursor:not-allowed}
 .head{display:flex;justify-content:space-between;align-items:end;margin:30px 0 15px}.head h2{margin:4px 0;font-size:23px}
 .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:13px}
-.card{background:white;border:1px solid var(--line);border-radius:16px;padding:17px}
+.card{background:#fff;border:1px solid var(--line);border-radius:16px;padding:17px;box-shadow:var(--shadow)}
 .project{cursor:pointer;text-align:left;color:inherit;width:100%}.project h3{margin:10px 0 3px}
-.empty{padding:25px;text-align:center;color:var(--muted);border:1px dashed #cfd7ca;border-radius:14px}
-.furniture{font-size:13px}.furniture b{font-size:14px}.furniture p{margin:5px 0;color:#5d6659}
+.empty{padding:25px;text-align:center;color:var(--muted);border:1px dashed #D7E2EC;border-radius:14px}
+.furniture{font-size:13px}.furniture b{font-size:14px}.furniture p{margin:5px 0;color:#4E5968}
 .actions{display:flex;gap:8px;flex-wrap:wrap}
 .dialog{border:0;border-radius:18px;width:min(680px,calc(100% - 24px));padding:22px;box-shadow:0 20px 70px #0003;max-height:90dvh;overflow:auto}
-.dialog::backdrop{background:#18201888}.dialog h2{margin:4px 0 18px}
+.dialog::backdrop{background:#0F172A66}.dialog h2{margin:4px 0 18px}
 .fields{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
-.fields label{display:block;font-size:12px;color:#596357;font-weight:700}
+.fields label{display:block;font-size:12px;color:#4E5968;font-weight:700}
 .fields input,.fields select,.fields textarea{display:block;width:100%;padding:10px;border:1px solid var(--line);border-radius:9px;margin-top:5px;background:#fff;font:inherit}
 .wide{grid-column:1/-1}.modal-actions{display:flex;justify-content:flex-end;gap:8px;margin-top:18px}
-.panel{background:#fbfaf7;border:1px solid var(--line);border-radius:13px;padding:13px;margin-bottom:10px}
+.panel{background:var(--soft);border:1px solid var(--line);border-radius:13px;padding:13px;margin-bottom:10px}
 .panel h3{font-size:14px;margin:0 0 9px}
 .panel input[type=text],.panel input[type=number],.panel input:not([type]),.panel select{width:100%;padding:9px;border:1px solid var(--line);border-radius:8px;margin:3px 0 7px;background:#fff;font:inherit;font-size:13px;color:var(--ink)}
 .panel input[type=range]{width:100%;margin:4px 0 8px}
 .row2{display:grid;grid-template-columns:1fr 1fr;gap:7px}
 .row2>div>label{margin-top:0}
-.canvasbox{background:#efeee8;border-radius:13px;padding:10px;overflow:auto;display:grid;place-items:center;min-height:280px}
-canvas{background:white;touch-action:none;max-width:100%;display:block;border-radius:4px}
+.canvasbox{background:#F1F6FA;border:1px solid #E3EBF3;border-radius:13px;padding:10px;overflow:auto;display:grid;place-items:center;min-height:280px}
+canvas{background:white;touch-action:none;max-width:100%;display:block;border-radius:6px;box-shadow:0 1px 2px #0F172A0F}
 .small{font-size:11px;color:var(--muted);line-height:1.5}
 .roomlist button{width:100%;text-align:left;margin:3px 0;background:white;color:var(--ink);border:1px solid var(--line);padding:8px 10px;border-radius:8px;font-size:12px;cursor:pointer;font-family:inherit}
-.roomlist button.active{background:var(--sage);border-color:#8ca18a}
+.roomlist button.active{background:var(--sage);border-color:#7CC4EA}
 .status{padding:10px;background:white;border-radius:9px;margin-top:9px;font-size:12px;line-height:1.6}
-.status.err{background:#fbf0ec;color:#8d4b3c}
-.danger{background:transparent;color:#a15f50;border:0;cursor:pointer;font-size:13px;font-family:inherit}
+.status.err{background:#FEF2F2;color:#B42318}
+.danger{background:transparent;color:#D93F3F;border:0;cursor:pointer;font-size:13px;font-family:inherit}
 .footer{border-top:1px solid var(--line);padding:22px;text-align:center;color:var(--muted);font-size:11px}
-.tag{display:inline-block;font-size:10px;font-weight:800;padding:3px 7px;border-radius:6px;background:#eef1e8;color:#4c6250;white-space:nowrap}
-.tag.warn{background:#fdf1e3;color:#96632c}.tag.bad{background:#fbece8;color:#94483a}.tag.mute{background:#f0f0ec;color:#7b817a}
+.tag{display:inline-block;font-size:10px;font-weight:800;padding:3px 7px;border-radius:6px;background:#E8F4FD;color:#0369A1;white-space:nowrap}
+.tag.warn{background:#FFF6E7;color:#B45309}.tag.bad{background:#FDECEC;color:#C02626}.tag.mute{background:#F1F4F8;color:#6B7684}
 .fpgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:7px;margin-top:9px}
 .fpcard{padding:0;border:1px solid var(--line);border-radius:10px;background:white;overflow:hidden;cursor:pointer;text-align:left;font:inherit}
-.fpcard img{width:100%;height:80px;object-fit:cover;display:block;background:#eee}
-.fpcard span{display:block;font-size:10px;line-height:1.3;padding:5px 6px;color:#5a6258;height:34px;overflow:hidden}
+.fpcard img{width:100%;height:80px;object-fit:cover;display:block;background:#EEF2F6}
+.fpcard span{display:block;font-size:10px;line-height:1.3;padding:5px 6px;color:#4E5968;height:34px;overflow:hidden}
 .fpcard:active{border-color:var(--green)}
-.spin{display:inline-block;width:11px;height:11px;border:2px solid #cbd3c4;border-top-color:var(--green);border-radius:50%;animation:sp .8s linear infinite;vertical-align:-1px;margin-right:6px}
+.spin{display:inline-block;width:11px;height:11px;border:2px solid #C6DEF0;border-top-color:var(--green);border-radius:50%;animation:sp .8s linear infinite;vertical-align:-1px;margin-right:6px}
 @keyframes sp{to{transform:rotate(360deg)}}
 .chips{display:flex;flex-wrap:wrap;gap:6px}
-.chip{border:1px solid #dde3d8;background:#fff;border-radius:999px;padding:8px 11px;font-size:12px;font-weight:700;color:#3f4d42;cursor:pointer;font-family:inherit;line-height:1.25;text-align:left}
+.chip{border:1px solid #D8E5EF;background:#fff;border-radius:999px;padding:8px 11px;font-size:12px;font-weight:700;color:#334155;cursor:pointer;font-family:inherit;line-height:1.25;text-align:left}
 .chip:active{background:var(--sage)}.chip .cs{display:block;font-size:10px;font-weight:500;color:var(--muted)}
-.chip.on{background:var(--green);color:#fff;border-color:var(--green)}.chip.on .cs{color:#dfe7da}
+.chip.on{background:var(--green);color:#fff;border-color:var(--green)}.chip.on .cs{color:#D6ECFA}
 .seg{display:grid;grid-template-columns:1fr 1fr;gap:5px;margin:4px 0 8px}
 .seg.four{grid-template-columns:repeat(4,1fr)}
-.seg button{border:1px solid var(--line);background:#fff;border-radius:8px;padding:8px 4px;font-size:11.5px;font-weight:700;color:#4a544a;cursor:pointer;font-family:inherit}
+.seg button{border:1px solid var(--line);background:#fff;border-radius:8px;padding:8px 4px;font-size:11.5px;font-weight:700;color:#4E5968;cursor:pointer;font-family:inherit}
 .seg button.on{background:var(--green);color:#fff;border-color:var(--green)}
-.mini{border:1px solid var(--line);background:#fff;border-radius:8px;padding:8px 6px;font-size:12px;font-weight:700;color:#414b41;cursor:pointer;font-family:inherit}
+.mini{border:1px solid var(--line);background:#fff;border-radius:8px;padding:8px 6px;font-size:12px;font-weight:700;color:#334155;cursor:pointer;font-family:inherit}
 .mini:active{background:var(--sage)}.mini.wide2{grid-column:1/-1}
 .nudge{display:grid;grid-template-columns:repeat(3,1fr);gap:5px;margin:6px 0}
 .nud{display:grid;gap:5px;grid-template-columns:1fr 1fr}
 .selhead{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:8px}
 .itm{display:flex;justify-content:space-between;align-items:center;gap:6px;background:#fff;border:1px solid var(--line);border-radius:9px;padding:7px 9px;margin:4px 0;font-size:12px;cursor:pointer}
-.itm.on{border-color:#8ca18a;background:var(--sage)}
+.itm.on{border-color:#7CC4EA;background:var(--sage)}
 .fitgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;margin:10px 0}
 .fitbox{background:#fff;border:1px solid var(--line);border-radius:12px;padding:9px 6px;text-align:center}
 .fitbox b{display:block;font-size:19px;line-height:1.2}.fitbox span{font-size:10.5px;color:var(--muted);font-weight:700}
 .fitbox.ok b{color:var(--green)}.fitbox.warn b{color:var(--amber)}.fitbox.bad b{color:var(--bad)}
-.rsec{background:#fff;border:1px solid var(--line);border-radius:14px;padding:13px 14px;margin-top:10px}
+.rsec{background:#fff;border:1px solid var(--line);border-radius:14px;padding:13px 14px;margin-top:10px;box-shadow:0 1px 2px #0F172A08}
 .rsec h3{font-size:14px;margin:0 0 8px;display:flex;justify-content:space-between;align-items:center}
 .rsec h3 .small{font-weight:500}
-.ritem{padding:8px 0;border-top:1px solid #f1f1ea;font-size:13px}
+.ritem{padding:8px 0;border-top:1px solid #EFF3F7;font-size:13px}
 .ritem:first-of-type{border-top:0}
 .ritem .rn{font-weight:750}
-.ritem .rr{display:block;font-size:11.5px;color:#7c837a;margin-top:2px;line-height:1.5}
+.ritem .rr{display:block;font-size:11.5px;color:#6B7684;margin-top:2px;line-height:1.5}
 .ritem .rec{display:block;font-size:11.5px;color:var(--amber);margin-top:3px;font-weight:650}
 .tabbar{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:5px;margin:0 0 12px;position:sticky;top:0;background:var(--paper);padding:6px 0 8px;z-index:6}
-.tabbar button{min-width:0;border:1px solid var(--line);background:#fff;color:#4d574d;border-radius:10px;padding:10px 4px;font-size:12.5px;font-weight:800;cursor:pointer;font-family:inherit;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tabbar button{min-width:0;border:1px solid var(--line);background:#fff;color:#4E5968;border-radius:10px;padding:10px 4px;font-size:12.5px;font-weight:800;cursor:pointer;font-family:inherit;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .tabbar button.on{background:var(--green);color:#fff;border-color:var(--green)}
 .tabpane{display:none}.tabpane.active{display:block}
 .room-layout[hidden]{display:none!important}
@@ -84,10 +84,10 @@ canvas{background:white;touch-action:none;max-width:100%;display:block;border-ra
 .stage{position:sticky;top:6px;align-self:start;min-width:0}
 .roomchips{display:flex;gap:6px;overflow-x:auto;padding:2px 0 8px;scrollbar-width:none}
 .roomchips::-webkit-scrollbar{display:none}
-.roomchips button{white-space:nowrap;border:1px solid var(--line);background:#fff;border-radius:999px;padding:7px 12px;font-size:12px;font-weight:700;color:#4a544a;font-family:inherit;cursor:pointer}
+.roomchips button{white-space:nowrap;border:1px solid var(--line);background:#fff;border-radius:999px;padding:7px 12px;font-size:12px;font-weight:700;color:#4E5968;font-family:inherit;cursor:pointer}
 .roomchips button.on{background:var(--green);color:#fff;border-color:var(--green)}
-.legend{font-size:10.5px;color:#8b9088;margin-top:6px;line-height:1.6}
-.legend i{display:inline-block;width:11px;height:8px;border-radius:2px;margin-right:3px;vertical-align:-1px;border:1px solid #b9c4b3}
+.legend{font-size:10.5px;color:#8A97A6;margin-top:6px;line-height:1.6}
+.legend i{display:inline-block;width:11px;height:8px;border-radius:2px;margin-right:3px;vertical-align:-1px;border:1px solid #C9D8E4}
 .detail{width:min(1120px,calc(100% - 20px));padding:0;overflow:hidden;height:auto}
 .dwrap{display:flex;flex-direction:column;max-height:90dvh}
 .dhead{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;padding:16px 18px 10px;border-bottom:1px solid var(--line);background:#fff;flex:0 0 auto}
@@ -101,21 +101,21 @@ canvas{background:white;touch-action:none;max-width:100%;display:block;border-ra
 .phead{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:10px 12px;border-bottom:1px solid var(--line);flex:0 0 auto;flex-wrap:wrap}
 .phead b{font-size:14px}
 .phead .actions{margin-left:auto;display:flex;gap:5px;align-items:center;flex-wrap:nowrap}
-.pbody{overflow:auto;background:#f2f1ec;padding:10px;flex:1 1 auto;min-height:0;display:block;-webkit-overflow-scrolling:touch}
+.pbody{overflow:auto;background:#F1F5F9;padding:10px;flex:1 1 auto;min-height:0;display:block;-webkit-overflow-scrolling:touch}
 .pstage{position:relative;width:100%;min-width:0;margin:0 auto}
 .pstage img{display:block;width:100%;height:auto;border-radius:6px;background:#fff}
-.phot{position:absolute;border:1.5px solid #536c58cc;background:#536c5822;border-radius:8px;padding:2px;cursor:pointer;color:#2b3a2e;font:inherit;overflow:hidden;display:flex;align-items:center;justify-content:center}
+.phot{position:absolute;border:1.5px solid #0284C7CC;background:#0284C71F;border-radius:8px;padding:2px;cursor:pointer;color:#0B4A6F;font:inherit;overflow:hidden;display:flex;align-items:center;justify-content:center}
 .phot span{font-size:11px;font-weight:800;background:#ffffffdd;border-radius:5px;padding:1px 5px;max-width:94%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.phot.on{border-color:#a8792f;border-width:2.5px;background:#a8792f33}
+.phot.on{border-color:#B45309;border-width:2.5px;background:#B4530933}
 .ppin{position:absolute;transform:translate(-50%,-50%);display:flex;align-items:center;gap:4px;border:0;background:transparent;cursor:pointer;padding:0}
-.ppin::before{content:'';width:11px;height:11px;border-radius:50%;background:#536c58;box-shadow:0 0 0 3px #ffffffcc;flex:0 0 auto}
-.ppin span{font-size:10.5px;font-weight:800;background:#ffffffee;border-radius:5px;padding:1px 5px;white-space:nowrap;border:1px solid #d8ddd2}
-.ppin.on::before{background:#a8792f}
+.ppin::before{content:'';width:11px;height:11px;border-radius:50%;background:#0284C7;box-shadow:0 0 0 3px #ffffffcc;flex:0 0 auto}
+.ppin span{font-size:10.5px;font-weight:800;background:#ffffffee;border-radius:5px;padding:1px 5px;white-space:nowrap;border:1px solid #D6E4EF}
+.ppin.on::before{background:#B45309}
 .pstage.pinning{cursor:crosshair}
 .pstage.pinning .phot,.pstage.pinning .ppin{pointer-events:none}
 .pfoot{display:flex;gap:5px;overflow-x:auto;padding:8px 10px;border-top:1px solid var(--line);background:#fff;flex-wrap:nowrap;scrollbar-width:none;-webkit-overflow-scrolling:touch}
 .pfoot::-webkit-scrollbar{display:none}
-.pfoot button{white-space:nowrap;border:1px solid var(--line);background:#fff;border-radius:999px;padding:7px 11px;font-size:11.5px;font-weight:700;color:#4a544a;font-family:inherit;cursor:pointer}
+.pfoot button{white-space:nowrap;border:1px solid var(--line);background:#fff;border-radius:999px;padding:7px 11px;font-size:11.5px;font-weight:700;color:#4E5968;font-family:inherit;cursor:pointer}
 .pfoot button.on{background:var(--green);color:#fff;border-color:var(--green)}
 .mini.on{background:var(--green);color:#fff;border-color:var(--green)}
 .cmpdlg{width:min(620px,calc(100% - 16px));padding:0;overflow:hidden}
@@ -123,20 +123,20 @@ canvas{background:white;touch-action:none;max-width:100%;display:block;border-ra
 .cmpbody{padding:12px 14px 16px;overflow:auto;min-width:0}
 table.cmpt{width:100%;border-collapse:collapse;font-size:12.5px}
 table.cmpt th,table.cmpt td{border-bottom:1px solid var(--line);padding:7px 4px;text-align:center}
-table.cmpt td:first-child,table.cmpt th:first-child{text-align:left;color:#5d6659;font-weight:700}
-table.cmpt th{font-size:11.5px;color:#7b817a;font-weight:800}
-table.cmpt td.best{background:#eef4ea;font-weight:800;color:#3d5a43}
-.cmpverdict{margin-top:12px;background:#fbfaf7;border:1px solid var(--line);border-radius:10px;padding:10px 12px;font-size:12.5px;line-height:1.55}
+table.cmpt td:first-child,table.cmpt th:first-child{text-align:left;color:#4E5968;font-weight:700}
+table.cmpt th{font-size:11.5px;color:#6B7684;font-weight:800}
+table.cmpt td.best{background:#E8F4FD;font-weight:800;color:#0369A1}
+.cmpverdict{margin-top:12px;background:#FBFDFF;border:1px solid var(--line);border-radius:10px;padding:10px 12px;font-size:12.5px;line-height:1.55}
 .cmpverdict b{color:var(--green)}
 .planbar{display:flex;gap:5px;align-items:center;margin:0 0 6px;flex-wrap:wrap}
 .planbar .mini{padding:6px 10px;font-size:11.5px}
 .dfoot{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:10px 18px;border-top:1px solid var(--line);background:#fff;flex:0 0 auto;flex-wrap:wrap;max-width:100%;box-sizing:border-box;min-width:0}
 .dfoot .btn,.dfoot .danger{min-width:0;flex:0 1 auto}
 .dfoot .btn{padding:9px 14px}
-.toast{position:fixed;left:50%;bottom:26px;transform:translateX(-50%) translateY(8px);background:#282b28f2;color:#fff;padding:11px 17px;border-radius:11px;font-size:13px;z-index:99;opacity:0;transition:.18s;pointer-events:none;max-width:88vw;text-align:center}
+.toast{position:fixed;left:50%;bottom:26px;transform:translateX(-50%) translateY(8px);background:#191F28F2;color:#fff;padding:11px 17px;border-radius:11px;font-size:13px;z-index:99;opacity:0;transition:.18s;pointer-events:none;max-width:88vw;text-align:center}
 .toast.on{opacity:1;transform:translateX(-50%) translateY(0)}
-.calnote{background:#fff8e8;border:1px solid #eadfc0;color:#7d6425;border-radius:8px;padding:8px;font-size:11.5px;margin-top:7px;line-height:1.5}
-@media(min-width:821px){.stage{position:sticky;top:6px}}
+.calnote{background:#FFF8E7;border:1px solid #F1DFB6;color:#8A5A00;border-radius:8px;padding:8px;font-size:11.5px;margin-top:7px;line-height:1.5}
+@media(min-width:821px){.stage{position:sticky;top:6px}.dbody{padding-top:0}.tabbar{margin:0 0 12px;padding-top:14px}}
 @media(max-width:820px){
   html,body{max-width:100%;overflow-x:hidden}
   .wrap{padding:14px}.hero{padding:22px;flex-direction:column;align-items:flex-start}.hero>div:last-child{display:none}
@@ -221,10 +221,68 @@ html.is-mobile .fitgrid{grid-template-columns:repeat(4,1fr);gap:5px}
 html.is-mobile .fitbox b{font-size:16px}
 html.is-mobile .fitbox span{font-size:9.5px}
 html.is-mobile .rsec{padding:11px}
+
+/* ---------- 2026-11 화이트 리디자인 · 프롭테크 2모드 ---------- */
+.rhead{display:flex;justify-content:space-between;align-items:flex-end;gap:10px;flex-wrap:wrap;padding-bottom:10px}
+.rhead h2{margin:2px 0 3px;font-size:21px;letter-spacing:-.4px}
+.rhead .ract{display:flex;gap:6px;flex-wrap:wrap}
+.ohou{display:inline-flex;align-items:center;gap:4px;font-size:11.5px;font-weight:800;color:#0369A1;background:#EFF8FE;border:1px solid #CFE8F9;border-radius:999px;padding:5px 10px;text-decoration:none;margin-top:6px;line-height:1.3;font-family:inherit}
+.ohou:active{background:#DBEFFC}
+.ohourow{display:flex;flex-wrap:wrap;gap:6px;margin-top:7px}
+.ohourow .ohou{margin-top:0}
+.rimid{display:inline-block;font-size:11px;font-weight:800;color:#0369A1;background:#F1F9FF;border-radius:6px;padding:2px 6px;margin-left:5px}
+.fitbuy{margin-top:9px;background:#F1F9FF;border:1px solid #CFE8F9;border-radius:10px;padding:9px 10px;font-size:11.5px;line-height:1.55;color:#334155}
+.fitbuy b{color:#0F172A}
+.agentcard{background:#fff;border:1px solid var(--line);border-radius:16px;padding:14px;margin-top:12px;box-shadow:var(--shadow)}
+.aghead{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.aghead b{font-size:14.5px;display:block;line-height:1.35}
+.aghead .small{display:block}
+.switch{position:relative;flex:0 0 auto;width:48px;height:28px;border-radius:999px;border:1px solid #D9E4EE;background:#E6EDF4;cursor:pointer;padding:0;transition:.18s;font-family:inherit}
+.switch i{position:absolute;top:3px;left:3px;width:20px;height:20px;border-radius:50%;background:#fff;box-shadow:0 1px 3px #0F172A33;transition:.18s}
+.switch.on{background:linear-gradient(180deg,#0EA5E9,#0284C7);border-color:#0284C7}
+.switch.on i{left:23px}
+.agentfields{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-top:11px}
+.agentfields label{display:block;font-size:11.5px;color:#4E5968;font-weight:700}
+.agentfields input,.agentfields textarea{display:block;width:100%;padding:9px 10px;border:1px solid #DCE6EF;border-radius:9px;margin-top:4px;background:#fff;font:inherit;font-size:13px;color:var(--ink)}
+.agentfields .wide{grid-column:1/-1}
+.agentfields textarea{min-height:64px;resize:vertical;line-height:1.5}
+.agentbadge{display:flex;align-items:center;gap:10px;background:linear-gradient(135deg,#F2FAFF,#E7F5FE);border:1px solid #CFE8F9;border-left:4px solid #0EA5E9;border-radius:12px;padding:10px 12px;margin-top:10px}
+.agentbadge .abm{flex:0 0 auto;width:34px;height:34px;border-radius:10px;background:linear-gradient(145deg,#38BDF8,#0284C7);color:#fff;display:grid;place-items:center;font-size:16px}
+.agentbadge .abt{min-width:0;flex:1 1 auto}
+.agentbadge .abt b{display:block;font-size:13px;line-height:1.35;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.agentbadge .abt span{display:block;font-size:11.5px;color:#4E5968;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.agentnote{margin-top:8px;background:#fff;border:1px dashed #CFE8F9;border-radius:10px;padding:10px 12px;font-size:12.5px;line-height:1.6;white-space:pre-wrap;color:#334155}
+.agentnote b{display:block;font-size:11px;color:#0369A1;letter-spacing:.4px;margin-bottom:3px}
+.movecard{background:#fff;border:1px solid var(--line);border-radius:14px;padding:14px;margin-top:10px;box-shadow:0 1px 2px #0F172A08}
+.movecard h3{font-size:14px;margin:0 0 9px;display:flex;justify-content:space-between;align-items:center;gap:8px}
+.mvtop{display:flex;align-items:center;gap:9px;flex-wrap:wrap;margin-bottom:8px}
+.mvbadge{display:inline-flex;align-items:center;gap:5px;font-size:11.5px;font-weight:800;border-radius:999px;padding:5px 10px;line-height:1.3}
+.mvbadge.need{background:#FFF3E2;color:#A15206;border:1px solid #F6DDBB}
+.mvbadge.no{background:#E7F8F4;color:#0B7A6B;border:1px solid #C3EDE4}
+.mvfacts{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin:8px 0}
+.mvfact{background:#F7FAFD;border:1px solid #E7EFF6;border-radius:10px;padding:8px 6px;text-align:center}
+.mvfact b{display:block;font-size:16px;line-height:1.25;color:#0F172A}
+.mvfact span{font-size:10.5px;color:var(--muted);font-weight:700}
+.mvcheck{margin:6px 0 0;padding:0;list-style:none}
+.mvcheck li{position:relative;padding:5px 0 5px 15px;font-size:12px;line-height:1.55;color:#334155;border-top:1px solid #F1F5F9}
+.mvcheck li:first-child{border-top:0}
+.mvcheck li:before{content:'·';position:absolute;left:3px;top:4px;color:#0EA5E9;font-weight:900}
+.mvlinks{display:flex;gap:6px;flex-wrap:wrap;margin-top:9px}
+.cmpsearch{display:inline-flex;align-items:center;gap:5px;font-size:11.5px;font-weight:800;color:#334155;background:#fff;border:1px solid #DCE6EF;border-radius:999px;padding:7px 11px;text-decoration:none}
+.cmpsearch:active{background:#F1F6FA}
+.carddlg{width:min(560px,calc(100% - 16px));padding:0;overflow:hidden}
+.cardwrap{display:flex;flex-direction:column;max-height:92dvh;min-width:0}
+.cardbody{padding:10px 12px 14px;overflow:auto;background:#F1F5F9;min-width:0}
+.cardbody img{display:block;width:100%;height:auto;border-radius:10px;box-shadow:0 6px 22px #0F172A1F;background:#fff}
+@media(max-width:820px){.agentfields{grid-template-columns:1fr}.rhead .ract{width:100%}.rhead .ract .btn{flex:1 1 auto}.mvfacts{grid-template-columns:repeat(3,1fr)}.ohou{font-size:11px}}
+html.is-mobile .agentfields{grid-template-columns:1fr}
+html.is-mobile .rhead .ract{width:100%}
+html.is-mobile .rhead .ract .btn{flex:1 1 auto}
+html.is-mobile .carddlg{width:calc(100% - 10px);max-width:calc(100% - 10px);padding:0}
 </style></head><body>
 <header class="top"><div class="brand"><span class="mark">이</span>이사핏</div><div class="actions"><button class="btn alt" id="export">백업</button><label class="btn alt">불러오기<input id="import" type="file" accept="application/json" hidden></label></div></header>
 <main class="wrap">
-<section class="hero"><div><span class="eyebrow">MOVE WITH A PLAN</span><h1>이사 가기 전에,<br><em>내 가구가 들어갈지 먼저 확인해요.</em></h1><p>아파트 단지를 고르면 평면도를 찾아 방과 치수를 채우고,<br>문 여닫힘과 동선까지 검사해 이사 결정을 도와드려요.</p><button class="btn" id="newProject">＋ 새 이사 프로젝트</button></div><div style="font-size:100px;color:#81927e">⌂</div></section>
+<section class="hero"><div><span class="eyebrow">MOVE WITH A PLAN</span><h1>이사 가기 전에,<br><em>내 가구가 들어갈지 먼저 확인해요.</em></h1><p>아파트 단지를 고르면 평면도를 찾아 방과 치수를 채우고,<br>문 여닫힘과 동선까지 검사해 이사 결정을 도와드려요.</p><button class="btn" id="newProject">＋ 새 이사 프로젝트</button></div><div style="font-size:100px;color:#CFE8F9">⌂</div></section>
 <section><div class="head"><div><span class="eyebrow">MY MOVE</span><h2>나의 이사 프로젝트</h2></div><span class="muted" id="count">0개</span></div><div id="projects" class="grid"></div><div id="emptyP" class="empty">아직 등록한 프로젝트가 없어요. 첫 이사 프로젝트를 만들어 보세요.</div></section>
 <section><div class="head"><div><span class="eyebrow">MY FURNITURE</span><h2>내 가구 보관함</h2></div><button class="btn alt" id="newFurniture">＋ 직접 입력</button></div>
 <div class="panel" style="background:#fff"><h3>자로 재지 말고 한 번에 등록</h3><div class="chips" id="presetStrip"></div><p class="small" style="margin:8px 0 0">한국 표준 치수와 실사용 여유 공간(문 열림·의자 빼기·통로)이 함께 등록돼요.</p></div>
@@ -235,6 +293,7 @@ html.is-mobile .rsec{padding:11px}
 <dialog class="dialog detail" id="detail"><div id="detailContent" class="dwrap"></div></dialog>
 <dialog class="dialog planmodal" id="planDialog"><div class="pwrap"><div class="phead"><div><b>전체 평면도</b><br><span class="small" id="planMeta"></span></div><div class="actions"><button class="mini" id="planPin">방 위치 찍기</button><button class="mini" id="planZoomOut">−</button><span class="small" id="planZoomLbl">100%</span><button class="mini" id="planZoomIn">＋</button><button class="mini" id="planZoomFit">맞춤</button><button class="btn alt" id="planClose">닫기</button></div></div><div class="pbody" id="planBody"><div class="pstage" id="planStage"><img id="planImg" alt="전체 평면도"><div id="planHot" style="position:absolute;inset:0"></div></div></div><div class="pfoot" id="planRooms"></div></div></dialog>
 <dialog class="dialog cmpdlg" id="cmpDialog"><div class="cmpwrap"><div class="phead"><div><b>A안 vs B안 비교</b><br><span class="small" id="cmpMeta"></span></div><div class="actions"><button class="btn alt" id="cmpClose">닫기</button></div></div><div class="cmpbody" id="cmpBody"></div></div></dialog>
+<dialog class="dialog carddlg" id="cardDialog"><div class="cardwrap"><div class="phead"><div><b>이사 적합성 요약 카드</b><br><span class="small" id="cardHint">PNG 한 장으로 저장·공유</span></div><div class="actions"><button class="btn" id="cardSave">저장·공유</button><button class="btn alt" id="cardClose">닫기</button></div></div><div class="cardbody"><img id="cardImg" alt="이사 적합성 요약 카드"></div></div></dialog>
 <footer class="footer">이사핏 · 데이터는 현재 브라우저에 저장됩니다. 실제 치수와 현장 조건은 별도로 확인해 주세요.</footer>
 <div class="toast" id="toast"></div>
 <script>
@@ -354,12 +413,14 @@ function fixItem(it){
 function normalize(){
   data.projects=Array.isArray(data.projects)?data.projects:[];
   data.furniture=Array.isArray(data.furniture)?data.furniture:[];
+  const ag=(data.agent&&typeof data.agent==='object')?data.agent:{};
+  data.agent={on:!!ag.on,office:String(ag.office||''),name:String(ag.name||''),phone:String(ag.phone||''),comment:String(ag.comment||'')};
   data.furniture.forEach(f=>{
     if(!f.type)f.type='기타';
     if(!f.clr)f.clr={...(TYPE_CLR[f.type]||TYPE_CLR['기타'])};
   });
   data.projects.forEach(p=>{
-    /* 반입 경로(현관문·엘리베이터) 기본값 폴백 — 예전 프로젝트도 안전하게 열림 */
+    /* 반입 경로(현관문·엘리베이터) 기본값 폴백 — 예전 프로젝트도 안전하게 열린다 */
     const pe=(p.entry&&typeof p.entry==='object')?p.entry:{};
     const legacyW=num(p.entryWidth,0);
     p.entry={w:dim(num(pe.w,0))?Math.round(num(pe.w,0)):(dim(legacyW)?Math.round(legacyW):850),h:dim(num(pe.h,0))?Math.round(num(pe.h,0)):2000};
@@ -538,7 +599,7 @@ function renderDetail(){
           <select id="fselect"><option value="">가구 선택</option>${data.furniture.map(f=>'<option value="'+f.id+'">'+esc(f.name)+' · '+f.w+'×'+f.d+'</option>').join('')}</select>
           <button class="btn" id="place" style="width:100%" ${data.furniture.length?'':'disabled'}>선택한 가구 배치</button>
         </div>
-        <div id="selPanelWrap">${selPanelHTML(sel,evs.get(selected))}</div>
+        <div id="selPanelWrap">${selPanelHTML(sel,evs.get(selected),r)}</div>
         <div class="panel"><h3>이 방의 가구 <span class="small">${r.items.length}개</span></h3><div id="itemList">${itemListHTML(r,p)}</div>
           <button class="btn alt" id="fitRoom" style="width:100%;margin-top:7px">방 밖으로 나간 가구 안으로</button>
         </div>
@@ -551,7 +612,7 @@ function renderDetail(){
       <div class="planbar"><button class="mini ${planOf(r)==='A'?'on':''}" data-plan="A">A안</button><button class="mini ${planOf(r)==='B'?'on':''}" data-plan="B">B안</button><button class="mini" id="copyPlan">${planOf(r)==='A'?'A→B':'B→A'} 복사</button><button class="mini" id="cmpPlan">A안 vs B안 비교</button></div>
       <div class="canvasbox"><canvas id="floor"></canvas></div>
       </div>
-      <div class="legend">실선 <i style="background:#e5eadd"></i>가구 본체 · 점선 <i style="background:#dbe6d6;border-style:dashed"></i>필수 여유 공간 · <i style="background:#f0e3c6;border-style:dashed"></i>문 여닫이 반경 · <i style="background:#a9cee4"></i>창문 · <i style="background:#fdf3d6;border-color:#b0863a"></i>콘센트</div>
+      <div class="legend">실선 <i style="background:#E9F2FA"></i>가구 본체 · 점선 <i style="background:#DDF0F9;border-style:dashed"></i>필수 여유 공간 · <i style="background:#E3F2FC;border-style:dashed"></i>문 여닫이 반경 · <i style="background:#7DD3FC"></i>창문 · <i style="background:#FFF7E6;border-color:#D97706"></i>콘센트</div>
       <div id="roomreport" class="status"></div>
       <div class="actions" style="margin-top:8px"><button class="btn alt" id="check">이 방 상세 검사</button><button class="btn alt" id="showAll">전체 여유 공간 표시</button></div>
     </section>
@@ -567,10 +628,14 @@ function renderDetail(){
 let detailFlash='';
 let showAllClr=false;
 
-function selPanelHTML(it,ev){
+function selPanelHTML(it,ev,r){
   if(!it)return '<div class="panel"><h3>선택한 가구</h3><p class="small">캔버스에서 가구를 누르면 위치·크기·여유 공간을 조정할 수 있어요. 점선이 필수 여유 공간이에요.</p></div>';
   const st=STATUS[ev?ev.status:'ok'];
   const c=it.clr||{};
+  const fit=r?roomFit(r,it.id):null;
+  const buy=(fit&&ev&&ev.status!=='ok')
+    ? '<div class="fitbuy">이 가구를 빼면 이 방에 <b>가로 '+fit.w.toLocaleString()+'mm</b> × 세로 '+fit.h.toLocaleString()+'mm 까지 들어가요.<br>'+ohouLink(it.type,fit.w)+'</div>'
+    : '';
   return `<div class="panel" id="selPanel"><h3>선택한 가구</h3>
   <div class="selhead"><b>${esc(it.name)}</b><span class="tag ${st.c}">${st.t}</span></div>
   <div class="row2"><div><label class="small">X(mm)</label><input id="itemX" type="number" value="${Math.round(it.x)}"></div><div><label class="small">Y(mm)</label><input id="itemY" type="number" value="${Math.round(it.y)}"></div></div>
@@ -584,7 +649,8 @@ function selPanelHTML(it,ev){
   <div class="row2"><div><label class="small">왼쪽</label><input id="clrLeft" type="number" value="${num(c.left,0)}"></div><div><label class="small">오른쪽</label><input id="clrRight" type="number" value="${num(c.right,0)}"></div></div>
   <button class="mini" id="applyClr" style="width:100%;margin-top:5px">여유 공간 적용</button>
   <div id="selReasons" style="margin-top:8px">${ev&&ev.reasons.length?'<p class="small">'+ev.reasons.map(x=>'· '+esc(x.text)).join('<br>')+'</p>':'<p class="small">이 자리에서는 필요한 여유 공간이 모두 확보돼요.</p>'}</div>
-  ${ev&&ev.notes&&ev.notes.length?'<p class="small" style="margin:6px 0 0;color:#a8792f">'+ev.notes.map(x=>'· '+esc(x)).join('<br>')+'</p>':''}
+  ${ev&&ev.notes&&ev.notes.length?'<p class="small" style="margin:6px 0 0;color:#D97706">'+ev.notes.map(x=>'· '+esc(x)).join('<br>')+'</p>':''}
+  ${buy}
   </div>`;
 }
 function itemListHTML(r,p){
@@ -595,7 +661,7 @@ function refreshFurnPanes(){
   const p=project(),r=room();if(!p||!r)return;
   const evs=roomEvals(r,p);
   const sel=r.items.find(i=>i.id===selected);
-  const w=$('#selPanelWrap');if(w)w.innerHTML=selPanelHTML(sel,evs.get(selected));
+  const w=$('#selPanelWrap');if(w)w.innerHTML=selPanelHTML(sel,evs.get(selected),r);
   const il=$('#itemList');if(il)il.innerHTML=itemListHTML(r,p);
   bindFurn();roomSummary();
   draw();
@@ -890,17 +956,17 @@ function paintRoom(ctx,p,r,W,H,sc,opt){
     const dw=im.naturalWidth*s,dh=im.naturalHeight*s;
     ctx.save();ctx.globalAlpha=.45;ctx.drawImage(im,(W-dw)/2,(H-dh)/2,dw,dh);ctx.restore();
   }
-  ctx.strokeStyle='#f0f2ec';ctx.lineWidth=1;
+  ctx.strokeStyle='#EEF3F8';ctx.lineWidth=1;
   for(let a=20;a<W;a+=20){ctx.beginPath();ctx.moveTo(a+.5,0);ctx.lineTo(a+.5,H);ctx.stroke()}
   for(let b=20;b<H;b+=20){ctx.beginPath();ctx.moveTo(0,b+.5);ctx.lineTo(W,b+.5);ctx.stroke()}
   /* 외벽 */
-  ctx.strokeStyle='#5d6b5f';ctx.lineWidth=4;ctx.strokeRect(2,2,Math.max(1,W-4),Math.max(1,H-4));
+  ctx.strokeStyle='#334155';ctx.lineWidth=4;ctx.strokeRect(2,2,Math.max(1,W-4),Math.max(1,H-4));
   const g=doorGeom(r);
   /* 문틈 */
   ctx.save();ctx.strokeStyle='#fff';ctx.lineWidth=7;
   ctx.beginPath();ctx.moveTo(g.gap.x1*sc,g.gap.y1*sc);ctx.lineTo(g.gap.x2*sc,g.gap.y2*sc);ctx.stroke();
   ctx.restore();
-  ctx.save();ctx.strokeStyle='#87957f';ctx.lineWidth=2;
+  ctx.save();ctx.strokeStyle='#94A3B8';ctx.lineWidth=2;
   [[g.gap.x1,g.gap.y1],[g.gap.x2,g.gap.y2]].forEach(pt=>{
     ctx.beginPath();
     if(g.wall==='bottom'||g.wall==='top'){ctx.moveTo(pt[0]*sc,pt[1]*sc-5);ctx.lineTo(pt[0]*sc,pt[1]*sc+5)}
@@ -920,11 +986,11 @@ function paintRoom(ctx,p,r,W,H,sc,opt){
   ctx.beginPath();
   g.poly.forEach((pt,i)=>{const X=pt.x*sc,Y=pt.y*sc;i?ctx.lineTo(X,Y):ctx.moveTo(X,Y)});
   ctx.closePath();
-  ctx.fillStyle='rgba(214,183,110,.16)';ctx.fill();
-  ctx.setLineDash([4,4]);ctx.lineWidth=1;ctx.strokeStyle='rgba(158,126,58,.55)';ctx.stroke();
+  ctx.fillStyle='rgba(14,165,233,.10)';ctx.fill();
+  ctx.setLineDash([4,4]);ctx.lineWidth=1;ctx.strokeStyle='rgba(14,165,233,.45)';ctx.stroke();
   ctx.restore();
   ctx.save();
-  ctx.strokeStyle='rgba(160,130,62,.85)';ctx.lineWidth=1.2;
+  ctx.strokeStyle='rgba(2,132,199,.80)';ctx.lineWidth=1.2;
   ctx.beginPath();ctx.moveTo(g.hinge.x*sc,g.hinge.y*sc);ctx.lineTo(g.open.x*sc,g.open.y*sc);ctx.stroke();
   ctx.restore();
   /* 여유 공간 */
@@ -937,10 +1003,10 @@ function paintRoom(ctx,p,r,W,H,sc,opt){
       const bad=!!(ev&&ev.badSides&&ev.badSides.includes(b.side));
       ctx.save();
       ctx.globalAlpha=isSel?1:.55;
-      ctx.fillStyle=bad?'rgba(209,150,90,.26)':'rgba(120,160,120,.18)';
+      ctx.fillStyle=bad?'rgba(245,158,11,.20)':'rgba(13,148,136,.12)';
       ctx.fillRect(b.x*sc,b.y*sc,b.w*sc,b.h*sc);
       ctx.setLineDash([5,4]);ctx.lineWidth=isSel?1.3:1;
-      ctx.strokeStyle=bad?'rgba(170,110,40,.8)':'rgba(90,130,95,.65)';
+      ctx.strokeStyle=bad?'rgba(217,119,6,.75)':'rgba(13,148,136,.55)';
       ctx.strokeRect(b.x*sc+.5,b.y*sc+.5,Math.max(.5,b.w*sc),Math.max(.5,b.h*sc));
       ctx.restore();
     });
@@ -951,8 +1017,8 @@ function paintRoom(ctx,p,r,W,H,sc,opt){
     const fp=footprint(it);
     const X=fp.x*sc,Y=fp.y*sc,FW=Math.max(1,fp.w*sc),FH=Math.max(1,fp.h*sc);
     const sel=opt.selected===it.id;
-    const fill=st==='blocked'?'#f4d7cf':st==='carry'?'#f6e4c4':sel?'#cbd9c7':'#e5eadd';
-    const line=st==='blocked'?'#a14b3a':st==='carry'?'#a8792f':sel?'#4d6b52':'#8a9a88';
+    const fill=st==='blocked'?'#FDE8E8':st==='carry'?'#FFF4DE':sel?'#BFE3F8':'#E9F2FA';
+    const line=st==='blocked'?'#DC2626':st==='carry'?'#D97706':sel?'#0284C7':'#8CA6BC';
     ctx.fillStyle=fill;ctx.strokeStyle=line;ctx.lineWidth=sel?2:1.4;
     ctx.fillRect(X,Y,FW,FH);ctx.strokeRect(X+.5,Y+.5,FW,FH);
     const v=sideVec(it,'front');
@@ -964,7 +1030,7 @@ function paintRoom(ctx,p,r,W,H,sc,opt){
     ctx.stroke();
     if(FW>30&&FH>12){
       ctx.save();ctx.beginPath();ctx.rect(X+1,Y+1,Math.max(1,FW-2),Math.max(1,FH-2));ctx.clip();
-      ctx.fillStyle='#364437';ctx.font='600 10.5px -apple-system,"Apple SD Gothic Neo",sans-serif';
+      ctx.fillStyle='#1E293B';ctx.font='600 10.5px -apple-system,"Apple SD Gothic Neo",sans-serif';
       ctx.fillText(it.name.length>9?safeName(it.name):it.name,X+4,Y+Math.min(FH-3,13));
       ctx.restore();
     }
@@ -977,7 +1043,7 @@ function paintRoom(ctx,p,r,W,H,sc,opt){
   /* 축척 보정 점 */
   if(opt.calPts&&opt.calPts.length){
     ctx.save();
-    ctx.strokeStyle='#c0392b';ctx.fillStyle='#c0392b';ctx.lineWidth=1.5;
+    ctx.strokeStyle='#E11D48';ctx.fillStyle='#E11D48';ctx.lineWidth=1.5;
     opt.calPts.forEach(pt=>{ctx.beginPath();ctx.arc(pt.px,pt.py,4,0,7);ctx.fill()});
     if(opt.calPts.length===2){ctx.beginPath();ctx.moveTo(opt.calPts[0].px,opt.calPts[0].py);ctx.lineTo(opt.calPts[1].px,opt.calPts[1].py);ctx.stroke()}
     ctx.restore();
@@ -990,12 +1056,13 @@ function drawWindow(ctx,seg,sc){
   ctx.save();ctx.lineCap='butt';
   ctx.strokeStyle='#fff';ctx.lineWidth=10;
   ctx.beginPath();ctx.moveTo(x1,y1);ctx.lineTo(x2,y2);ctx.stroke();
-  ctx.strokeStyle='#a9cee4';ctx.lineWidth=7;
+  ctx.strokeStyle='#EAF6FD';ctx.lineWidth=8;
   ctx.beginPath();ctx.moveTo(x1,y1);ctx.lineTo(x2,y2);ctx.stroke();
-  ctx.strokeStyle='#fff';ctx.lineWidth=2.6;
-  ctx.beginPath();ctx.moveTo(x1,y1);ctx.lineTo(x2,y2);ctx.stroke();
-  const dx=x2-x1,dy=y2-y1,L=Math.hypot(dx,dy)||1,nx=-dy/L*5,ny=dx/L*5;
-  ctx.strokeStyle='#5e93b5';ctx.lineWidth=1.6;
+  const dx=x2-x1,dy=y2-y1,L=Math.hypot(dx,dy)||1,ox=-dy/L*2.6,oy=dx/L*2.6;
+  ctx.strokeStyle='#0EA5E9';ctx.lineWidth=1.5;
+  [[ox,oy],[-ox,-oy]].forEach(([ex,ey])=>{ctx.beginPath();ctx.moveTo(x1+ex,y1+ey);ctx.lineTo(x2+ex,y2+ey);ctx.stroke()});
+  const nx=-dy/L*6,ny=dx/L*6;
+  ctx.strokeStyle='#0284C7';ctx.lineWidth=1.8;
   [[x1,y1],[x2,y2]].forEach(pt=>{ctx.beginPath();ctx.moveTo(pt[0]-nx,pt[1]-ny);ctx.lineTo(pt[0]+nx,pt[1]+ny);ctx.stroke()});
   ctx.restore();
 }
@@ -1011,9 +1078,9 @@ function roundPath(ctx,x,y,w,h,r0){
 function drawOutlet(ctx,pt,sc){
   const x=pt.x*sc,y=pt.y*sc,s=13;
   ctx.save();ctx.translate(x,y);
-  ctx.fillStyle='#fdf3d6';ctx.strokeStyle='#b0863a';ctx.lineWidth=1.2;
+  ctx.fillStyle='#FFF7E6';ctx.strokeStyle='#D97706';ctx.lineWidth=1.2;
   roundPath(ctx,-s/2,-s/2,s,s,3);ctx.fill();ctx.stroke();
-  ctx.fillStyle='#8a682c';
+  ctx.fillStyle='#B45309';
   ctx.fillRect(-3.2,-3.4,1.8,4.2);ctx.fillRect(1.4,-3.4,1.8,4.2);
   ctx.beginPath();ctx.arc(0,3.4,1.4,0,7);ctx.fill();
   ctx.restore();
@@ -1116,6 +1183,71 @@ function roomSummary(){
   el.innerHTML='<b>'+esc(r.name)+'</b>'+(planOf(r)==='B'?' <span class="tag">B안</span>':'')+' '+r.w+'×'+r.d+'mm · '+(r.w*r.d/1e6).toFixed(1)+'㎡ · 가구 '+r.items.length+'개<br>배치 가능 <b>'+c.ok+'</b> · 여유 부족 <b>'+c.clearance+'</b> · 반입 위험 <b>'+c.carry+'</b> · 배치 불가 <b>'+c.blocked+'</b>'+(st?'<br>가장 큰 문제: 「'+esc(st.it.name)+'」 '+esc(st.ev.reasons[0].text):'')+ioLine(r);
 }
 
+/* ---------------- 오늘의집 맞춤 사이즈 링크 · 이사 준비 ---------------- */
+const OHOU_TYPES=['소파','침대','식탁','책상'];
+/* 그 방에 들어가는 최대 폭·깊이(mm). excludeId를 주면 그 가구를 빼고 계산해 교체 구매 폭을 구한다 */
+function roomFit(r,excludeId){
+  const src=excludeId?Object.assign({},r,{items:(r.items||[]).filter(x=>x.id!==excludeId)}):r;
+  const free=largestEmptyRect(src);
+  const fallback=Math.floor(Math.min(r.w,r.d)/10)*10;
+  let w=Math.floor(free.w/10)*10,h=Math.floor(free.h/10)*10;
+  if(!(free.area>0)||!(w>0)){w=fallback;h=Math.floor(Math.max(0,Math.min(r.w,r.d)-100)/10)*10||fallback}
+  return{w,h,area:free.area>0?Math.round(free.area/1e6*10)/10:0};
+}
+function ohouUrl(type,wmm){
+  const t=(type&&type!=='기타')?type:'가구';
+  const cm=Math.max(30,Math.floor(num(wmm,0)/100)*10);
+  return'https://ohou.se/store/search?query='+encodeURIComponent(t+' '+cm+'cm');
+}
+function ohouLink(type,wmm,label){
+  const t=(type&&type!=='기타')?type:'가구';
+  return'<a class="ohou" href="'+ohouUrl(t,wmm)+'" target="_blank" rel="noopener">'+(label||('오늘의집에서 들어가는 '+t+' 찾기'))+' ↗</a>';
+}
+function searchUrl(q){return'https://search.naver.com/search.naver?query='+encodeURIComponent(q)}
+/* 이사·사다리차 준비에 필요한 숫자만 모은다 */
+function moveOverview(p){
+  const items=[];
+  (p.rooms||[]).forEach(r=>(r.items||[]).forEach(it=>items.push({it,r,rs:carryCheck(it,r,p)})));
+  const lift=items.filter(x=>x.rs.some(t=>t.indexOf('엘리베이터')>=0));
+  const door=items.filter(x=>x.rs.some(t=>t.indexOf('현관문')>=0));
+  const roomDoor=items.filter(x=>x.rs.some(t=>t.indexOf('방문')>=0));
+  const risk=items.filter(x=>x.rs.length);
+  const kinds={};items.forEach(x=>{const t=x.it.type||'기타';kinds[t]=(kinds[t]||0)+1});
+  const el=elevatorOf(p);
+  const needCrane=lift.length>0||!el.use;
+  return{items,risk,lift,door,roomDoor,kinds,entry:entryOf(p),elevator:el,needCrane,count:items.length};
+}
+
+/* ---------------- 중개사 모드 ---------------- */
+function agentOf(){
+  if(!data.agent||typeof data.agent!=='object')data.agent={on:false,office:'',name:'',phone:'',comment:''};
+  const a=data.agent;return{on:!!a.on,office:a.office||'',name:a.name||'',phone:a.phone||'',comment:a.comment||''};
+}
+function agentCardHTML(){
+  const a=agentOf();
+  return '<div class="agentcard"><div class="aghead"><div><b>🏢 중개사 모드</b><span class="small">'+(a.on?'켜짐 · 고객에게 전달하는 브리핑 리포트로 표시돼요':'끄면 소비자용 리포트로 보여요. 켜면 사무소·담당자 서명이 붙어요')+'</span></div>'
+  +'<button class="switch'+(a.on?' on':'')+'" id="agentToggle" role="switch" aria-checked="'+(a.on?'true':'false')+'" aria-label="중개사 모드"><i></i></button></div>'
+  +(a.on?'<div class="agentfields">'
+    +'<label class="wide">중개사무소명<input id="agOffice" type="text" value="'+esc(a.office)+'" placeholder="예: 부원공인중개사사무소" autocomplete="organization"></label>'
+    +'<label>담당자<input id="agName" type="text" value="'+esc(a.name)+'" placeholder="예: 김공인" autocomplete="name"></label>'
+    +'<label>연락처<input id="agPhone" type="tel" inputmode="tel" value="'+esc(a.phone)+'" placeholder="예: 055-000-0000" autocomplete="tel"></label>'
+    +'<label class="wide">고객 전달 코멘트<textarea id="agComment" placeholder="예: 이 단지는 엘리베이터 폭이 좁아 양문형 냉장고는 사다리차 반입을 권합니다.">'+esc(a.comment)+'</textarea></label>'
+    +'</div><p class="small" style="margin:8px 0 0">입력한 내용은 이 브라우저에 저장돼 다음 리포트에서도 그대로 쓰여요.</p>':'')
+  +'</div>';
+}
+function agentBadgeHTML(){
+  const a=agentOf();if(!a.on)return'';
+  const meta=[a.name,a.phone].filter(Boolean).join(' · ');
+  return '<div class="agentbadge"><span class="abm">🏢</span><div class="abt"><b>'+esc(a.office||'중개사무소')+'</b><span>'+esc(meta||'담당자·연락처 미입력')+'</span></div><span class="small">고객 전달 브리핑</span></div>'
+  +(a.comment.trim()?'<div class="agentnote"><b>담당자 코멘트</b>'+esc(a.comment.trim())+'</div>':'');
+}
+
+function agentPrintHTML(){
+  const a=agentOf();if(!a.on)return'';
+  const meta=[a.name,a.phone].filter(Boolean).join(' · ')||'담당자·연락처 미입력';
+  return '<div class="agent"><b>'+esc(a.office||'중개사무소')+'</b> · '+esc(meta)+'</div>'+(a.comment.trim()?'<p class="agentc">'+esc(a.comment.trim())+'</p>':'');
+}
+
 /* ---------------- 의사결정 리포트 ---------------- */
 function catOf(places){
   if(!places.length)return'unplaced';
@@ -1151,7 +1283,8 @@ function pathSection(p){
   (p.rooms||[]).forEach(r=>(r.items||[]).forEach(it=>{const rs=carryCheck(it,r,p);if(rs.length)bad.push({it,r,rs})}));
   const head='현관문 '+e.w+'×'+e.h+'mm · '+(el.use?'엘리베이터 '+el.w+'×'+el.d+'×'+el.h+'mm':'엘리베이터 미사용')+' · '+(p.stairs?'계단 가능':'계단 불가')+' · '+(p.crane?'사다리차 가능':'사다리차 불가');
   const rows=bad.map(x=>'<div class="ritem"><span class="rn">'+esc(x.it.name)+'</span> <span class="tag warn">반입 위험</span><span class="rr">'+esc(x.r.name)+' · '+x.rs.map(t=>esc(t)).join('<br>')+'</span><span class="rec">'+esc(carryAdvice(x.it,x.r,p))+'</span></div>').join('');
-  return '<div class="rsec"><h3>반입 경로 — 현관문·엘리베이터 <span class="small">위험 '+bad.length+'개</span></h3><p class="small" style="margin:0 0 4px">'+esc(head)+'</p>'+(rows||'<p class="small" style="margin:0">배치한 가구 모두 현관문·엘리베이터·방문을 지나갈 수 있어요.</p>')+'</div>';
+  return '<div class="rsec"><h3>반입 경로 — 현관문·엘리베이터 <span class="small">위험 '+bad.length+'개</span></h3><p class="small" style="margin:0 0 4px">'+esc(head)+'</p>'+(rows||'<p class="small" style="margin:0">배치한 가구 모두 현관문·엘리베이터·방문을 지나갈 수 있어요.</p>')
+  +(bad.length?'<div class="mvlinks"><a class="cmpsearch" href="'+searchUrl([(p.area||'').trim(),'사다리차 포장이사 견적 비교'].filter(Boolean).join(' '))+'" target="_blank" rel="noopener">사다리차·포장이사 견적 비교 ↗</a></div>':'')+'</div>';
 }
 function decisionBody(p){
   const {groups}=decisionData(p);
@@ -1170,28 +1303,259 @@ function decisionBody(p){
   }).join(''));
   h+=sec('주의 — 들어가지만 여유가 부족해요',cau.length,cau.map(g=>{
     const bad=g.places.filter(x=>x.ev.status!=='ok');
-    return row(g.f.name,'warn','주의',bad.map(x=>esc(x.room.name)+' · '+x.ev.reasons.slice(0,2).map(r0=>esc(r0.text)).join(' / ')).join('<br>'));
+    const first=bad[0]||g.places[0];
+    const fit=first?roomFit(first.room,first.it.id):null;
+    return row(g.f.name,'warn','주의',bad.map(x=>esc(x.room.name)+' · '+x.ev.reasons.slice(0,2).map(r0=>esc(r0.text)).join(' / ')).join('<br>'),
+      fit?('<span class="rimid">'+esc(first.room.name)+' 최대 '+fit.w.toLocaleString()+'mm</span> '+ohouLink(g.f.type,fit.w)):'');
   }).join(''));
   h+=sec('처분·교체 권장 — 그대로는 어려워요',dis.length,dis.map(g=>{
     const bad=g.places.filter(x=>x.ev.status==='blocked');
     const line=(bad.length?bad:g.places).map(x=>esc(x.room.name)+' · '+x.ev.reasons.map(r0=>esc(r0.text)).join(' / ')).join('<br>');
-    return row(g.f.name,'bad','처분·교체',line,adviceFor(g,p));
+    const first=(bad[0]||g.places[0]);
+    const fit=first?roomFit(first.room,first.it.id):null;
+    const rec=adviceFor(g,p)+(fit?'<br><span class="rimid">'+esc(first.room.name)+' 기준 들어가는 최대 폭 '+fit.w.toLocaleString()+'×'+fit.h.toLocaleString()+'mm</span> '+ohouLink(g.f.type,fit.w):'');
+    return row(g.f.name,'bad','처분·교체',line,rec);
   }).join(''));
   h+=sec('아직 배치하지 않은 가구',un.length,un.map(g=>row(g.f.name,'mute','미배치',g.f.w+'×'+g.f.d+'mm · 어느 방에도 놓지 않았어요')).join(''));
-  h+=sec('새로 살 때 권장 최대 치수',roomRecs.length,roomRecs.map(({r,free})=>{
-    if(!(free.area>0))return '<div class="ritem"><span class="rn">'+esc(r.name)+'</span><span class="rr">가구로 가득 차 새 가구를 놓을 자리가 없어요.</span></div>';
+  h+=sec('새로 살 때 권장 최대 치수 · 맞춤 사이즈 찾기',roomRecs.length,roomRecs.map(({r,free})=>{
+    const fit=roomFit(r);
+    const links='<div class="ohourow">'+OHOU_TYPES.map(t=>ohouLink(t,fit.w)).join('')+'</div>';
+    if(!(free.area>0))return '<div class="ritem"><span class="rn">'+esc(r.name)+'</span> <span class="rimid">최대 '+fit.w.toLocaleString()+'mm</span><span class="rr">가구로 가득 차 새 가구를 놓을 자리가 없어요. 하나를 비우면 최대 '+fit.w.toLocaleString()+'mm 폭까지 들어가요.</span>'+links+'</div>';
     const w=Math.floor(free.w/50)*50,h2=Math.floor(free.h/50)*50;
-    return '<div class="ritem"><span class="rn">'+esc(r.name)+'</span><span class="rr">가장 큰 빈자리 '+w.toLocaleString()+'×'+h2.toLocaleString()+'mm</span><span class="rec">이 자리에는 가로 '+w.toLocaleString()+'mm 이하 가구 권장 (앞쪽 동선은 별도 확보)</span></div>';
+    return '<div class="ritem"><span class="rn">'+esc(r.name)+'</span> <span class="rimid">최대 '+fit.w.toLocaleString()+'mm</span><span class="rr">가장 큰 빈자리 '+w.toLocaleString()+'×'+h2.toLocaleString()+'mm</span><span class="rec">이 자리에는 가로 '+w.toLocaleString()+'mm 이하 가구 권장 (앞쪽 동선은 별도 확보)</span>'+links+'</div>';
   }).join(''));
   h+=sec('공간별 상세',p.rooms.length,p.rooms.map(r=>{
     const evs=roomEvals(r,p);
     const rows=r.items.map(it=>{const ev=evs.get(it.id),st=STATUS[ev.status];return row(it.name,st.c,st.t,esc(ev.reasons.map(x=>x.text).join(' / ')||'문제 없음'))}).join('');
     return '<div style="margin:8px 0 3px"><b>'+esc(r.name)+'</b> <span class="small">'+(planOf(r)==='B'?'B안 · ':'')+r.w+'×'+r.d+'mm · 가구 '+r.items.length+'개</span></div>'+(rows||'<p class="small" style="margin:0">가구 없음</p>');
   }).join(''));
+  h+=moveCard(p);
   return h;
 }
+/* 이사·사다리차 준비 요약 카드 */
+function moveCard(p){
+  const o=moveOverview(p),a=agentOf();
+  const region=(p.area||'').trim(),q1=[region,'포장이사 견적 비교'].filter(Boolean).join(' '),q2=[region,'사다리차 비용 비교'].filter(Boolean).join(' ');
+  const checks=[];
+  checks.push('현관문 '+o.entry.w+'×'+o.entry.h+'mm — '+(o.door.length?o.door.length+'개 가구가 통과하지 못해요':'배치한 가구 모두 통과'));
+  checks.push(o.elevator.use?('엘리베이터 '+o.elevator.w+'×'+o.elevator.d+'×'+o.elevator.h+'mm — '+(o.lift.length?o.lift.length+'개 가구 초과':'초과 없음')):'엘리베이터 미사용 — 계단·사다리차로만 반입');
+  checks.push('계단 '+(p.stairs?'이용 가능':'불가')+' · 사다리차 '+(p.crane?'가능':'불가')+(o.needCrane&&!p.crane?' — 사다리차 가능 여부를 먼저 확인하세요':''));
+  if(o.roomDoor.length)checks.push('방문 폭 부족 '+o.roomDoor.length+'건 — '+o.roomDoor.slice(0,3).map(x=>esc(x.it.name)).join(', '));
+  if(o.count===0)checks.push('아직 배치한 가구가 없어요. 가구를 놓으면 반입 위험을 같이 계산해요.');
+  const kindTxt=Object.keys(o.kinds).sort((x,y)=>o.kinds[y]-o.kinds[x]).map(k=>k+' '+o.kinds[k]).join(' · ');
+  return '<div class="movecard"><h3>이사·사다리차 준비 요약 <span class="small">이사 견적 문의 전에 확인</span></h3>'
+  +'<div class="mvtop"><span class="mvbadge '+(o.needCrane?'need':'no')+'">'+(o.needCrane?'사다리차 필요':'사다리차 불필요 · 엘리베이터 반입 가능')+'</span>'
+   +(o.needCrane?'<span class="small">'+(o.lift.length?('엘리베이터로 못 들어가는 가구 '+o.lift.length+'개'):'엘리베이터 없음')+'</span>':'<span class="small">전 가구 엘리베이터로 반입 가능</span>')+'</div>'
+  +'<div class="mvfacts"><div class="mvfact"><b>'+o.count+'</b><span>배치 가구</span></div><div class="mvfact"><b>'+o.risk.length+'</b><span>반입 위험</span></div><div class="mvfact"><b>'+(p.rooms||[]).length+'</b><span>공간</span></div></div>'
+  +(kindTxt?'<p class="small" style="margin:0 0 2px">'+esc(kindTxt)+'</p>':'')
+  +'<ul class="mvcheck">'+checks.map(t=>'<li>'+t+'</li>').join('')+'</ul>'
+  +'<div class="mvlinks"><a class="cmpsearch" href="'+searchUrl(q1)+'" target="_blank" rel="noopener">포장이사 견적 비교 ↗</a><a class="cmpsearch" href="'+searchUrl(q2)+'" target="_blank" rel="noopener">사다리차 비용 비교 ↗</a></div>'
+  +'<p class="small" style="margin:8px 0 0">사다리차는 5층 이상·엘리베이터 폭 초과·계단 회전이 어려운 가구에서 주로 필요해요. 실제 견적은 방문 조사에서 확정됩니다.</p></div>';
+}
 function renderDecision(){  const p=project(),el=$('#reportWrap');if(!p||!el)return;
-  el.innerHTML='<div style="padding-bottom:10px"><span class="eyebrow">DECISION REPORT</span><h2 style="margin:2px 0 3px;font-size:21px">이사 의사결정 리포트</h2><span class="small">'+esc(p.name)+' · 공간 '+p.rooms.length+'개 · 등록 가구 '+data.furniture.length+'개</span></div>'+decisionBody(p);
+  el.innerHTML='<div class="rhead"><div><span class="eyebrow">DECISION REPORT</span><h2>이사 의사결정 리포트</h2><span class="small">'+esc(p.name)+' · 공간 '+p.rooms.length+'개 · 등록 가구 '+data.furniture.length+'개</span></div>'
+  +'<div class="ract"><button class="btn" id="pngReport">🖼️ 요약 리포트 이미지(PNG) 저장</button></div></div>'
+  +'<div id="agentBadgeHost">'+agentBadgeHTML()+'</div>'
+  +'<div id="agentHost">'+agentCardHTML()+'</div>'
+  +decisionBody(p);
+  bindDecision();
+}
+function bindDecision(){
+  const t=$('#agentToggle');
+  if(t)t.onclick=()=>{
+    const body=$('.dbody'),st=body?body.scrollTop:0;
+    data.agent.on=!agentOf().on;save();renderDecision();
+    if(body)body.scrollTop=st;
+    toast(data.agent.on?'중개사 모드 켜짐 — 사무소·연락처를 넣으면 리포트에 서명이 붙어요':'중개사 모드를 껐어요');
+  };
+  [['#agOffice','office'],['#agName','name'],['#agPhone','phone'],['#agComment','comment']].forEach(([sel,k])=>{
+    const el=$(sel);if(!el)return;
+    el.oninput=()=>{data.agent[k]=el.value;save();const bh=$('#agentBadgeHost');if(bh)bh.innerHTML=agentBadgeHTML()};
+  });
+  const png=$('#pngReport');if(png)png.onclick=exportReportCard;
+  const cc=$('#cardClose');if(cc)cc.onclick=()=>$('#cardDialog').close();
+  const sv=$('#cardSave');if(sv)sv.onclick=saveReportCard;
+}
+
+/* ---------------- 요약 리포트 PNG 카드 ---------------- */
+let lastCardDataUrl='',lastCardName='';
+function cardData(p){
+  const {groups}=decisionData(p);
+  const keep=groups.filter(g=>g.cat==='keep').length,cau=groups.filter(g=>g.cat==='caution').length;
+  const dis=groups.filter(g=>g.cat==='dispose').length,un=groups.filter(g=>g.cat==='unplaced').length;
+  const mv=moveOverview(p);
+  const rooms=(p.rooms||[]).map(r=>{const evs=roomEvals(r,p);const c={ok:0,clearance:0,carry:0,blocked:0};r.items.forEach(it=>{const e=evs.get(it.id);if(e)c[e.status]++});return{r,count:r.items.length,c}});
+  return{groups,keep,cau,dis,un,total:groups.length,mv,rooms};
+}
+function buildReportCard(){
+  const p=project();if(!p)return null;
+  const d=cardData(p),a=agentOf();
+  const W=1080,PAD=64,CW=W-PAD*2;
+  const tmp=document.createElement('canvas');tmp.width=W;tmp.height=4600;
+  const ctx=tmp.getContext('2d');
+  const FONT='-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Malgun Gothic","Noto Sans KR",sans-serif';
+  const font=(px,w)=>((w||700)+' '+px+'px '+FONT);
+  const wrap=(s,px,w,maxW)=>{ctx.font=font(px,w);const out=[];String(s==null?'':s).split('\n').forEach(par=>{let ln='';Array.from(par).forEach(ch=>{if(ctx.measureText(ln+ch).width>maxW&&ln){out.push(ln);ln=ch}else ln+=ch});out.push(ln)});return out};
+  const T=(s,x,y,px,color,w,align)=>{ctx.font=font(px,w);ctx.fillStyle=color;ctx.textAlign=align||'left';ctx.textBaseline='alphabetic';ctx.fillText(s,x,y);ctx.textAlign='left'};
+  const box=(x,y,w,h,r,fill,stroke,lw)=>{roundPath(ctx,x,y,w,h,r);if(fill){ctx.fillStyle=fill;ctx.fill()}if(stroke){ctx.strokeStyle=stroke;ctx.lineWidth=lw||1;ctx.stroke()}};
+  const INK='#191F28',SUB='#6B7684',LINE='#E3EAF2',BRAND='#0284C7',SKY='#0EA5E9',OK='#0D9488',WARN='#C2740A',BAD='#D93F3F';
+  const dt=new Date(),dateStr=dt.getFullYear()+'.'+String(dt.getMonth()+1).padStart(2,'0')+'.'+String(dt.getDate()).padStart(2,'0');
+  /* 배경 */
+  ctx.fillStyle='#fff';ctx.fillRect(0,0,W,4600);
+  const hg=ctx.createLinearGradient(0,0,W,170);hg.addColorStop(0,'#F3FAFF');hg.addColorStop(1,'#E3F2FC');
+  ctx.fillStyle=hg;ctx.fillRect(0,0,W,152);
+  ctx.fillStyle=SKY;ctx.fillRect(0,150,W,2);
+  const mg=ctx.createLinearGradient(PAD,44,PAD+48,92);mg.addColorStop(0,'#38BDF8');mg.addColorStop(1,'#0284C7');
+  box(PAD,44,48,48,13,mg);
+  T('이',PAD+24,74,26,'#fff',800,'center');
+  T('이사핏',PAD+64,82,30,INK,850);
+  T('MOVE-IN FIT REPORT',PAD+64+96,82,16,SUB,800);
+  T(dateStr,W-PAD,82,20,SUB,600,'right');
+  let y=200;
+  /* 제목 */
+  T('이사 적합성 요약',PAD,y,20,SKY,800);
+  y+=16;
+  const titleLines=wrap(p.aptName||p.name,44,850,CW).slice(0,2);
+  y+=44;
+  titleLines.forEach((ln,i)=>T(ln,PAD,y+i*52,44,INK,850));
+  y+=(titleLines.length-1)*52+30;
+  const sub=[p.area,p.aptSize,(p.rooms||[]).length+'개 공간',d.mv.count+'개 가구'].filter(Boolean).join(' · ');
+  wrap(sub,22,600,CW).forEach((ln,i)=>T(ln,PAD,y+i*30,22,SUB,600));
+  y+=30*Math.max(1,wrap(sub,22,600,CW).length)+22;
+  /* 4지표 */
+  const stats=[[d.keep,'그대로 유지',OK],[d.cau,'조건부 주의',WARN],[d.dis,'처분·교체',BAD],[d.mv.risk.length,'반입 위험',BRAND]];
+  const gap=16,tw=(CW-gap*3)/4,th=124;
+  stats.forEach(([v,lab,col],i)=>{
+    const x=PAD+i*(tw+gap);
+    box(x,y,tw,th,16,'#F8FBFE','#E6EFF7',1);
+    box(x,y,tw,6,3,col);
+    T(String(v),x+20,y+64,46,col,850);
+    T(lab,x+20,y+102,19,SUB,700);
+  });
+  y+=th+34;
+  /* 반입 경로 */
+  const secTitle=(label)=>{
+    box(PAD,y-15,5,20,2.5,SKY);
+    T(label,PAD+14,y,23,INK,800);
+    y+=22;
+  };
+  secTitle('반입 경로 요약');
+  y+=10;
+  const el=d.mv.elevator,en=d.mv.entry;
+  const craneTxt=d.mv.needCrane?('사다리차 필요'+(d.mv.lift.length?' · 엘리베이터 초과 '+d.mv.lift.length+'개':'')):'사다리차 불필요 · 엘리베이터 반입 가능';
+  box(PAD,y,CW,44,10,d.mv.needCrane?'#FFF6E7':'#E9F8F5',d.mv.needCrane?'#F2DFB4':'#C3EDE4',1);
+  T(craneTxt,PAD+16,y+29,21,d.mv.needCrane?'#A15206':'#0B7A6B',800);
+  y+=60;
+  const pathItems=[
+    '현관문 '+en.w+'×'+en.h+'mm',
+    el.use?('엘리베이터 '+el.w+'×'+el.d+'×'+el.h+'mm'):'엘리베이터 없음',
+    '계단 '+(p.stairs?'가능':'불가'),
+    '사다리차 '+(p.crane?'가능':'불가')
+  ];
+  wrap(pathItems.join('  ·  '),20,600,CW).forEach((ln,i)=>T(ln,PAD,y+i*30,20,'#334155',600));
+  y+=30*wrap(pathItems.join('  ·  '),20,600,CW).length+6;
+  if(d.mv.risk.length){
+    d.mv.risk.slice(0,3).forEach(x=>{
+      const lines=wrap('· '+x.it.name+' ('+x.r.name+') — '+x.rs[0].split(' — ')[0],19,600,CW-10);
+      lines.slice(0,2).forEach((ln,i)=>T(ln,PAD,y+i*26,19,WARN,600));
+      y+=26*Math.min(2,lines.length)+2;
+    });
+  }
+  y+=24;
+  /* 공간별 */
+  if(d.rooms.length){
+    secTitle('공간별 적합성');
+    y+=8;
+    d.rooms.slice(0,6).forEach(({r,count,c})=>{
+      box(PAD,y-16,CW-0,34,8,'#F8FBFE',null);
+      T(r.name,PAD+14,y+7,20,INK,800);
+      const note=count?('가구 '+count+' · 가능 '+c.ok+' / 주의 '+c.clearance+' / 반입 '+c.carry+' / 불가 '+c.blocked):'가구 없음';
+      T(note,W-PAD-10,y+7,18,SUB,600,'right');
+      y+=38;
+    });
+    if(d.rooms.length>6)T('외 '+(d.rooms.length-6)+'개 공간',PAD+14,y+2,18,SUB,600);
+    y+=d.rooms.length>6?26:8;
+    y+=16;
+  }
+  /* 중개사 */
+  if(a.on){
+    secTitle('중개사 브리핑');
+    y+=6;
+    box(PAD,y,CW,1,0,LINE);
+    y+=34;
+    T(a.office||'중개사무소',PAD,y,26,INK,850);
+    y+=32;
+    T([a.name,a.phone].filter(Boolean).join(' · ')||'담당자·연락처 미입력',PAD,y,20,SUB,600);
+    y+=30;
+    if(a.comment.trim()){
+      const cols=wrap(a.comment.trim(),20,600,CW-36).slice(0,5);
+      const bh=cols.length*30+26;
+      box(PAD,y,CW,bh,12,'#F3FAFF','#CFE8F9',1);
+      cols.forEach((ln,i)=>T(ln,PAD+16,y+26+i*30,20,'#334155',600));
+      y+=bh+18;
+    }
+    y+=6;
+  }
+  /* 푸터 */
+  box(PAD,y,CW,1,0,LINE);
+  y+=28;
+  T('이사핏 · 입력한 치수와 도면으로 계산한 결과입니다. 문틀·기둥·엘리베이터 등 실제 현장은 이사 전에 방문 확인이 필요합니다.',PAD,y,17,'#8B95A1',600);
+  y+=26;
+  T('isafit · '+dateStr+' · 이동·배치 적합성 요약',PAD,y,17,'#A6B0BC',600);
+  y+=34;
+  /* 잘라내기 */
+  const out=document.createElement('canvas');
+  out.width=W;out.height=Math.max(600,Math.ceil(y));
+  const ox=out.getContext('2d');
+  ox.fillStyle='#fff';ox.fillRect(0,0,out.width,out.height);
+  ox.drawImage(tmp,0,0);
+  return out;
+}
+function cardFileName(p){
+  const base=((p&&(p.aptName||p.name))||'isafit').replace(/[^\w가-힣-]+/g,'-').replace(/^-+|-+$/g,'').slice(0,40)||'isafit';
+  const dt=new Date();
+  return 'isafit-'+base+'-'+dt.getFullYear()+String(dt.getMonth()+1).padStart(2,'0')+String(dt.getDate()).padStart(2,'0')+'.png';
+}
+async function exportReportCard(){
+  let c=null;
+  try{c=buildReportCard()}catch(e){c=null}
+  if(!c){toast('리포트 이미지를 만들지 못했어요. 새로 고침 뒤 다시 시도해 주세요.');return}
+  let url='';
+  try{url=c.toDataURL('image/png')}catch(e){url=''}
+  if(!url){toast('이미지를 저장할 수 없어요. 다른 브라우저에서 시도해 주세요.');return}
+  const img=$('#cardImg');if(img)img.src=url;
+  lastCardDataUrl=url;lastCardName=cardFileName(project());
+  const hint=$('#cardHint');if(hint)hint.textContent=lastCardName+' · '+c.width+'×'+c.height+'px';
+  const dlg=$('#cardDialog');
+  if(dlg&&!dlg.open){try{dlg.showModal()}catch(e){}}
+}
+function blobFromDataUrl(u){
+  return fetch(u).then(r=>r.blob()).catch(()=>{
+    try{
+      const m=/:(.*?);/.exec(u)||[,'image/png'],bin=atob(u.split(',')[1]);
+      const arr=new Uint8Array(bin.length);
+      for(let i=0;i<bin.length;i++)arr[i]=bin.charCodeAt(i);
+      return new Blob([arr],{type:m[1]});
+    }catch(e){return null}
+  });
+}
+async function saveReportCard(){
+  if(!lastCardDataUrl){toast('이미지를 준비하지 못했어요. 다시 만들어 주세요.');return}
+  const blob=await blobFromDataUrl(lastCardDataUrl);
+  if(!blob){toast('이미지를 저장하지 못했어요.');return}
+  const name=lastCardName||'isafit-report.png';
+  try{
+    const file=(typeof File==='function')?new File([blob],name,{type:'image/png'}):null;
+    if(file&&navigator.share&&navigator.canShare&&navigator.canShare({files:[file]})){
+      await navigator.share({files:[file],title:'이사핏 이사 적합성 요약'});
+      return;
+    }
+  }catch(err){if(err&&err.name==='AbortError')return}
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement('a');a.href=url;a.download=name;a.rel='noopener';
+  document.body.appendChild(a);a.click();a.remove();
+  setTimeout(()=>URL.revokeObjectURL(url),6000);
+  toast('PNG를 저장했어요. 아이폰은 이미지를 길게 눌러 사진 앱에 저장할 수 있어요.');
 }
 
 /* ---------------- 인쇄 ---------------- */
@@ -1214,19 +1578,37 @@ async function printReport(){
     paintRoom(ctx,p,r,W,H,sc,{evs:roomEvals(r,p),showAllClr:true,planImg:imgs[r.id]||null});
     return{r,src:c.toDataURL('image/png')};
   });
-  const d=new Date(),dateStr=d.getFullYear()+'.'+String(d.getMonth()+1).padStart(2,'0')+'.'+String(d.getDate()).padStart(2,'0');  const css="body{font-family:-apple-system,BlinkMacSystemFont,'Apple SD Gothic Neo',sans-serif;color:#282b28;margin:0;padding:26px 30px;font-size:12px;line-height:1.55}"
-  +"h1{font-size:20px;margin:0 0 2px}.meta{color:#7b817a;font-size:11.5px;margin:0 0 14px}"
-  +"h2{font-size:13px;margin:18px 0 6px;border-bottom:1px solid #e5e5dd;padding-bottom:4px}"
+  const d=new Date(),dateStr=d.getFullYear()+'.'+String(d.getMonth()+1).padStart(2,'0')+'.'+String(d.getDate()).padStart(2,'0');  const css="body{font-family:-apple-system,BlinkMacSystemFont,'Apple SD Gothic Neo',sans-serif;color:#191F28;margin:0;padding:26px 30px;font-size:12px;line-height:1.55}"
+  +"h1{font-size:20px;margin:0 0 2px}.meta{color:#6B7684;font-size:11.5px;margin:0 0 14px}"
+  +"h2{font-size:13px;margin:18px 0 6px;border-bottom:1px solid #E5EBF1;padding-bottom:4px}"
+  +".agent{border-left:3px solid #0EA5E9;background:#F3FAFF;padding:8px 11px;font-size:12px;margin:0 0 10px;border-radius:0 8px 8px 0}"
+  +".agent b{font-size:13px}.agentc{margin:4px 0 0;color:#334155;font-size:11.5px}"
+  +".ohou{font-size:11px;color:#0369A1;text-decoration:none}.mvcheck li,.rimid{font-size:11px}"
   +".fitgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:10px 0}"
-  +".fitbox{border:1px solid #e5e5dd;border-radius:8px;padding:8px;text-align:center}.fitbox b{display:block;font-size:18px}.fitbox span{font-size:10px;color:#7b817a}"
-  +".rsec{border:1px solid #e9e8e1;border-radius:10px;padding:10px 12px;margin-top:10px;page-break-inside:avoid}.rsec h3{font-size:12.5px;margin:0 0 6px}"
-  +".ritem{padding:5px 0;border-top:1px solid #f1f1ea}.ritem:first-of-type{border-top:0}"
-  +".rn{font-weight:700}.rr{display:block;color:#6d746c;font-size:11px}.rec{display:block;color:#a8792f;font-size:11px;font-weight:600}"
-  +".tag{display:inline-block;font-size:9.5px;font-weight:800;padding:2px 6px;border-radius:5px;background:#eef1e8;color:#4c6250}"
-  +".tag.warn{background:#fdf1e3;color:#96632c}.tag.bad{background:#fbece8;color:#94483a}.tag.mute{background:#f0f0ec;color:#7b817a}"
-  +".small{font-size:10.5px;color:#7b817a}"
-  +".room{margin-top:14px;page-break-inside:avoid}.room h2{margin:0 0 4px}.room img{width:100%;max-width:520px;border:1px solid #e9e8e1;border-radius:6px;display:block;margin:6px 0}"
-  +"@media print{@page{margin:12mm}}";
+  +".fitbox{border:1px solid #E5EBF1;border-radius:8px;padding:8px;text-align:center}.fitbox b{display:block;font-size:18px}.fitbox span{font-size:10px;color:#6B7684}"
+  +".rsec{border:1px solid #E7ECF2;border-radius:10px;padding:10px 12px;margin-top:10px;page-break-inside:avoid}.rsec h3{font-size:12.5px;margin:0 0 6px}"
+  +".ritem{padding:5px 0;border-top:1px solid #EFF3F7}.ritem:first-of-type{border-top:0}"
+  +".rn{font-weight:700}.rr{display:block;color:#4E5968;font-size:11px}.rec{display:block;color:#D97706;font-size:11px;font-weight:600}"
+  +".tag{display:inline-block;font-size:9.5px;font-weight:800;padding:2px 6px;border-radius:5px;background:#E8F4FD;color:#0369A1}"
+  +".tag.warn{background:#FFF6E7;color:#B45309}.tag.bad{background:#FDECEC;color:#C02626}.tag.mute{background:#F1F4F8;color:#6B7684}"
+  +".small{font-size:10.5px;color:#6B7684}"
+  +".room{margin-top:14px;page-break-inside:avoid}.room h2{margin:0 0 4px}.room img{width:100%;max-width:520px;border:1px solid #E7ECF2;border-radius:6px;display:block;margin:6px 0}"
+  +"@media print{@page{margin:12mm}}"
+  +"@media screen{.movecard{border:1px solid #E7ECF2;border-radius:10px;padding:10px 12px;margin-top:10px}}"
+  +"@media print{.movecard{border:1px solid #E7ECF2;border-radius:10px;padding:10px 12px;margin-top:10px;page-break-inside:avoid}}"
+  +".movecard h3{font-size:12.5px;margin:0 0 6px}"
+  +".mvtop{display:flex;gap:8px;align-items:center;margin-bottom:6px;flex-wrap:wrap}"
+  +".mvbadge{font-size:10.5px;font-weight:800;padding:3px 9px;border-radius:999px;background:#FFF6E7;color:#A15206;border:1px solid #F2DFB4}"
+  +".mvbadge.no{background:#E9F8F5;color:#0B7A6B;border-color:#C3EDE4}"
+  +".mvfacts{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin:6px 0}"
+  +".mvfact{background:#F7FAFD;border:1px solid #E7EFF6;border-radius:8px;padding:6px;text-align:center}"
+  +".mvfact b{display:block;font-size:15px;color:#0F172A}.mvfact span{font-size:9.5px;color:#6B7684}"
+  +".mvcheck{margin:4px 0 0;padding-left:16px}.mvcheck li{font-size:11px;line-height:1.55;color:#334155}"
+  +".mvlinks{display:flex;gap:12px;margin-top:6px;flex-wrap:wrap}.cmpsearch{font-size:11px;color:#0369A1;text-decoration:none}"
+  +".ohourow{display:flex;flex-wrap:wrap;gap:4px;margin-top:4px}"
+  +".ohou{display:inline-block;border:1px solid #CFE8F9;border-radius:999px;padding:2px 8px;background:#EFF8FE;color:#0369A1;text-decoration:none;margin-right:4px}"
+  +".rimid{display:inline-block;font-size:10px;font-weight:800;color:#0369A1;background:#F1F9FF;border-radius:5px;padding:1px 5px;margin-left:4px}";
+  const agentHead=agentPrintHTML();
   const roomsHtml=shots.map(({r,src})=>{
     const evs=roomEvals(r,p);
     const rows=r.items.map(it=>{const ev=evs.get(it.id),st=STATUS[ev.status];return '<div class="ritem"><span class="rn">'+esc(it.name)+'</span> <span class="tag '+st.c+'">'+st.t+'</span><span class="rr">'+it.w+'×'+it.d+'mm · '+esc(ev.reasons.map(x=>x.text).join(' / ')||'문제 없음')+'</span></div>'}).join('');
@@ -1234,6 +1616,7 @@ async function printReport(){
   }).join('');
   const html='<!doctype html><html lang="ko"><head><meta charset="utf-8"><title>이사핏 의사결정 리포트</title><style>'+css+'</style></head><body>'
   +'<h1>이사 의사결정 리포트</h1><p class="meta">'+esc(p.name)+' · '+esc(p.area||'')+' '+esc(p.aptName||'')+' '+esc(p.aptSize||'')+' · '+dateStr+'</p>'
+  +agentHead
   +decisionBody(p)
   +'<h2>공간별 도면과 배치</h2>'+roomsHtml
   +'<p class="small" style="margin-top:18px">이사핏 · 입력한 치수와 도면으로 계산한 결과입니다. 실제 현장(문틀·기둥·벽 두께·엘리베이터)은 이사 전에 직접 확인해 주세요.</p>'
