@@ -557,8 +557,7 @@ async function handleImageProxy(url) {
   }
 }
 
-async function handleAnalyzeFloorplan(env, request) {
-  let body;
+async function handleAnalyzeFloorplan(env, request) {  let body;
   try { body = await request.json(); } catch { return json({ error: "invalid_json" }, 400); }
   if (!body || typeof body !== "object") return json({ error: "invalid_body" }, 400);
 
@@ -624,7 +623,21 @@ async function handleAnalyzeFloorplan(env, request) {
     ok: true,
     hasExplicitDimensions: !!payload.hasExplicitDimensions,
     summary: String(payload.summary || ""),
-    rooms: Array.isArray(payload.rooms) ? payload.rooms : [],
+    rooms: (Array.isArray(payload.rooms) ? payload.rooms : []).map((r) => {
+      const room = r && typeof r === "object" ? { ...r } : {};
+      // 방 위치(전체 평면도 대비 %)가 오면 함께 넘겨 클라이언트가 평면도 위에서 방을 클릭할 수 있게 한다.
+      const b = room.bbox && typeof room.bbox === "object" ? room.bbox : null;
+      if (b) {
+        let x = Number(b.x), y = Number(b.y), w = Number(b.w), h = Number(b.h);
+        if ([x, y, w, h].every(Number.isFinite)) {
+          if (Math.max(x, y, w, h) <= 1.0001) { x *= 100; y *= 100; w *= 100; h *= 100; }
+          x = Math.max(0, Math.min(100, x)); y = Math.max(0, Math.min(100, y));
+          w = Math.min(100 - x, Math.max(1, w)); h = Math.min(100 - y, Math.max(1, h));
+          room.bbox = { x, y, w, h };
+        } else delete room.bbox;
+      }
+      return room;
+    }),
     model: payload.model || "",
     image: {
       mimeType,

@@ -102,7 +102,34 @@ canvas{background:white;touch-action:none;max-width:100%;display:block;border-ra
 .phead b{font-size:14px}
 .phead .actions{margin-left:auto;display:flex;gap:5px;align-items:center;flex-wrap:nowrap}
 .pbody{overflow:auto;background:#f2f1ec;padding:10px;flex:1 1 auto;min-height:0;display:block;-webkit-overflow-scrolling:touch}
-.pbody img{display:block;width:100%;height:auto;border-radius:6px;background:#fff;margin:0 auto}
+.pstage{position:relative;width:100%;min-width:0;margin:0 auto}
+.pstage img{display:block;width:100%;height:auto;border-radius:6px;background:#fff}
+.phot{position:absolute;border:1.5px solid #536c58cc;background:#536c5822;border-radius:8px;padding:2px;cursor:pointer;color:#2b3a2e;font:inherit;overflow:hidden;display:flex;align-items:center;justify-content:center}
+.phot span{font-size:11px;font-weight:800;background:#ffffffdd;border-radius:5px;padding:1px 5px;max-width:94%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.phot.on{border-color:#a8792f;border-width:2.5px;background:#a8792f33}
+.ppin{position:absolute;transform:translate(-50%,-50%);display:flex;align-items:center;gap:4px;border:0;background:transparent;cursor:pointer;padding:0}
+.ppin::before{content:'';width:11px;height:11px;border-radius:50%;background:#536c58;box-shadow:0 0 0 3px #ffffffcc;flex:0 0 auto}
+.ppin span{font-size:10.5px;font-weight:800;background:#ffffffee;border-radius:5px;padding:1px 5px;white-space:nowrap;border:1px solid #d8ddd2}
+.ppin.on::before{background:#a8792f}
+.pstage.pinning{cursor:crosshair}
+.pstage.pinning .phot,.pstage.pinning .ppin{pointer-events:none}
+.pfoot{display:flex;gap:5px;overflow-x:auto;padding:8px 10px;border-top:1px solid var(--line);background:#fff;flex-wrap:nowrap;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+.pfoot::-webkit-scrollbar{display:none}
+.pfoot button{white-space:nowrap;border:1px solid var(--line);background:#fff;border-radius:999px;padding:7px 11px;font-size:11.5px;font-weight:700;color:#4a544a;font-family:inherit;cursor:pointer}
+.pfoot button.on{background:var(--green);color:#fff;border-color:var(--green)}
+.mini.on{background:var(--green);color:#fff;border-color:var(--green)}
+.cmpdlg{width:min(620px,calc(100% - 16px));padding:0;overflow:hidden}
+.cmpwrap{display:flex;flex-direction:column;max-height:88dvh;min-width:0}
+.cmpbody{padding:12px 14px 16px;overflow:auto;min-width:0}
+table.cmpt{width:100%;border-collapse:collapse;font-size:12.5px}
+table.cmpt th,table.cmpt td{border-bottom:1px solid var(--line);padding:7px 4px;text-align:center}
+table.cmpt td:first-child,table.cmpt th:first-child{text-align:left;color:#5d6659;font-weight:700}
+table.cmpt th{font-size:11.5px;color:#7b817a;font-weight:800}
+table.cmpt td.best{background:#eef4ea;font-weight:800;color:#3d5a43}
+.cmpverdict{margin-top:12px;background:#fbfaf7;border:1px solid var(--line);border-radius:10px;padding:10px 12px;font-size:12.5px;line-height:1.55}
+.cmpverdict b{color:var(--green)}
+.planbar{display:flex;gap:5px;align-items:center;margin:0 0 6px;flex-wrap:wrap}
+.planbar .mini{padding:6px 10px;font-size:11.5px}
 .dfoot{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:10px 18px;border-top:1px solid var(--line);background:#fff;flex:0 0 auto;flex-wrap:wrap;max-width:100%;box-sizing:border-box;min-width:0}
 .dfoot .btn,.dfoot .danger{min-width:0;flex:0 1 auto}
 .dfoot .btn{padding:9px 14px}
@@ -182,6 +209,10 @@ html.is-mobile .planmodal{width:calc(100% - 10px);max-width:calc(100% - 10px);ma
 html.is-mobile .pbody{padding:8px}
 html.is-mobile .phead{padding:9px 10px}
 html.is-mobile .planrow{margin:0 0 5px}
+html.is-mobile .planbar{margin:0 0 5px;gap:4px}
+html.is-mobile .planbar .mini{padding:6px 8px;font-size:11px}
+html.is-mobile .cmpdlg{width:calc(100% - 10px);max-width:calc(100% - 10px);padding:0}
+html.is-mobile .cmpbody{padding:10px}
 html.is-mobile .dfoot{flex-wrap:wrap;gap:6px}
 html.is-mobile .chip{padding:9px 11px}
 html.is-mobile .mini{padding:10px 6px;font-size:12.5px}
@@ -202,7 +233,8 @@ html.is-mobile .rsec{padding:11px}
 <dialog class="dialog" id="projectDialog"><form id="projectForm"><h2>새 이사 프로젝트</h2><div class="fields"><label>프로젝트 이름<input name="name" required placeholder="예: 새집 후보 A"></label><label>지역<input name="area" placeholder="예: 경남 김해시"></label><label class="wide">아파트·단지명<input name="aptName" placeholder="예: 부원역푸르지오"></label><label>평형<input name="aptSize" placeholder="예: 84㎡ / 34평"></label><label>희망 이사일<input name="date" type="date"></label><label class="wide">메모<input name="memo" placeholder="원하는 조건"></label></div><div class="modal-actions"><button type="button" class="btn alt" data-close="projectDialog">취소</button><button class="btn">만들기</button></div></form></dialog>
 <dialog class="dialog" id="furnitureDialog"><form id="furnitureForm"><h2>내 가구 등록</h2><div class="fields"><label>종류<select name="type"><option>침대</option><option>소파</option><option>냉장고</option><option>식탁</option><option>책상</option><option>옷장</option><option>세탁기</option><option>기타</option></select></label><label>가구 이름<input name="name" required placeholder="예: 퀸 침대"></label><label>가로(mm)<input name="w" type="number" min="300" required></label><label>세로(mm)<input name="d" type="number" min="300" required></label><label>높이(mm)<input name="h" type="number" min="0"></label><label>메모<input name="memo"></label></div><div class="modal-actions"><button type="button" class="btn alt" data-close="furnitureDialog">취소</button><button class="btn">저장</button></div></form></dialog>
 <dialog class="dialog detail" id="detail"><div id="detailContent" class="dwrap"></div></dialog>
-<dialog class="dialog planmodal" id="planDialog"><div class="pwrap"><div class="phead"><div><b>전체 평면도</b><br><span class="small" id="planMeta"></span></div><div class="actions"><button class="mini" id="planZoomOut">−</button><span class="small" id="planZoomLbl">100%</span><button class="mini" id="planZoomIn">＋</button><button class="mini" id="planZoomFit">맞춤</button><button class="btn alt" id="planClose">닫기</button></div></div><div class="pbody" id="planBody"><img id="planImg" alt="전체 평면도"></div></div></dialog>
+<dialog class="dialog planmodal" id="planDialog"><div class="pwrap"><div class="phead"><div><b>전체 평면도</b><br><span class="small" id="planMeta"></span></div><div class="actions"><button class="mini" id="planPin">방 위치 찍기</button><button class="mini" id="planZoomOut">−</button><span class="small" id="planZoomLbl">100%</span><button class="mini" id="planZoomIn">＋</button><button class="mini" id="planZoomFit">맞춤</button><button class="btn alt" id="planClose">닫기</button></div></div><div class="pbody" id="planBody"><div class="pstage" id="planStage"><img id="planImg" alt="전체 평면도"><div id="planHot" style="position:absolute;inset:0"></div></div></div><div class="pfoot" id="planRooms"></div></div></dialog>
+<dialog class="dialog cmpdlg" id="cmpDialog"><div class="cmpwrap"><div class="phead"><div><b>A안 vs B안 비교</b><br><span class="small" id="cmpMeta"></span></div><div class="actions"><button class="btn alt" id="cmpClose">닫기</button></div></div><div class="cmpbody" id="cmpBody"></div></div></dialog>
 <footer class="footer">이사핏 · 데이터는 현재 브라우저에 저장됩니다. 실제 치수와 현장 조건은 별도로 확인해 주세요.</footer>
 <div class="toast" id="toast"></div>
 <script>
@@ -309,6 +341,16 @@ async function migrateImages(){
   if(changed){save();planUrls.clear()}
 }
 
+function fixItem(it){
+  if(!it||typeof it!=='object')return;
+  if(!it.type)it.type='기타';
+  if(!it.clr)it.clr={...(TYPE_CLR[it.type]||TYPE_CLR['기타'])};
+  if(!Number.isFinite(it.h)){const lf=data.furniture.find(x=>x.id===it.fid);it.h=lf?num(lf.h,0):0}
+  it.rot=((num(it.rot,0)%360)+360)%360;
+  it.x=Math.max(0,num(it.x,0));it.y=Math.max(0,num(it.y,0));
+  if(!Number.isFinite(it.w))it.w=600;
+  if(!Number.isFinite(it.d))it.d=600;
+}
 function normalize(){
   data.projects=Array.isArray(data.projects)?data.projects:[];
   data.furniture=Array.isArray(data.furniture)?data.furniture:[];
@@ -334,13 +376,10 @@ function normalize(){
       WALLS.forEach(([k])=>{r.win[k]=!!r.win[k];r.out[k]=!!r.out[k]});
       if(!dim(num(r.winW,0)))r.winW=1400;
       if(!r.door||!r.door.wall)r.door={wall:'bottom',pos:.5,width:800,swing:'in',hinge:'start'};
-      r.items.forEach(it=>{
-        if(!it.type)it.type='기타';
-        if(!it.clr)it.clr={...(TYPE_CLR[it.type]||TYPE_CLR['기타'])};
-        if(!Number.isFinite(it.h)){const lf=data.furniture.find(x=>x.id===it.fid);it.h=lf?num(lf.h,0):0}
-        it.rot=((num(it.rot,0)%360)+360)%360;
-        it.x=Math.max(0,num(it.x,0));it.y=Math.max(0,num(it.y,0));
-      });
+      if(!Array.isArray(r.altItems))r.altItems=[];
+      r.altItems=r.altItems.filter(x=>x&&typeof x==='object');
+      if(r.activePlan!=='B')r.activePlan='A';
+      r.items.forEach(fixItem);r.altItems.forEach(fixItem);
     });
   });
 }
@@ -446,7 +485,7 @@ function renderDetail(){
           <p class="small" style="margin:7px 0 0">현관문 → 엘리베이터 → 방문 순서로 지나갈 수 있는지 검사해요. 치수를 모르면 대략이라도 넣어 주세요.</p>
         </div>
         <div class="panel"><h3>공간</h3>
-          <div class="roomlist">${p.rooms.map(x=>'<button class="'+(x.id===rid?'active':'')+'" data-room="'+x.id+'">'+esc(x.name)+' · '+x.w+'×'+x.d+'mm'+(x.estimated?' <span class="small">(추정)</span>':'')+'</button>').join('')}</div>
+          <div class="roomlist">${p.rooms.map(x=>'<button class="'+(x.id===rid?'active':'')+'" data-room="'+x.id+'">'+esc(x.name)+' · '+x.w+'×'+x.d+'mm'+(x.activePlan==='B'?' <span class="small">B안</span>':'')+(x.estimated?' <span class="small">(추정)</span>':'')+'</button>').join('')}</div>
           <div class="row2" style="margin-top:7px"><input id="newRoomName" placeholder="새 공간 이름 (침실)"><button class="btn alt" id="addRoom">＋ 추가</button></div>
           <div class="row2"><input id="newRoomW" type="number" placeholder="가로 mm" value="3000"><input id="newRoomD" type="number" placeholder="세로 mm" value="3000"></div>
         </div>
@@ -509,6 +548,7 @@ function renderDetail(){
       <div class="stagestick">
       ${p.planImageKey?'<div class="planrow"><button class="mini" id="showPlan">전체 평면도 보기</button><span class="small">집 전체 도면은 방 도면과 따로 봐요</span></div>':''}
       <div class="roomchips">${p.rooms.map(x=>'<button class="'+(x.id===rid?'on':'')+'" data-room="'+x.id+'">'+esc(x.name)+'</button>').join('')}</div>
+      <div class="planbar"><button class="mini ${planOf(r)==='A'?'on':''}" data-plan="A">A안</button><button class="mini ${planOf(r)==='B'?'on':''}" data-plan="B">B안</button><button class="mini" id="copyPlan">${planOf(r)==='A'?'A→B':'B→A'} 복사</button><button class="mini" id="cmpPlan">A안 vs B안 비교</button></div>
       <div class="canvasbox"><canvas id="floor"></canvas></div>
       </div>
       <div class="legend">실선 <i style="background:#e5eadd"></i>가구 본체 · 점선 <i style="background:#dbe6d6;border-style:dashed"></i>필수 여유 공간 · <i style="background:#f0e3c6;border-style:dashed"></i>문 여닫이 반경 · <i style="background:#a9cee4"></i>창문 · <i style="background:#fdf3d6;border-color:#b0863a"></i>콘센트</div>
@@ -1073,7 +1113,7 @@ function roomSummary(){
   const c={ok:0,clearance:0,carry:0,blocked:0};
   r.items.forEach(it=>c[evs.get(it.id).status]++);
   const st=r.items.map(it=>({it,ev:evs.get(it.id)})).filter(x=>x.ev.status!=='ok').sort((a,b)=>rank(b.ev.status)-rank(a.ev.status))[0];
-  el.innerHTML='<b>'+esc(r.name)+'</b> '+r.w+'×'+r.d+'mm · '+(r.w*r.d/1e6).toFixed(1)+'㎡ · 가구 '+r.items.length+'개<br>배치 가능 <b>'+c.ok+'</b> · 여유 부족 <b>'+c.clearance+'</b> · 반입 위험 <b>'+c.carry+'</b> · 배치 불가 <b>'+c.blocked+'</b>'+(st?'<br>가장 큰 문제: 「'+esc(st.it.name)+'」 '+esc(st.ev.reasons[0].text):'')+ioLine(r);
+  el.innerHTML='<b>'+esc(r.name)+'</b>'+(planOf(r)==='B'?' <span class="tag">B안</span>':'')+' '+r.w+'×'+r.d+'mm · '+(r.w*r.d/1e6).toFixed(1)+'㎡ · 가구 '+r.items.length+'개<br>배치 가능 <b>'+c.ok+'</b> · 여유 부족 <b>'+c.clearance+'</b> · 반입 위험 <b>'+c.carry+'</b> · 배치 불가 <b>'+c.blocked+'</b>'+(st?'<br>가장 큰 문제: 「'+esc(st.it.name)+'」 '+esc(st.ev.reasons[0].text):'')+ioLine(r);
 }
 
 /* ---------------- 의사결정 리포트 ---------------- */
@@ -1146,7 +1186,7 @@ function decisionBody(p){
   h+=sec('공간별 상세',p.rooms.length,p.rooms.map(r=>{
     const evs=roomEvals(r,p);
     const rows=r.items.map(it=>{const ev=evs.get(it.id),st=STATUS[ev.status];return row(it.name,st.c,st.t,esc(ev.reasons.map(x=>x.text).join(' / ')||'문제 없음'))}).join('');
-    return '<div style="margin:8px 0 3px"><b>'+esc(r.name)+'</b> <span class="small">'+r.w+'×'+r.d+'mm · 가구 '+r.items.length+'개</span></div>'+(rows||'<p class="small" style="margin:0">가구 없음</p>');
+    return '<div style="margin:8px 0 3px"><b>'+esc(r.name)+'</b> <span class="small">'+(planOf(r)==='B'?'B안 · ':'')+r.w+'×'+r.d+'mm · 가구 '+r.items.length+'개</span></div>'+(rows||'<p class="small" style="margin:0">가구 없음</p>');
   }).join(''));
   return h;
 }
@@ -1190,7 +1230,7 @@ async function printReport(){
   const roomsHtml=shots.map(({r,src})=>{
     const evs=roomEvals(r,p);
     const rows=r.items.map(it=>{const ev=evs.get(it.id),st=STATUS[ev.status];return '<div class="ritem"><span class="rn">'+esc(it.name)+'</span> <span class="tag '+st.c+'">'+st.t+'</span><span class="rr">'+it.w+'×'+it.d+'mm · '+esc(ev.reasons.map(x=>x.text).join(' / ')||'문제 없음')+'</span></div>'}).join('');
-    return '<div class="room"><h2>'+esc(r.name)+' · '+r.w+'×'+r.d+'mm · '+(r.w*r.d/1e6).toFixed(1)+'㎡</h2><img src="'+src+'">'+(rows||'<p class="small">가구 없음</p>')+'</div>';
+    return '<div class="room"><h2>'+esc(r.name)+(planOf(r)==='B'?' (B안)':'')+' · '+r.w+'×'+r.d+'mm · '+(r.w*r.d/1e6).toFixed(1)+'㎡</h2><img src="'+src+'">'+(rows||'<p class="small">가구 없음</p>')+'</div>';
   }).join('');
   const html='<!doctype html><html lang="ko"><head><meta charset="utf-8"><title>이사핏 의사결정 리포트</title><style>'+css+'</style></head><body>'
   +'<h1>이사 의사결정 리포트</h1><p class="meta">'+esc(p.name)+' · '+esc(p.area||'')+' '+esc(p.aptName||'')+' '+esc(p.aptSize||'')+' · '+dateStr+'</p>'
@@ -1315,7 +1355,7 @@ function applyAi({rooms,summary,hasExplicitDimensions,bg}){
   const p=project();if(!p)return;
   const hasFurniture=p.rooms.some(x=>x.items&&x.items.length);
   if(hasFurniture&&!confirm('배치해 둔 가구가 있어요. AI 결과로 공간을 새로 만들면 가구 배치가 사라져요. 계속할까요?'))return;
-  p.rooms=rooms.map(x=>({id:uid(),name:String(x.name||'공간').slice(0,14),w:Math.round(Number(x.w)),d:Math.round(Number(x.d)),estimated:!!x.estimated,items:[],win:{},out:{},winW:1400,door:{wall:'bottom',pos:.5,width:800,swing:'in',hinge:'start'}}));
+  p.rooms=rooms.map(x=>({id:uid(),name:String(x.name||'공간').slice(0,14),w:Math.round(Number(x.w)),d:Math.round(Number(x.d)),estimated:!!x.estimated,bbox:normBox(x.bbox),pin:null,items:[],win:{},out:{},winW:1400,door:{wall:'bottom',pos:.5,width:800,swing:'in',hinge:'start'}}));
   if(bg){const key='p:'+p.id;planUrls.set(key,bg);idbSet(key,bg);p.planImageKey=key}
   p.planMeta={summary:summary||'',hasExplicitDimensions:!!hasExplicitDimensions,at:new Date().toISOString()};
   rid=p.rooms[0].id;selected=null;calMode=false;calPts=[];
@@ -1342,6 +1382,10 @@ function bind(){
   $$('.tabbar [data-tab]').forEach(b=>b.onclick=()=>setTab(b.dataset.tab));
   $$('[data-room]').forEach(b=>b.onclick=()=>{rid=b.dataset.room;selected=null;calMode=false;calPts=[];renderDetail()});
   bindSpace(p,r);bindFurn();bindPlanModal();
+  $$('[data-plan]').forEach(b=>b.onclick=()=>switchPlan(b.dataset.plan));
+  const cp=$('#copyPlan');if(cp)cp.onclick=copyPlan;
+  const cm=$('#cmpPlan');if(cm)cm.onclick=openCmp;
+  const cc=$('#cmpClose');if(cc)cc.onclick=()=>$('#cmpDialog').close();
   const c=$('#floor');
   if(c){
     c.addEventListener('pointerdown',down);
@@ -1356,7 +1400,7 @@ function bindSpace(p,r){
     const n=(($('#newRoomName')||{}).value||'').trim()||'새 공간';
     const w=num(($('#newRoomW')||{}).value,0),d=num(($('#newRoomD')||{}).value,0);
     if(!dim(w)||!dim(d))return alert('가로·세로를 300~30,000mm로 입력해 주세요.');
-    const x={id:uid(),name:n.slice(0,14),w:Math.round(w),d:Math.round(d),items:[],win:{},out:{},winW:1400,door:{wall:'bottom',pos:.5,width:800,swing:'in',hinge:'start'}};
+    const x={id:uid(),name:n.slice(0,14),w:Math.round(w),d:Math.round(d),items:[],altItems:[],activePlan:'A',win:{},out:{},winW:1400,door:{wall:'bottom',pos:.5,width:800,swing:'in',hinge:'start'}};
     p.rooms.push(x);rid=x.id;save();renderDetail();
   };
   const ap=$('#applySize');
@@ -1461,12 +1505,101 @@ function syncPath(){
   const el=$('#pathSummary');if(el)el.innerHTML=pathSummaryHTML(p);
   refreshFurnPanes();
 }
+/* ---------------- 배치 A안 / B안 ---------------- */
+function planOf(r){return r.activePlan==='B'?'B':'A'}
+function otherItems(r){return Array.isArray(r.altItems)?r.altItems:[]}
+function switchPlan(plan){
+  const r=room();if(!r||plan===planOf(r))return;
+  if(!Array.isArray(r.altItems))r.altItems=[];
+  const tmp=r.items;r.items=r.altItems;r.altItems=tmp;
+  r.activePlan=plan;selected=null;calMode=false;calPts=[];save();
+  renderDetail();
+  toast(plan+'안 배치로 전환했어요'+(r.items.length?' ('+r.items.length+'개)':' — 아직 비어 있어요'));
+}
+function copyPlan(){
+  const r=room();if(!r)return;
+  const from=planOf(r),to=from==='A'?'B':'A';
+  const src=r.items||[],dst=otherItems(r);
+  if(dst.length&&!confirm(to+'안에 배치 '+dst.length+'개가 있어요. '+from+'안 배치 '+src.length+'개로 덮어쓸까요?'))return;
+  r.altItems=src.map(it=>({...it,id:uid(),clr:{...(it.clr||{})}}));
+  save();
+  toast(from+'안 배치 '+src.length+'개를 '+to+'안으로 복사했어요 · '+to+'안을 눌러 수정해 보세요');
+  renderDetail();
+}
+function planStats(r,p,items){
+  const rr=Object.assign({},r,{items:items||[]});
+  const evs=roomEvals(rr,p);
+  const c={ok:0,clearance:0,carry:0,blocked:0};
+  let doorHit=0,winHit=0;
+  rr.items.forEach(it=>{
+    const ev=evs.get(it.id);if(!ev)return;
+    c[ev.status]++;
+    if(ev.reasons.some(x=>String(x.text).indexOf('여닫이')>=0))doorHit++;
+    if((ev.notes||[]).some(t=>String(t).indexOf('창문')>=0))winHit++;
+  });
+  const free=largestEmptyRect(rr);
+  return Object.assign(c,{count:rr.items.length,doorHit,winHit,freeArea:Math.round(free.area/1e6*10)/10,freeW:Math.floor(free.w/50)*50,freeH:Math.floor(free.h/50)*50});
+}
+function planScore(s){return s.ok*3-s.clearance*1.5-s.carry*2.5-s.blocked*4+s.freeArea*2-s.doorHit*1.5-s.winHit*0.5}
+function cmpCell(v,best){return'<td'+(best?' class="best"':'')+'>'+v+'</td>'}
+function renderCmp(){
+  const p=project(),r=room(),box=$('#cmpBody');if(!p||!r||!box)return;
+  const Aitems=planOf(r)==='B'?otherItems(r):r.items;
+  const Bitems=planOf(r)==='B'?r.items:otherItems(r);
+  const a=planStats(r,p,Aitems),b=planStats(r,p,Bitems);
+  const mm=(s)=>s.freeArea>0?(s.freeW+'×'+s.freeH+'mm · '+s.freeArea+'㎡'):'없음';
+  const rows=[['가구 수','count','개',-1],['배치 가능','ok','개',1],['여유 부족','clearance','개',-1],['반입 위험','carry','개',-1],['배치 불가','blocked','개',-1],['문 여닫이 걸림','doorHit','건',-1],['창문 가림','winHit','건',-1]];
+  let tb='<table class="cmpt"><tr><th>지표</th><th>A안'+(planOf(r)==='A'?' <span class="small">적용 중</span>':'')+'</th><th>B안'+(planOf(r)==='B'?' <span class="small">적용 중</span>':'')+'</th></tr>';
+  rows.forEach(([label,key,unit,better])=>{
+    const av=a[key],bv=b[key];
+    tb+='<tr><td>'+label+'</td>'+cmpCell(av+(unit==='개'?'개':unit),better===1?av>bv:av<bv)+cmpCell(bv+(unit==='개'?'개':unit),better===1?bv>av:bv<av)+'</tr>';
+  });
+  tb+='<tr><td>가장 큰 빈 바닥</td>'+cmpCell(mm(a),a.freeArea>b.freeArea)+cmpCell(mm(b),b.freeArea>a.freeArea)+'</tr></table>';
+  const sa=planScore(a),sb=planScore(b);
+  const eA=!Aitems.length,eB=!Bitems.length;
+  let verdict;
+  if(eA&&eB){
+    verdict='A안·B안 모두 비어 있어요. A안을 만든 뒤 <b>A→B 복사</b>로 복제해 가구 몇 개만 옮겨 보세요.';
+  }else if(eA||eB){
+    const empty=eA?'A':'B',full=eA?'B':'A',n=eA?Bitems.length:Aitems.length;
+    verdict='<b>'+empty+'안</b>은 아직 비었어요. 지금 '+full+'안 배치 '+n+'개를 <b>'+full+'→'+empty+' 복사</b>로 그대로 복제한 뒤, 가구 몇 개만 옮겨 비교해 보세요.';
+  }else if(Math.abs(sa-sb)<0.01){
+    verdict='두 안의 여유·동선 차이가 거의 없어요. 가구 배치 취향으로 골라도 좋아요.';
+  }else{
+    const w=sa>sb?a:b,l=sa>sb?b:a,win=sa>sb?'A':'B',parts=[];
+    if(w.blocked<l.blocked)parts.push('배치 불가 '+(l.blocked-w.blocked)+'개 감소');
+    if(w.carry<l.carry)parts.push('반입 위험 '+(l.carry-w.carry)+'개 감소');
+    if(w.clearance<l.clearance)parts.push('여유 부족 '+(l.clearance-w.clearance)+'개 감소');
+    if(w.ok>l.ok)parts.push('배치 가능 '+(w.ok-l.ok)+'개 증가');
+    if(w.freeArea>l.freeArea+0.05)parts.push('가장 큰 빈 공간 +'+Math.round((w.freeArea-l.freeArea)*10)/10+'㎡');
+    if(w.doorHit<l.doorHit)parts.push('문 걸림 '+(l.doorHit-w.doorHit)+'건 감소');
+    if(w.winHit<l.winHit)parts.push('창문 가림 '+(l.winHit-w.winHit)+'건 감소');
+    verdict='<b>'+win+'안</b>이 더 유리해요'+(parts.length?' — '+parts.join(', '):' — 큰 차이는 없지만 종합 점수가 조금 높아요')+'.';
+  }
+  const meta=$('#cmpMeta');
+  if(meta)meta.textContent=esc(r.name)+' · 지금 '+planOf(r)+'안 적용 중 · 등록 가구 '+data.furniture.length+'개';
+  box.innerHTML=tb+'<div class="cmpverdict">'+verdict+'</div><p class="small" style="margin:8px 0 0">기준: 가구 본체 + 필수 여유 공간 + 문 여닫이 + 현관문·엘리베이터·방문 반입 + 창문 가림. 지금 보이는 도면이 '+planOf(r)+'안이에요.</p>';
+}
+function openCmp(){renderCmp();const d=$('#cmpDialog');if(d&&!d.open)d.showModal()}
 /* ---------------- 전체 평면도 모달 ---------------- */
-let planZoom=1;
+let planZoom=1,pinMode=false,pinRoom=null;
 function setPlanZoom(z){
   planZoom=Math.max(1,Math.min(4,z));
-  const im=$('#planImg');if(im)im.style.width=planZoom===1?'100%':(planZoom*100)+'%';
+  const st=$('#planStage');if(st)st.style.width=(planZoom*100)+'%';
   const lb=$('#planZoomLbl');if(lb)lb.textContent=Math.round(planZoom*100)+'%';
+}
+function clampPct(v){const n=Number(v);return Number.isFinite(n)?Math.max(0,Math.min(100,n)):0}
+/* AI가 준 bbox(0~1 또는 0~100%)를 % 단위 사각형으로 정규화 */
+function normBox(b){
+  if(!b||typeof b!=='object')return null;
+  let x=Number(b.x),y=Number(b.y),w=Number(b.w),h=Number(b.h);
+  if(![x,y,w,h].every(Number.isFinite))return null;
+  if(Math.max(x,y,w,h)<=1.0001){x*=100;y*=100;w*=100;h*=100}
+  if(w<0){x+=w;w=-w}if(h<0){y+=h;h=-h}
+  x=clampPct(x);y=clampPct(y);
+  w=Math.min(100-x,Math.max(3,w));h=Math.min(100-y,Math.max(3,h));
+  if(w<3||h<3)return null;
+  return{x,y,w,h};
 }
 async function openPlanModal(){
   const p=project();if(!p||!p.planImageKey)return;
@@ -1476,8 +1609,41 @@ async function openPlanModal(){
   const im=$('#planImg');im.src=url;
   const meta=$('#planMeta');
   if(meta)meta.textContent=esc(p.aptName||p.name||'')+(p.planMeta&&p.planMeta.hasExplicitDimensions?' · 도면 치수 직접 인식':' · 비율 추정');
-  setPlanZoom(1);
+  setPlanZoom(1);setPinMode(false);renderPlanHot();
   const dlg=$('#planDialog');if(dlg&&!dlg.open)dlg.showModal();
+}
+function renderPlanHot(){
+  const p=project(),hot=$('#planHot');if(!p||!hot)return;
+  hot.innerHTML=(p.rooms||[]).map(r=>{
+    const on=r.id===rid;
+    const b=normBox(r.bbox);
+    if(b)return'<button class="phot'+(on?' on':'')+'" data-goroom="'+r.id+'" title="'+esc(r.name)+'" style="left:'+b.x+'%;top:'+b.y+'%;width:'+b.w+'%;height:'+b.h+'%"><span>'+esc(r.name)+'</span></button>';
+    if(r.pin&&Number.isFinite(Number(r.pin.x)))return'<button class="ppin'+(on?' on':'')+'" data-goroom="'+r.id+'" title="'+esc(r.name)+'" style="left:'+clampPct(r.pin.x)+'%;top:'+clampPct(r.pin.y)+'%"><span>'+esc(r.name)+'</span></button>';
+    return'';
+  }).join('');
+  const rooms=$('#planRooms');
+  if(rooms)rooms.innerHTML=(p.rooms||[]).map(r=>{
+    const on=pinMode?(r.id===pinRoom):(r.id===rid);
+    return'<button class="'+(on?'on':'')+'" data-goroom="'+r.id+'">'+esc(r.name)+(normBox(r.bbox)||r.pin?'':' · 위치 미지정')+'</button>';
+  }).join('');
+  const b=$('#planPin');
+  if(b&&pinMode){const t=(p.rooms||[]).find(r=>r.id===pinRoom);b.textContent='찍는 방: '+(t?t.name:'?')}
+}
+function goRoom(id){
+  const p=project();if(!p||!p.rooms.some(x=>x.id===id))return;
+  rid=id;selected=null;calMode=false;calPts=[];pinMode=false;planZoom=1;
+  const dlg=$('#planDialog');if(dlg&&dlg.open)dlg.close();
+  renderDetail();
+}
+function setPinMode(on){
+  pinMode=!!on;
+  if(pinMode&&!pinRoom)pinRoom=rid;
+  if(!pinMode)pinRoom=null;
+  const st=$('#planStage'),b=$('#planPin');
+  if(st)st.classList.toggle('pinning',pinMode);
+  if(b){b.classList.toggle('on',pinMode);if(!pinMode)b.textContent='방 위치 찍기'}
+  renderPlanHot();
+  if(pinMode){const r=room();toast('아래에서 방을 고르고, 평면도에서 그 방 위치를 한 번 탭하세요 ('+(r?r.name:'')+')')}
 }
 function bindPlanModal(){
   const sp=$('#showPlan');if(sp)sp.onclick=openPlanModal;
@@ -1485,6 +1651,18 @@ function bindPlanModal(){
   const zo=$('#planZoomOut');if(zo)zo.onclick=()=>setPlanZoom(planZoom-0.5);
   const zf=$('#planZoomFit');if(zf)zf.onclick=()=>setPlanZoom(1);
   const cl=$('#planClose');if(cl)cl.onclick=()=>$('#planDialog').close();
+  const pb=$('#planPin');if(pb)pb.onclick=()=>setPinMode(!pinMode);
+  const st=$('#planStage');
+  if(st)st.onclick=e=>{
+    if(!pinMode)return;
+    const im=$('#planImg'),rect=im.getBoundingClientRect();
+    if(!rect.width||!rect.height)return;
+    const p=project();if(!p)return;
+    const r=p.rooms.find(x=>x.id===(pinRoom||rid));if(!r)return;
+    r.pin={x:Math.round(Math.max(0,Math.min(100,(e.clientX-rect.left)/rect.width*100))*10)/10,y:Math.round(Math.max(0,Math.min(100,(e.clientY-rect.top)/rect.height*100))*10)/10};
+    save();setPinMode(false);
+    toast('「'+r.name+'」 위치를 저장했어요 · 이름을 누르면 그 방으로 이동해요');
+  };
 }
 function bindFurn(){
   const p=project(),r=room();if(!p||!r)return;
@@ -1536,6 +1714,11 @@ document.addEventListener('click',e=>{
   if(!t||!t.closest)return;
   const pr=t.closest('[data-preset]');
   if(pr){addFromPreset(pr.dataset.preset,false);return}
+  const gr=t.closest('[data-goroom]');
+  if(gr){
+    if(pinMode&&gr.parentElement&&gr.parentElement.id==='planRooms'){pinRoom=gr.dataset.goroom;renderPlanHot();const p=project();const r=p&&p.rooms.find(x=>x.id===pinRoom);toast('「'+(r?r.name:'')+'」 위치를 찍을 준비 — 평면도를 탭하세요');return}
+    goRoom(gr.dataset.goroom);return
+  }
   const pp=t.closest('[data-preset-place]');
   if(pp){addFromPreset(pp.dataset.presetPlace,true);return}
   const pj=t.closest('[data-project]');
