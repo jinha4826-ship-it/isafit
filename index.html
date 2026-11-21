@@ -74,8 +74,8 @@ canvas{background:white;touch-action:none;max-width:100%;display:block;border-ra
 .ritem .rn{font-weight:750}
 .ritem .rr{display:block;font-size:11.5px;color:#7c837a;margin-top:2px;line-height:1.5}
 .ritem .rec{display:block;font-size:11.5px;color:var(--amber);margin-top:3px;font-weight:650}
-.tabbar{display:flex;gap:5px;margin:0 0 12px;position:sticky;top:0;background:var(--paper);padding:6px 0 8px;z-index:6}
-.tabbar button{flex:1;border:1px solid var(--line);background:#fff;color:#4d574d;border-radius:10px;padding:10px 4px;font-size:12.5px;font-weight:800;cursor:pointer;font-family:inherit}
+.tabbar{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:5px;margin:0 0 12px;position:sticky;top:0;background:var(--paper);padding:6px 0 8px;z-index:6}
+.tabbar button{min-width:0;border:1px solid var(--line);background:#fff;color:#4d574d;border-radius:10px;padding:10px 4px;font-size:12.5px;font-weight:800;cursor:pointer;font-family:inherit;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .tabbar button.on{background:var(--green);color:#fff;border-color:var(--green)}
 .tabpane{display:none}.tabpane.active{display:block}
 .room-layout[hidden]{display:none!important}
@@ -93,7 +93,18 @@ canvas{background:white;touch-action:none;max-width:100%;display:block;border-ra
 .dhead{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;padding:16px 18px 10px;border-bottom:1px solid var(--line);background:#fff;flex:0 0 auto}
 .dhead h2{margin:2px 0 2px;font-size:20px}
 .dbody{overflow:auto;padding:10px 18px 18px;flex:1 1 auto;-webkit-overflow-scrolling:touch}
-.dfoot{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:10px 18px;border-top:1px solid var(--line);background:#fff;flex:0 0 auto}
+.tabbar .ts{display:none}
+.planrow{display:flex;align-items:center;gap:7px;margin:0 0 6px;flex-wrap:wrap}
+.planrow .mini{padding:6px 10px;font-size:11.5px}
+.planmodal{width:min(980px,calc(100% - 16px));max-height:94dvh;padding:0;overflow:hidden}
+.pwrap{display:flex;flex-direction:column;max-height:94dvh;min-height:0;min-width:0}
+.phead{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:10px 12px;border-bottom:1px solid var(--line);flex:0 0 auto;flex-wrap:wrap}
+.phead b{font-size:14px}
+.phead .actions{margin-left:auto;display:flex;gap:5px;align-items:center;flex-wrap:nowrap}
+.pbody{overflow:auto;background:#f2f1ec;padding:10px;flex:1 1 auto;min-height:0;display:block;-webkit-overflow-scrolling:touch}
+.pbody img{display:block;width:100%;height:auto;border-radius:6px;background:#fff;margin:0 auto}
+.dfoot{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:10px 18px;border-top:1px solid var(--line);background:#fff;flex:0 0 auto;flex-wrap:wrap;max-width:100%;box-sizing:border-box;min-width:0}
+.dfoot .btn,.dfoot .danger{min-width:0;flex:0 1 auto}
 .dfoot .btn{padding:9px 14px}
 .toast{position:fixed;left:50%;bottom:26px;transform:translateX(-50%) translateY(8px);background:#282b28f2;color:#fff;padding:11px 17px;border-radius:11px;font-size:13px;z-index:99;opacity:0;transition:.18s;pointer-events:none;max-width:88vw;text-align:center}
 .toast.on{opacity:1;transform:translateX(-50%) translateY(0)}
@@ -108,11 +119,12 @@ canvas{background:white;touch-action:none;max-width:100%;display:block;border-ra
   .dwrap{height:100%;max-height:100%;min-height:0;display:flex;flex-direction:column}
   .dhead{padding:10px 14px 8px;gap:8px;flex:0 0 auto;flex-wrap:nowrap;align-items:center}.dhead>div:first-child{min-width:0;flex:1 1 auto;overflow:hidden}.dhead h2{font-size:17px;margin:1px 0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.dhead .actions{flex:0 0 auto;flex-wrap:nowrap}.dhead .btn{padding:8px 10px;font-size:11.5px;white-space:nowrap}.dhead .muted{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
   .dbody{flex:1 1 auto;min-height:0;overflow-y:auto;overflow-x:hidden;padding:0 calc(12px + env(safe-area-inset-right)) 28px calc(12px + env(safe-area-inset-left));overscroll-behavior:contain;-webkit-overflow-scrolling:touch}
-  .dfoot{flex:0 0 auto;position:static;padding:8px calc(12px + env(safe-area-inset-right)) calc(8px + env(safe-area-inset-bottom)) calc(12px + env(safe-area-inset-left))}.dfoot .small{display:none}.dfoot .btn{padding:10px 16px}.danger{font-size:12.5px}
+  .dfoot{flex:0 0 auto;position:static;padding:8px calc(12px + env(safe-area-inset-right)) calc(8px + env(safe-area-inset-bottom)) calc(12px + env(safe-area-inset-left));gap:6px}.dfoot .small{display:none}.dfoot .btn{padding:10px 16px}.danger{font-size:12.5px}
   .room-layout{display:flex;flex-direction:column;gap:8px;min-width:0;max-width:100%}
   .side,.stage,.tabpane,.panel,.canvasbox,.tabbar,.room-layout,.reportWrap{min-width:0;max-width:100%;box-sizing:border-box}
   .tabbar{position:sticky;top:0;z-index:8;height:52px;margin:0;padding:5px 0;background:var(--paper);gap:5px}
-  .tabbar button{height:42px;padding:0 2px;font-size:12px;line-height:1.15}
+  .tabbar button{height:42px;padding:0 2px;font-size:11.5px;line-height:1.15;letter-spacing:-.2px}
+  .tabbar .tl{display:none}.tabbar .ts{display:inline}
   .stagestick{position:sticky;top:52px;z-index:7;background:var(--paper);padding:4px 0 6px}
   .stage{order:0;position:static;padding:0}
   .side{order:1}
@@ -120,7 +132,8 @@ canvas{background:white;touch-action:none;max-width:100%;display:block;border-ra
   .canvasbox{min-height:0;padding:5px;border-radius:10px}
   .legend{font-size:9.5px;margin-top:5px}
   .panel{padding:11px}
-  .panel input[type=text],.panel input[type=number],.panel input:not([type]),.panel select{padding:11px;font-size:14px}
+  .panel input[type=text],.panel input[type=number],.panel input:not([type]),.panel select{padding:11px;font-size:16px}
+  .fields input,.fields select,.fields textarea{font-size:16px}
   .chip{padding:9px 11px}.mini{padding:10px 6px;font-size:12.5px}.seg button{padding:10px 4px;font-size:11.5px}
   .fitgrid{grid-template-columns:repeat(4,1fr);gap:5px}.fitbox b{font-size:16px}.fitbox span{font-size:9.5px}
   .rsec{padding:11px}
@@ -153,7 +166,8 @@ html.is-mobile .danger{font-size:12.5px}
 html.is-mobile .room-layout{display:flex;flex-direction:column;gap:8px;min-width:0;max-width:100%}
 html.is-mobile .side,html.is-mobile .stage,html.is-mobile .tabpane,html.is-mobile .panel,html.is-mobile .canvasbox,html.is-mobile .tabbar,html.is-mobile .room-layout,html.is-mobile .reportWrap{min-width:0;max-width:100%;box-sizing:border-box}
 html.is-mobile .tabbar{position:sticky;top:0;z-index:8;height:52px;margin:0;padding:5px 0;background:var(--paper);gap:5px}
-html.is-mobile .tabbar button{height:42px;padding:0 2px;font-size:12px;line-height:1.15}
+html.is-mobile .tabbar button{height:42px;padding:0 2px;font-size:11.5px;line-height:1.15;letter-spacing:-.2px}
+html.is-mobile .tabbar .tl{display:none}html.is-mobile .tabbar .ts{display:inline}
 html.is-mobile .stagestick{position:sticky;top:52px;z-index:7;background:var(--paper);padding:4px 0 6px}
 html.is-mobile .stage{order:0;position:static;padding:0}
 html.is-mobile .side{order:1}
@@ -162,7 +176,13 @@ html.is-mobile .roomchips button{padding:8px 12px;font-size:12px}
 html.is-mobile .canvasbox{min-height:0;padding:5px;border-radius:10px}
 html.is-mobile .legend{font-size:9.5px;margin-top:5px}
 html.is-mobile .panel{padding:11px}
-html.is-mobile .panel input[type=text],html.is-mobile .panel input[type=number],html.is-mobile .panel input:not([type]),html.is-mobile .panel select{padding:11px;font-size:14px}
+html.is-mobile .panel input[type=text],html.is-mobile .panel input[type=number],html.is-mobile .panel input:not([type]),html.is-mobile .panel select{padding:11px;font-size:16px}
+html.is-mobile .fields input,html.is-mobile .fields select,html.is-mobile .fields textarea{font-size:16px}
+html.is-mobile .planmodal{width:calc(100% - 10px);max-width:calc(100% - 10px);max-height:94dvh;padding:0}
+html.is-mobile .pbody{padding:8px}
+html.is-mobile .phead{padding:9px 10px}
+html.is-mobile .planrow{margin:0 0 5px}
+html.is-mobile .dfoot{flex-wrap:wrap;gap:6px}
 html.is-mobile .chip{padding:9px 11px}
 html.is-mobile .mini{padding:10px 6px;font-size:12.5px}
 html.is-mobile .seg button{padding:10px 4px;font-size:11.5px}
@@ -182,6 +202,7 @@ html.is-mobile .rsec{padding:11px}
 <dialog class="dialog" id="projectDialog"><form id="projectForm"><h2>새 이사 프로젝트</h2><div class="fields"><label>프로젝트 이름<input name="name" required placeholder="예: 새집 후보 A"></label><label>지역<input name="area" placeholder="예: 경남 김해시"></label><label class="wide">아파트·단지명<input name="aptName" placeholder="예: 부원역푸르지오"></label><label>평형<input name="aptSize" placeholder="예: 84㎡ / 34평"></label><label>희망 이사일<input name="date" type="date"></label><label class="wide">메모<input name="memo" placeholder="원하는 조건"></label></div><div class="modal-actions"><button type="button" class="btn alt" data-close="projectDialog">취소</button><button class="btn">만들기</button></div></form></dialog>
 <dialog class="dialog" id="furnitureDialog"><form id="furnitureForm"><h2>내 가구 등록</h2><div class="fields"><label>종류<select name="type"><option>침대</option><option>소파</option><option>냉장고</option><option>식탁</option><option>책상</option><option>옷장</option><option>세탁기</option><option>기타</option></select></label><label>가구 이름<input name="name" required placeholder="예: 퀸 침대"></label><label>가로(mm)<input name="w" type="number" min="300" required></label><label>세로(mm)<input name="d" type="number" min="300" required></label><label>높이(mm)<input name="h" type="number" min="0"></label><label>메모<input name="memo"></label></div><div class="modal-actions"><button type="button" class="btn alt" data-close="furnitureDialog">취소</button><button class="btn">저장</button></div></form></dialog>
 <dialog class="dialog detail" id="detail"><div id="detailContent" class="dwrap"></div></dialog>
+<dialog class="dialog planmodal" id="planDialog"><div class="pwrap"><div class="phead"><div><b>전체 평면도</b><br><span class="small" id="planMeta"></span></div><div class="actions"><button class="mini" id="planZoomOut">−</button><span class="small" id="planZoomLbl">100%</span><button class="mini" id="planZoomIn">＋</button><button class="mini" id="planZoomFit">맞춤</button><button class="btn alt" id="planClose">닫기</button></div></div><div class="pbody" id="planBody"><img id="planImg" alt="전체 평면도"></div></div></dialog>
 <footer class="footer">이사핏 · 데이터는 현재 브라우저에 저장됩니다. 실제 치수와 현장 조건은 별도로 확인해 주세요.</footer>
 <div class="toast" id="toast"></div>
 <script>
@@ -221,6 +242,9 @@ const PRESETS=[
 ];
 const STATUS={ok:{t:'배치 가능',c:''},clearance:{t:'여유 부족',c:'warn'},carry:{t:'반입 위험',c:'warn'},blocked:{t:'배치 불가',c:'bad'}};
 const SIDENAME={front:'앞쪽',back:'뒤쪽',left:'왼쪽',right:'오른쪽'};
+const WALLS=[['top','위'],['bottom','아래'],['left','왼쪽'],['right','오른쪽']];
+const WALLNAME={top:'위쪽',bottom:'아래쪽',left:'왼쪽',right:'오른쪽'};
+const CARRY_CLR=50,ROOM_DOOR_H=2000;
 
 let data=load(),pid=null,rid=null,selected=null,drag=null,scale=.15,tab='space';
 let fpItems=[],aiBusy=false,aptItems=[],calMode=false,calPts=[];
@@ -293,10 +317,22 @@ function normalize(){
     if(!f.clr)f.clr={...(TYPE_CLR[f.type]||TYPE_CLR['기타'])};
   });
   data.projects.forEach(p=>{
-    if(!num(p.entryWidth,0))p.entryWidth=900;
+    /* 반입 경로(현관문·엘리베이터) 기본값 폴백 — 예전 프로젝트도 안전하게 열림 */
+    const pe=(p.entry&&typeof p.entry==='object')?p.entry:{};
+    const legacyW=num(p.entryWidth,0);
+    p.entry={w:dim(num(pe.w,0))?Math.round(num(pe.w,0)):(dim(legacyW)?Math.round(legacyW):850),h:dim(num(pe.h,0))?Math.round(num(pe.h,0)):2000};
+    p.entryWidth=p.entry.w;
+    const pel=(p.elevator&&typeof p.elevator==='object')?p.elevator:{};
+    p.elevator={use:pel.use!==false,w:dim(num(pel.w,0))?Math.round(num(pel.w,0)):1000,d:dim(num(pel.d,0))?Math.round(num(pel.d,0)):1200,h:dim(num(pel.h,0))?Math.round(num(pel.h,0)):2100};
+    if(typeof p.stairs!=='boolean')p.stairs=true;
+    if(typeof p.crane!=='boolean')p.crane=false;
     if(!Array.isArray(p.rooms)||!p.rooms.length)p.rooms=[{id:uid(),name:'거실',w:4000,d:3500,items:[]}];
     p.rooms.forEach(r=>{
       r.items=Array.isArray(r.items)?r.items:[];
+      if(!r.win||typeof r.win!=='object')r.win={};
+      if(!r.out||typeof r.out!=='object')r.out={};
+      WALLS.forEach(([k])=>{r.win[k]=!!r.win[k];r.out[k]=!!r.out[k]});
+      if(!dim(num(r.winW,0)))r.winW=1400;
       if(!r.door||!r.door.wall)r.door={wall:'bottom',pos:.5,width:800,swing:'in',hinge:'start'};
       r.items.forEach(it=>{
         if(!it.type)it.type='기타';
@@ -390,15 +426,25 @@ function renderDetail(){
   const evs=roomEvals(r,p);
   const sel=r.items.find(i=>i.id===selected);
   const d=r.door;
+  const pe=entryOf(p),pel=elevatorOf(p);
   $('#detailContent').dataset.tab=tab;
   $('#detailContent').innerHTML=`
   <div class="dhead"><div><span class="eyebrow">YOUR SPACE</span><h2>${esc(p.name)}</h2><span class="muted small">${esc(p.area||'지역 미입력')}${p.aptName?' · '+esc(p.aptName):''}${p.aptSize?' · '+esc(p.aptSize):''} ${badge}</span></div>
   <div class="actions"><button class="btn alt" id="print">리포트 인쇄</button><button class="btn alt" id="closeDetail">닫기</button></div></div>
   <div class="dbody">
-  <nav class="tabbar"><button data-tab="space" class="${tab==='space'?'on':''}">공간·도면</button><button data-tab="furn" class="${tab==='furn'?'on':''}">가구 배치</button><button data-tab="report" class="${tab==='report'?'on':''}">의사결정 리포트</button></nav>
+  <nav class="tabbar"><button data-tab="space" class="${tab==='space'?'on':''}"><span class="tl">공간·도면</span><span class="ts">공간</span></button><button data-tab="furn" class="${tab==='furn'?'on':''}"><span class="tl">가구 배치</span><span class="ts">가구</span></button><button data-tab="report" class="${tab==='report'?'on':''}"><span class="tl">의사결정 리포트</span><span class="ts">리포트</span></button></nav>
   <div class="room-layout" ${tab==='report'?'hidden':''}>
     <aside class="side">
       <div class="tabpane ${tab==='space'?'active':''}" data-pane="space">
+        <div class="panel"><h3>반입 경로 <span class="small">현관문·엘리베이터</span></h3>
+          <div class="row2"><div><label class="small">현관문 폭(mm)</label><input id="entryW" type="number" min="300" value="${pe.w}"></div><div><label class="small">현관문 높이(mm)</label><input id="entryH" type="number" min="300" value="${pe.h}"></div></div>
+          <label class="small">엘리베이터</label>
+          <div class="chips"><button class="chip ${pel.use?'on':''}" data-elv="use">엘리베이터 있음</button><button class="chip ${p.stairs?'on':''}" data-carry="stairs">계단 이용</button><button class="chip ${p.crane?'on':''}" data-carry="crane">사다리차 가능</button></div>
+          <div class="row2" style="margin-top:7px"><div><label class="small">엘리베이터 폭(mm)</label><input id="elvW" type="number" min="300" value="${pel.w}"></div><div><label class="small">깊이(mm)</label><input id="elvD" type="number" min="300" value="${pel.d}"></div></div>
+          <div><label class="small">엘리베이터 높이(mm)</label><input id="elvH" type="number" min="300" value="${pel.h}"></div>
+          <div id="pathSummary" class="status">${pathSummaryHTML(p)}</div>
+          <p class="small" style="margin:7px 0 0">현관문 → 엘리베이터 → 방문 순서로 지나갈 수 있는지 검사해요. 치수를 모르면 대략이라도 넣어 주세요.</p>
+        </div>
         <div class="panel"><h3>공간</h3>
           <div class="roomlist">${p.rooms.map(x=>'<button class="'+(x.id===rid?'active':'')+'" data-room="'+x.id+'">'+esc(x.name)+' · '+x.w+'×'+x.d+'mm'+(x.estimated?' <span class="small">(추정)</span>':'')+'</button>').join('')}</div>
           <div class="row2" style="margin-top:7px"><input id="newRoomName" placeholder="새 공간 이름 (침실)"><button class="btn alt" id="addRoom">＋ 추가</button></div>
@@ -410,6 +456,14 @@ function renderDetail(){
           <button class="btn alt" id="applySize" style="width:100%">이 공간에 적용</button>
           <p class="small" style="margin:6px 0 0">${(r.w*r.d/1e6).toFixed(1)}㎡ · ${(r.w*r.d/3305800).toFixed(1)}평</p>
         </div>
+        <div class="panel"><h3>창문 · 콘센트 <span class="small">벽면에 표시</span></h3>
+          <label class="small">창문 벽면 (여러 곳 선택)</label>
+          <div class="chips" id="winChips">${WALLS.map(([k,v])=>'<button class="chip '+(r.win[k]?'on':'')+'" data-win="'+k+'">'+v+'</button>').join('')}</div>
+          <label class="small" style="margin-top:7px">창문 폭(mm)</label><input id="winW" type="number" min="300" value="${num(r.winW,1400)}">
+          <label class="small" style="margin-top:7px">콘센트 벽면</label>
+          <div class="chips" id="outChips">${WALLS.map(([k,v])=>'<button class="chip '+(r.out[k]?'on':'')+'" data-out="'+k+'">'+v+'</button>').join('')}</div>
+          <p class="small" style="margin:7px 0 0">도면에 창문은 파란 이중선, 콘센트는 작은 아이콘으로 그려져요. 가구를 놓으면 창문 가림·콘센트 거리를 함께 알려드려요.</p>
+        </div>
         <div class="panel"><h3>문 · 현관</h3>
           <label class="small">방문 폭(mm)</label><input id="doorW" type="number" value="${num(d.width,800)}">
           <label class="small">방문 벽면</label>
@@ -418,7 +472,7 @@ function renderDetail(){
           <input id="doorPos" type="range" min="12" max="88" value="${Math.round(num(d.pos,.5)*100)}">
           <div class="row2"><div><label class="small">여닫이</label><div class="seg"><button data-swing="in" class="${d.swing!=='out'?'on':''}">안으로</button><button data-swing="out" class="${d.swing==='out'?'on':''}">밖으로</button></div></div>
           <div><label class="small">경첩</label><div class="seg"><button data-hinge="start" class="${d.hinge!=='end'?'on':''}">왼쪽</button><button data-hinge="end" class="${d.hinge==='end'?'on':''}">오른쪽</button></div></div></div>
-          <label class="small">현관(집 전체) 폭(mm)</label><input id="entryW" type="number" value="${num(p.entryWidth,900)}">
+          <p class="small">현관문·엘리베이터 치수는 위쪽 <b>반입 경로</b> 패널에서 고쳐요.</p>
           <p class="small">문 호는 여닫이 회전 반경이에요. 가구가 이 안에 걸리면 문이 열리지 않아요.</p>
         </div>
         <div class="panel"><h3>도면</h3>
@@ -453,10 +507,11 @@ function renderDetail(){
     </aside>
     <section class="stage">
       <div class="stagestick">
+      ${p.planImageKey?'<div class="planrow"><button class="mini" id="showPlan">전체 평면도 보기</button><span class="small">집 전체 도면은 방 도면과 따로 봐요</span></div>':''}
       <div class="roomchips">${p.rooms.map(x=>'<button class="'+(x.id===rid?'on':'')+'" data-room="'+x.id+'">'+esc(x.name)+'</button>').join('')}</div>
       <div class="canvasbox"><canvas id="floor"></canvas></div>
       </div>
-      <div class="legend">실선 <i style="background:#e5eadd"></i>가구 본체 · 점선 <i style="background:#dbe6d6;border-style:dashed"></i>필수 여유 공간 · <i style="background:#f0e3c6;border-style:dashed"></i>문 여닫이 반경</div>
+      <div class="legend">실선 <i style="background:#e5eadd"></i>가구 본체 · 점선 <i style="background:#dbe6d6;border-style:dashed"></i>필수 여유 공간 · <i style="background:#f0e3c6;border-style:dashed"></i>문 여닫이 반경 · <i style="background:#a9cee4"></i>창문 · <i style="background:#fdf3d6;border-color:#b0863a"></i>콘센트</div>
       <div id="roomreport" class="status"></div>
       <div class="actions" style="margin-top:8px"><button class="btn alt" id="check">이 방 상세 검사</button><button class="btn alt" id="showAll">전체 여유 공간 표시</button></div>
     </section>
@@ -489,6 +544,7 @@ function selPanelHTML(it,ev){
   <div class="row2"><div><label class="small">왼쪽</label><input id="clrLeft" type="number" value="${num(c.left,0)}"></div><div><label class="small">오른쪽</label><input id="clrRight" type="number" value="${num(c.right,0)}"></div></div>
   <button class="mini" id="applyClr" style="width:100%;margin-top:5px">여유 공간 적용</button>
   <div id="selReasons" style="margin-top:8px">${ev&&ev.reasons.length?'<p class="small">'+ev.reasons.map(x=>'· '+esc(x.text)).join('<br>')+'</p>':'<p class="small">이 자리에서는 필요한 여유 공간이 모두 확보돼요.</p>'}</div>
+  ${ev&&ev.notes&&ev.notes.length?'<p class="small" style="margin:6px 0 0;color:#a8792f">'+ev.notes.map(x=>'· '+esc(x)).join('<br>')+'</p>':''}
   </div>`;
 }
 function itemListHTML(r,p){
@@ -567,6 +623,139 @@ function doorGeom(r){
   }
   return{width,wall,hinge:hp,poly,gap,open:poly[poly.length-1]};
 }
+/* ---------------- 반입 경로 (현관문·엘리베이터) ---------------- */
+function clampMm(v,def){return Math.max(300,Math.min(30000,Math.round(num(v,def))))}
+function itemDims(it){
+  const a=[];
+  if(Number.isFinite(it.w)&&it.w>0)a.push(it.w);
+  if(Number.isFinite(it.d)&&it.d>0)a.push(it.d);
+  if(Number.isFinite(it.h)&&it.h>0)a.push(it.h);
+  return a.sort((x,y)=>x-y);
+}
+/* 가구 단면(임의의 두 변)이 사각 개구부를 지나갈 수 있는지. 문틀 여유 50mm 포함 */
+function openingFit(dims,ow,oh){
+  if(dims.length<2)return{ok:true};
+  let best=null;
+  for(let i=0;i<dims.length;i++)for(let j=i+1;j<dims.length;j++){
+    const a=dims[i],b=dims[j];
+    if((a+CARRY_CLR<=ow&&b+CARRY_CLR<=oh)||(b+CARRY_CLR<=ow&&a+CARRY_CLR<=oh))return{ok:true};
+    const over=Math.min(Math.max(0,a+CARRY_CLR-ow)+Math.max(0,b+CARRY_CLR-oh),Math.max(0,b+CARRY_CLR-ow)+Math.max(0,a+CARRY_CLR-oh));
+    if(!best||over<best.over)best={over,a,b};
+  }
+  return{ok:false,need:best};
+}
+function entryOf(p){const e=(p&&p.entry)||{};return{w:dim(num(e.w,0))?Math.round(num(e.w,0)):850,h:dim(num(e.h,0))?Math.round(num(e.h,0)):2000}}
+function elevatorOf(p){const e=(p&&p.elevator)||{};return{use:e.use!==false,w:dim(num(e.w,0))?Math.round(num(e.w,0)):1000,d:dim(num(e.d,0))?Math.round(num(e.d,0)):1200,h:dim(num(e.h,0))?Math.round(num(e.h,0)):2100}}
+function carryCheck(it,r,p){
+  const out=[],dims=itemDims(it),raw=[it.w,it.d].concat(Number.isFinite(it.h)&&it.h>0?[Math.round(it.h)]:[]).join('×');
+  if(!dims.length)return out;
+  const e=entryOf(p);
+  const f1=openingFit(dims,e.w,e.h);
+  if(!f1.ok)out.push('현관문 폭 부족 — 현관문 '+e.w+'×'+e.h+'mm, 가구 최소 단면 '+f1.need.a+'×'+f1.need.b+'mm(문틀 여유 '+CARRY_CLR+'mm 포함)가 지나가지 못함');
+  const el=elevatorOf(p);
+  if(el.use){
+    const lab=[{v:el.w,k:'폭'},{v:el.d,k:'깊이'},{v:el.h,k:'높이'}].sort((a,b)=>a.v-b.v);
+    let bad=-1;
+    for(let i=Math.min(dims.length,lab.length)-1;i>=0;i--){if(dims[i]>lab[i].v){bad=i;break}}
+    if(bad>=0){
+      const alt=(p.crane===true)?'사다리차 검토':(p.stairs===false?'계단·사다리차 모두 불가 — 반입 대안 상담 필요':'사다리차 또는 계단 반입 검토');
+      out.push('엘리베이터 '+lab[bad].k+' 초과 — 엘리베이터 '+el.w+'×'+el.d+'×'+el.h+'mm에 가구 '+raw+'mm · '+alt);
+    }
+  }else if(p.stairs===false&&p.crane!==true){
+    out.push('엘리베이터 미사용 · 계단·사다리차 불가 — 반입 경로를 정할 수 없음');
+  }
+  const dw=Math.round(num(r.door&&r.door.width,800));
+  const f2=openingFit(dims,dw,ROOM_DOOR_H);
+  if(!f2.ok)out.push('방문 통과 불가 — 방문 '+dw+'×'+ROOM_DOOR_H+'mm, 가구 최소 단면 '+f2.need.a+'×'+f2.need.b+'mm(문틀 여유 포함)');
+  return out;
+}
+function carryAdvice(it,r,p){
+  const txt=carryCheck(it,r,p).join(' ');
+  const e=entryOf(p),dw=Math.round(num(r.door&&r.door.width,800));
+  if(txt.includes('현관문'))return'현관문 폭 '+(e.w-CARRY_CLR)+'mm 이하 단면으로 분해 반입 · 어려우면 사다리차·창문 반입 상담';
+  if(txt.includes('엘리베이터 ')&&!txt.includes('방문'))return'분해해 엘리베이터 '+elevatorOf(p).d+'mm 깊이에 들어가게 하거나 사다리차·계단 반입 견적 확인';
+  return'방문 폭 '+(dw-CARRY_CLR)+'mm 이하 단면으로 분해 반입 검토';
+}
+function pathSummaryHTML(p){
+  const e=entryOf(p),el=elevatorOf(p);
+  const line='현관문 '+e.w+'×'+e.h+'mm · '+(el.use?'엘리베이터 '+el.w+'×'+el.d+'×'+el.h+'mm':'엘리베이터 없음')+' · '+(p.stairs?'계단 가능':'계단 불가')+' · '+(p.crane?'사다리차 가능':'사다리차 불가');
+  const bad=[];
+  (p.rooms||[]).forEach(r=>(r.items||[]).forEach(it=>{const rs=carryCheck(it,r,p);if(rs.length)bad.push({it,r,rs})}));
+  if(!bad.length)return line+'<br><b>반입 지장 없음</b> — 놓인 가구 모두 이 경로로 지나갈 수 있어요.';
+  return line+'<br><b>반입 위험 '+bad.length+'개</b><br>'+bad.slice(0,3).map(x=>'· '+esc(x.it.name)+' — '+esc(x.rs[0])).join('<br>');
+}
+
+/* ---------------- 방 창문·콘센트 ---------------- */
+function wallLen(r,wall){return(wall==='top'||wall==='bottom')?r.w:r.d}
+function doorGapAlong(r,wall){
+  const g=doorGeom(r);if(g.wall!==wall)return null;
+  const horiz=(wall==='top'||wall==='bottom');
+  const a=horiz?g.gap.x1:g.gap.y1,b=horiz?g.gap.x2:g.gap.y2;
+  return{a:Math.min(a,b),b:Math.max(a,b)};
+}
+/* 벽면 위 구간(mm). 방문 틈과 겹치지 않는 위치를 고른다 */
+function wallSegment(r,wall,width){
+  const len=wallLen(r,wall);
+  const w=Math.max(120,Math.min(len*0.92,num(width,1400)));
+  const gap=doorGapAlong(r,wall);
+  const cands=[0.5,0.36,0.64,0.26,0.74,0.16,0.84];
+  let a=-1,b=-1;
+  for(const c of cands){
+    const s0=Math.max(0,Math.min(len-w,c*len-w/2)),e0=s0+w;
+    if(gap&&!(e0<=gap.a-120||s0>=gap.b+120))continue;
+    a=s0;b=e0;break;
+  }
+  if(a<0){a=Math.max(0,Math.min(len-w,len/2-w/2));b=a+w}
+  return{a,b,len,wall,width:w};
+}
+function segXY(r,sg){
+  if(sg.wall==='top')return{x1:sg.a,y1:0,x2:sg.b,y2:0};
+  if(sg.wall==='bottom')return{x1:sg.a,y1:r.d,x2:sg.b,y2:r.d};
+  if(sg.wall==='left')return{x1:0,y1:sg.a,x2:0,y2:sg.b};
+  return{x1:r.w,y1:sg.a,x2:r.w,y2:sg.b};
+}
+function outletPt(r,wall){
+  const sg=wallSegment(r,wall,120),c=(sg.a+sg.b)/2,off=Math.min(110,Math.max(60,Math.min(r.w,r.d)*0.08));
+  if(wall==='top')return{x:c,y:off,wall};
+  if(wall==='bottom')return{x:c,y:r.d-off,wall};
+  if(wall==='left')return{x:off,y:c,wall};
+  return{x:r.w-off,y:c,wall};
+}
+function winBand(r,wall,sg){
+  const depth=Math.min(600,(wall==='top'||wall==='bottom')?r.d:r.w);
+  if(wall==='top')return{x:sg.a,y:0,w:sg.b-sg.a,h:depth};
+  if(wall==='bottom')return{x:sg.a,y:r.d-depth,w:sg.b-sg.a,h:depth};
+  if(wall==='left')return{x:0,y:sg.a,w:depth,h:sg.b-sg.a};
+  return{x:r.w-depth,y:sg.a,w:depth,h:sg.b-sg.a};
+}
+function pointRectDist(pt,fp){
+  const dx=Math.max(fp.x-pt.x,0,pt.x-(fp.x+fp.w)),dy=Math.max(fp.y-pt.y,0,pt.y-(fp.y+fp.h));
+  return Math.hypot(dx,dy);
+}
+const APPLIANCE={'냉장고':1,'세탁기':1};
+/* 배치 참고 안내(상태 판정은 바꾸지 않음) */
+function roomNotes(it,r){
+  const notes=[],fp=footprint(it),hi=num(it.h,0);
+  WALLS.forEach(([wl])=>{
+    if(!(r.win&&r.win[wl]))return;
+    const sg=wallSegment(r,wl,num(r.winW,1400)),band=winBand(r,wl,sg);
+    const along=(wl==='top'||wl==='bottom')?Math.max(0,Math.min(fp.x+fp.w,sg.b)-Math.max(fp.x,sg.a)):Math.max(0,Math.min(fp.y+fp.h,sg.b)-Math.max(fp.y,sg.a));
+    const winW=Math.max(1,sg.b-sg.a);
+    if(along>winW*0.4&&hi>=600&&rectOverlap(band,fp,4))notes.push(WALLNAME[wl]+' 창문을 가릴 수 있어요 — 채광·결로 확인');
+  });
+  if(APPLIANCE[it.type]){
+    const outs=[];
+    WALLS.forEach(([wl])=>{if(r.out&&r.out[wl])outs.push(outletPt(r,wl))});
+    if(!outs.length)notes.push('이 방에 콘센트 위치가 없어요 — 콘센트 벽면을 표시해 주세요');
+    else{
+      const dmin=Math.min.apply(null,outs.map(o=>pointRectDist(o,fp)));
+      if(dmin<120)notes.push('콘센트 바로 옆 — 플러그 꽂을 틈을 확인하세요');
+      else if(dmin>2000)notes.push('가까운 콘센트까지 '+Math.round(dmin/100)*100+'mm — 연장선이 필요할 수 있어요');
+    }
+  }
+  return notes.slice(0,2);
+}
+
 function evalItem(r,it,p){
   const fp=footprint(it),reasons=[],badSides=[];
   const push=(kind,text)=>{if(!reasons.some(x=>x.kind===kind&&x.text===text))reasons.push({kind,text})};
@@ -579,11 +768,7 @@ function evalItem(r,it,p){
     push('blocked','방 경계를 넘음 ('+parts.join(', ')+')');
   }
   r.items.forEach(o=>{if(o.id!==it.id&&rectOverlap(fp,footprint(o),2))push('blocked','「'+o.name+'」와 겹침')});
-  const dims=[it.w,it.d,it.h].filter(v=>Number.isFinite(v)&&v>0);
-  const minDim=dims.length?Math.min.apply(null,dims):Math.min(it.w,it.d);
-  const dw=num(r.door&&r.door.width,800),ew=num(p.entryWidth,900);
-  if(minDim+50>dw)push('carry','가장 작은 변 '+Math.round(minDim)+'mm(문틀 여유 포함)가 방문 폭 '+Math.round(dw)+'mm보다 커서 방문 통과가 어려움');
-  else if(minDim+50>ew)push('carry','가장 작은 변 '+Math.round(minDim)+'mm(문틀 여유 포함)가 현관 폭 '+Math.round(ew)+'mm보다 커서 현관 통과가 어려움');
+  carryCheck(it,r,p).forEach(txt=>push('carry',txt));
   const g=doorGeom(r);
   if(polyOverlap(g.poly,rectPoly(fp)))push('clearance','방문 여닫이 반경과 겹침');
   clearanceBands(it).forEach(b=>{
@@ -601,7 +786,7 @@ function evalItem(r,it,p){
     if(polyOverlap(g.poly,rectPoly(b))){push('clearance',SIDENAME[b.side]+' 여유 공간이 문 여닫이와 겹침');if(!badSides.includes(b.side))badSides.push(b.side)}
   });
   const status=reasons.some(x=>x.kind==='blocked')?'blocked':reasons.some(x=>x.kind==='carry')?'carry':reasons.length?'clearance':'ok';
-  return{status,reasons,badSides};
+  return{status,reasons,badSides,notes:roomNotes(it,r)};
 }
 function roomEvals(r,p){const m=new Map();(r.items||[]).forEach(it=>m.set(it.id,evalItem(r,it,p)));return m}
 function rank(s){return s==='blocked'?3:s==='carry'?2:s==='clearance'?1:0}
@@ -657,7 +842,8 @@ function paintRoom(ctx,p,r,W,H,sc,opt){
   opt=opt||{};
   ctx.save();
   ctx.fillStyle='#fff';ctx.fillRect(0,0,W,H);
-  const url=('planImg' in opt)?opt.planImg:getPlanUrl(r.planImageKey||p.planImageKey);
+  /* 방 사진(r.planImageKey)만 배경으로 씁니다. 집 전체 평면도는 '전체 평면도 보기'에서 따로 봅니다. */
+  const url=('planImg' in opt)?opt.planImg:getPlanUrl(r.planImageKey||null);
   const im=planImage(url);
   if(im){
     const s=Math.min(W/im.naturalWidth,H/im.naturalHeight);
@@ -682,6 +868,13 @@ function paintRoom(ctx,p,r,W,H,sc,opt){
     ctx.stroke();
   });
   ctx.restore();
+  /* 창문 (파란 이중선) */
+  WALLS.forEach(([wl])=>{
+    if(!(r.win&&r.win[wl]))return;
+    const sg=wallSegment(r,wl,num(r.winW,1400));
+    if(sg.width<60)return;
+    drawWindow(ctx,segXY(r,sg),sc);
+  });
   /* 여닫이 반경 */
   ctx.save();
   ctx.beginPath();
@@ -736,6 +929,11 @@ function paintRoom(ctx,p,r,W,H,sc,opt){
       ctx.restore();
     }
   });
+  /* 콘센트 */
+  WALLS.forEach(([wl])=>{
+    if(!(r.out&&r.out[wl]))return;
+    drawOutlet(ctx,outletPt(r,wl),sc);
+  });
   /* 축척 보정 점 */
   if(opt.calPts&&opt.calPts.length){
     ctx.save();
@@ -747,6 +945,39 @@ function paintRoom(ctx,p,r,W,H,sc,opt){
   ctx.restore();
 }
 function safeName(n){return n.slice(0,9)}
+function drawWindow(ctx,seg,sc){
+  const x1=seg.x1*sc,y1=seg.y1*sc,x2=seg.x2*sc,y2=seg.y2*sc;
+  ctx.save();ctx.lineCap='butt';
+  ctx.strokeStyle='#fff';ctx.lineWidth=10;
+  ctx.beginPath();ctx.moveTo(x1,y1);ctx.lineTo(x2,y2);ctx.stroke();
+  ctx.strokeStyle='#a9cee4';ctx.lineWidth=7;
+  ctx.beginPath();ctx.moveTo(x1,y1);ctx.lineTo(x2,y2);ctx.stroke();
+  ctx.strokeStyle='#fff';ctx.lineWidth=2.6;
+  ctx.beginPath();ctx.moveTo(x1,y1);ctx.lineTo(x2,y2);ctx.stroke();
+  const dx=x2-x1,dy=y2-y1,L=Math.hypot(dx,dy)||1,nx=-dy/L*5,ny=dx/L*5;
+  ctx.strokeStyle='#5e93b5';ctx.lineWidth=1.6;
+  [[x1,y1],[x2,y2]].forEach(pt=>{ctx.beginPath();ctx.moveTo(pt[0]-nx,pt[1]-ny);ctx.lineTo(pt[0]+nx,pt[1]+ny);ctx.stroke()});
+  ctx.restore();
+}
+function roundPath(ctx,x,y,w,h,r0){
+  const r=Math.min(r0,w/2,h/2);
+  ctx.beginPath();
+  ctx.moveTo(x+r,y);ctx.lineTo(x+w-r,y);ctx.arcTo(x+w,y,x+w,y+r,r);
+  ctx.lineTo(x+w,y+h-r);ctx.arcTo(x+w,y+h,x+w-r,y+h,r);
+  ctx.lineTo(x+r,y+h);ctx.arcTo(x,y+h,x,y+h-r,r);
+  ctx.lineTo(x,y+r);ctx.arcTo(x,y,x+r,y,r);
+  ctx.closePath();
+}
+function drawOutlet(ctx,pt,sc){
+  const x=pt.x*sc,y=pt.y*sc,s=13;
+  ctx.save();ctx.translate(x,y);
+  ctx.fillStyle='#fdf3d6';ctx.strokeStyle='#b0863a';ctx.lineWidth=1.2;
+  roundPath(ctx,-s/2,-s/2,s,s,3);ctx.fill();ctx.stroke();
+  ctx.fillStyle='#8a682c';
+  ctx.fillRect(-3.2,-3.4,1.8,4.2);ctx.fillRect(1.4,-3.4,1.8,4.2);
+  ctx.beginPath();ctx.arc(0,3.4,1.4,0,7);ctx.fill();
+  ctx.restore();
+}
 function draw(){
   const c=$('#floor');if(!c)return;
   const p=project(),r=room();if(!p||!r)return;
@@ -831,13 +1062,18 @@ function setXY(x,y){
 }
 
 /* ---------------- 방 요약 ---------------- */
+function ioLine(r){
+  const wl=WALLS.filter(([k])=>r.win&&r.win[k]).map(([k,v])=>v),ol=WALLS.filter(([k])=>r.out&&r.out[k]).map(([k,v])=>v);
+  if(!wl.length&&!ol.length)return'';
+  return'<br>창문 '+(wl.join('·')||'없음')+' · 콘센트 '+(ol.join('·')||'없음');
+}
 function roomSummary(){
   const p=project(),r=room(),el=$('#roomreport');if(!p||!r||!el)return;
   const evs=roomEvals(r,p);
   const c={ok:0,clearance:0,carry:0,blocked:0};
   r.items.forEach(it=>c[evs.get(it.id).status]++);
   const st=r.items.map(it=>({it,ev:evs.get(it.id)})).filter(x=>x.ev.status!=='ok').sort((a,b)=>rank(b.ev.status)-rank(a.ev.status))[0];
-  el.innerHTML='<b>'+esc(r.name)+'</b> '+r.w+'×'+r.d+'mm · '+(r.w*r.d/1e6).toFixed(1)+'㎡ · 가구 '+r.items.length+'개<br>배치 가능 <b>'+c.ok+'</b> · 여유 부족 <b>'+c.clearance+'</b> · 반입 위험 <b>'+c.carry+'</b> · 배치 불가 <b>'+c.blocked+'</b>'+(st?'<br>가장 큰 문제: 「'+esc(st.it.name)+'」 '+esc(st.ev.reasons[0].text):'');
+  el.innerHTML='<b>'+esc(r.name)+'</b> '+r.w+'×'+r.d+'mm · '+(r.w*r.d/1e6).toFixed(1)+'㎡ · 가구 '+r.items.length+'개<br>배치 가능 <b>'+c.ok+'</b> · 여유 부족 <b>'+c.clearance+'</b> · 반입 위험 <b>'+c.carry+'</b> · 배치 불가 <b>'+c.blocked+'</b>'+(st?'<br>가장 큰 문제: 「'+esc(st.it.name)+'」 '+esc(st.ev.reasons[0].text):'')+ioLine(r);
 }
 
 /* ---------------- 의사결정 리포트 ---------------- */
@@ -862,11 +1098,20 @@ function adviceFor(g,p){
   const pl=g.places[0];if(!pl)return'';
   const r=pl.room,ev=pl.ev;
   const txt=ev.reasons.map(x=>x.text).join(' ');
-  if(txt.includes('방문 통과'))return'권장: 최소 폭 '+(num(r.door.width,800)-50)+'mm 이하 슬림형 구매 또는 분해 반입';
-  if(txt.includes('현관 통과'))return'권장: 최소 폭 '+(num(p.entryWidth,900)-50)+'mm 이하 또는 분해 반입';
+  if(txt.includes('방문 통과'))return'권장: 최소 단면 '+(num(r.door.width,800)-CARRY_CLR)+'mm 이하로 분해 반입 또는 슬림형 구매';
+  if(txt.includes('현관문 폭'))return'권장: 현관문('+entryOf(p).w+'mm)을 지나갈 단면으로 분해 반입';
+  if(txt.includes('엘리베이터'))return'권장: 분해해 엘리베이터에 들어가게 하거나 사다리차·계단 반입 견적 확인';
   const free=largestEmptyRect(r);
   if(free.w>50)return'권장: 「'+esc(r.name)+'」에 맞추려면 가로 '+Math.floor(free.w/50)*50+'mm 이하';
   return'권장: 이 방에는 여유 있게 들어갈 자리가 없어요';
+}
+function pathSection(p){
+  const e=entryOf(p),el=elevatorOf(p);
+  const bad=[];
+  (p.rooms||[]).forEach(r=>(r.items||[]).forEach(it=>{const rs=carryCheck(it,r,p);if(rs.length)bad.push({it,r,rs})}));
+  const head='현관문 '+e.w+'×'+e.h+'mm · '+(el.use?'엘리베이터 '+el.w+'×'+el.d+'×'+el.h+'mm':'엘리베이터 미사용')+' · '+(p.stairs?'계단 가능':'계단 불가')+' · '+(p.crane?'사다리차 가능':'사다리차 불가');
+  const rows=bad.map(x=>'<div class="ritem"><span class="rn">'+esc(x.it.name)+'</span> <span class="tag warn">반입 위험</span><span class="rr">'+esc(x.r.name)+' · '+x.rs.map(t=>esc(t)).join('<br>')+'</span><span class="rec">'+esc(carryAdvice(x.it,x.r,p))+'</span></div>').join('');
+  return '<div class="rsec"><h3>반입 경로 — 현관문·엘리베이터 <span class="small">위험 '+bad.length+'개</span></h3><p class="small" style="margin:0 0 4px">'+esc(head)+'</p>'+(rows||'<p class="small" style="margin:0">배치한 가구 모두 현관문·엘리베이터·방문을 지나갈 수 있어요.</p>')+'</div>';
 }
 function decisionBody(p){
   const {groups}=decisionData(p);
@@ -877,7 +1122,8 @@ function decisionBody(p){
   const row=(name,cls,label,line,rec)=>'<div class="ritem"><span class="rn">'+esc(name)+'</span> <span class="tag '+cls+'">'+label+'</span><span class="rr">'+line+'</span>'+(rec?'<span class="rec">'+rec+'</span>':'')+'</div>';
   let h='';
   h+='<div class="fitgrid"><div class="fitbox ok"><b>'+keep.length+'</b><span>그대로 유지</span></div><div class="fitbox warn"><b>'+cau.length+'</b><span>조건부 주의</span></div><div class="fitbox bad"><b>'+dis.length+'</b><span>처분·교체</span></div><div class="fitbox"><b>'+un.length+'</b><span>아직 미배치</span></div></div>';
-  h+='<p class="small" style="margin:0">등록 가구 '+total+'개 중 '+placed+'개 배치 · 배치 가능 '+keep.length+'개 · 조건부 주의 '+cau.length+'개 · 배치 불가 '+dis.length+'개<br>기준: 가구 본체 + 필수 여유 공간 + 방문 여닫이 반경 + 문 폭 통과</p>';
+  h+='<p class="small" style="margin:0">등록 가구 '+total+'개 중 '+placed+'개 배치 · 배치 가능 '+keep.length+'개 · 조건부 주의 '+cau.length+'개 · 배치 불가 '+dis.length+'개<br>기준: 가구 본체 + 필수 여유 공간 + 방문 여닫이 반경 + 방문·현관문·엘리베이터 반입</p>';
+  h+=pathSection(p);
   h+=sec('유지 가능 — 이 방에 여유 있게 들어가요',keep.length,keep.map(g=>{
     const okRooms=g.places.filter(x=>x.ev.status==='ok').map(x=>esc(x.room.name));
     return row(g.f.name,'','유지',okRooms.join(', ')+' · '+g.f.w+'×'+g.f.d+'mm 여유 확보');
@@ -904,8 +1150,7 @@ function decisionBody(p){
   }).join(''));
   return h;
 }
-function renderDecision(){
-  const p=project(),el=$('#reportWrap');if(!p||!el)return;
+function renderDecision(){  const p=project(),el=$('#reportWrap');if(!p||!el)return;
   el.innerHTML='<div style="padding-bottom:10px"><span class="eyebrow">DECISION REPORT</span><h2 style="margin:2px 0 3px;font-size:21px">이사 의사결정 리포트</h2><span class="small">'+esc(p.name)+' · 공간 '+p.rooms.length+'개 · 등록 가구 '+data.furniture.length+'개</span></div>'+decisionBody(p);
 }
 
@@ -917,7 +1162,7 @@ async function printReport(){
   try{w.document.write('<!doctype html><meta charset="utf-8"><title>이사핏 리포트</title><body style="font-family:-apple-system,sans-serif;padding:24px">리포트를 준비하고 있어요…</body>')}catch(e){}
   const imgs={};
   for(const r of p.rooms){
-    const k=r.planImageKey||p.planImageKey;
+    const k=r.planImageKey;
     if(k){const u=planUrls.get(k)||await idbGet(k);if(u){planUrls.set(k,u);await preload(u);imgs[r.id]=u}}
   }
   const shots=p.rooms.map(r=>{
@@ -929,8 +1174,7 @@ async function printReport(){
     paintRoom(ctx,p,r,W,H,sc,{evs:roomEvals(r,p),showAllClr:true,planImg:imgs[r.id]||null});
     return{r,src:c.toDataURL('image/png')};
   });
-  const d=new Date(),dateStr=d.getFullYear()+'.'+String(d.getMonth()+1).padStart(2,'0')+'.'+String(d.getDate()).padStart(2,'0');
-  const css="body{font-family:-apple-system,BlinkMacSystemFont,'Apple SD Gothic Neo',sans-serif;color:#282b28;margin:0;padding:26px 30px;font-size:12px;line-height:1.55}"
+  const d=new Date(),dateStr=d.getFullYear()+'.'+String(d.getMonth()+1).padStart(2,'0')+'.'+String(d.getDate()).padStart(2,'0');  const css="body{font-family:-apple-system,BlinkMacSystemFont,'Apple SD Gothic Neo',sans-serif;color:#282b28;margin:0;padding:26px 30px;font-size:12px;line-height:1.55}"
   +"h1{font-size:20px;margin:0 0 2px}.meta{color:#7b817a;font-size:11.5px;margin:0 0 14px}"
   +"h2{font-size:13px;margin:18px 0 6px;border-bottom:1px solid #e5e5dd;padding-bottom:4px}"
   +".fitgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:10px 0}"
@@ -1071,7 +1315,7 @@ function applyAi({rooms,summary,hasExplicitDimensions,bg}){
   const p=project();if(!p)return;
   const hasFurniture=p.rooms.some(x=>x.items&&x.items.length);
   if(hasFurniture&&!confirm('배치해 둔 가구가 있어요. AI 결과로 공간을 새로 만들면 가구 배치가 사라져요. 계속할까요?'))return;
-  p.rooms=rooms.map(x=>({id:uid(),name:String(x.name||'공간').slice(0,14),w:Math.round(Number(x.w)),d:Math.round(Number(x.d)),estimated:!!x.estimated,items:[],door:{wall:'bottom',pos:.5,width:800,swing:'in',hinge:'start'}}));
+  p.rooms=rooms.map(x=>({id:uid(),name:String(x.name||'공간').slice(0,14),w:Math.round(Number(x.w)),d:Math.round(Number(x.d)),estimated:!!x.estimated,items:[],win:{},out:{},winW:1400,door:{wall:'bottom',pos:.5,width:800,swing:'in',hinge:'start'}}));
   if(bg){const key='p:'+p.id;planUrls.set(key,bg);idbSet(key,bg);p.planImageKey=key}
   p.planMeta={summary:summary||'',hasExplicitDimensions:!!hasExplicitDimensions,at:new Date().toISOString()};
   rid=p.rooms[0].id;selected=null;calMode=false;calPts=[];
@@ -1097,7 +1341,7 @@ function bind(){
   const pr=$('#print');if(pr)pr.onclick=printReport;
   $$('.tabbar [data-tab]').forEach(b=>b.onclick=()=>setTab(b.dataset.tab));
   $$('[data-room]').forEach(b=>b.onclick=()=>{rid=b.dataset.room;selected=null;calMode=false;calPts=[];renderDetail()});
-  bindSpace(p,r);bindFurn();
+  bindSpace(p,r);bindFurn();bindPlanModal();
   const c=$('#floor');
   if(c){
     c.addEventListener('pointerdown',down);
@@ -1112,7 +1356,7 @@ function bindSpace(p,r){
     const n=(($('#newRoomName')||{}).value||'').trim()||'새 공간';
     const w=num(($('#newRoomW')||{}).value,0),d=num(($('#newRoomD')||{}).value,0);
     if(!dim(w)||!dim(d))return alert('가로·세로를 300~30,000mm로 입력해 주세요.');
-    const x={id:uid(),name:n.slice(0,14),w:Math.round(w),d:Math.round(d),items:[],door:{wall:'bottom',pos:.5,width:800,swing:'in',hinge:'start'}};
+    const x={id:uid(),name:n.slice(0,14),w:Math.round(w),d:Math.round(d),items:[],win:{},out:{},winW:1400,door:{wall:'bottom',pos:.5,width:800,swing:'in',hinge:'start'}};
     p.rooms.push(x);rid=x.id;save();renderDetail();
   };
   const ap=$('#applySize');
@@ -1125,7 +1369,16 @@ function bindSpace(p,r){
   };
   const dw=$('#doorW');if(dw)dw.oninput=()=>{r.door.width=Math.max(300,Math.round(num(dw.value,800)));save();draw();roomSummary()};
   const dp=$('#doorPos');if(dp)dp.oninput=()=>{r.door.pos=Math.max(.1,Math.min(.9,num(dp.value,.5)/100));save();draw();roomSummary()};
-  const ew=$('#entryW');if(ew)ew.oninput=()=>{p.entryWidth=Math.max(300,Math.round(num(ew.value,900)));save();draw();roomSummary()};
+  const ew=$('#entryW');if(ew)ew.oninput=()=>{p.entry={...entryOf(p),w:clampMm(ew.value,850)};p.entryWidth=p.entry.w;syncPath()};
+  const eh=$('#entryH');if(eh)eh.oninput=()=>{p.entry={...entryOf(p),h:clampMm(eh.value,2000)};syncPath()};
+  const elw=$('#elvW');if(elw)elw.oninput=()=>{p.elevator={...elevatorOf(p),w:clampMm(elw.value,1000)};syncPath()};
+  const eld=$('#elvD');if(eld)eld.oninput=()=>{p.elevator={...elevatorOf(p),d:clampMm(eld.value,1200)};syncPath()};
+  const elh=$('#elvH');if(elh)elh.oninput=()=>{p.elevator={...elevatorOf(p),h:clampMm(elh.value,2100)};syncPath()};
+  $$('[data-elv="use"]').forEach(b=>b.onclick=()=>{const el=elevatorOf(p),next=!el.use;p.elevator={...el,use:next};b.classList.toggle('on',next);syncPath()});
+  $$('[data-carry]').forEach(b=>b.onclick=()=>{const k=b.dataset.carry;p[k]=!p[k];b.classList.toggle('on',!!p[k]);syncPath()});
+  $$('[data-win]').forEach(b=>b.onclick=()=>{r.win=r.win||{};r.win[b.dataset.win]=!r.win[b.dataset.win];b.classList.toggle('on',!!r.win[b.dataset.win]);save();refreshFurnPanes()});
+  $$('[data-out]').forEach(b=>b.onclick=()=>{r.out=r.out||{};r.out[b.dataset.out]=!r.out[b.dataset.out];b.classList.toggle('on',!!r.out[b.dataset.out]);save();refreshFurnPanes()});
+  const wiw=$('#winW');if(wiw){wiw.oninput=()=>{r.winW=clampMm(wiw.value,1400);save();draw()};wiw.onchange=()=>{save();refreshFurnPanes()}}
   $$('#doorWall [data-wall]').forEach(b=>b.onclick=()=>{r.door.wall=b.dataset.wall;$$('#doorWall [data-wall]').forEach(x=>x.classList.toggle('on',x.dataset.wall===r.door.wall));save();draw();roomSummary()});
   $$('[data-swing]').forEach(b=>b.onclick=()=>{r.door.swing=b.dataset.swing;$$('[data-swing]').forEach(x=>x.classList.toggle('on',x.dataset.swing===r.door.swing));save();draw();roomSummary()});
   $$('[data-hinge]').forEach(b=>b.onclick=()=>{r.door.hinge=b.dataset.hinge;$$('[data-hinge]').forEach(x=>x.classList.toggle('on',x.dataset.hinge===r.door.hinge));save();draw();roomSummary()});
@@ -1202,6 +1455,37 @@ function bindSpace(p,r){
     toast('축척 보정 완료 · 이 방 '+r.w+'×'+r.d+'mm');
   };
 }
+function syncPath(){
+  const p=project();if(!p)return;
+  save();
+  const el=$('#pathSummary');if(el)el.innerHTML=pathSummaryHTML(p);
+  refreshFurnPanes();
+}
+/* ---------------- 전체 평면도 모달 ---------------- */
+let planZoom=1;
+function setPlanZoom(z){
+  planZoom=Math.max(1,Math.min(4,z));
+  const im=$('#planImg');if(im)im.style.width=planZoom===1?'100%':(planZoom*100)+'%';
+  const lb=$('#planZoomLbl');if(lb)lb.textContent=Math.round(planZoom*100)+'%';
+}
+async function openPlanModal(){
+  const p=project();if(!p||!p.planImageKey)return;
+  let url=planUrls.get(p.planImageKey)||null;
+  if(!url){url=await idbGet(p.planImageKey);if(url)planUrls.set(p.planImageKey,url)}
+  if(!url){toast('전체 평면도를 불러오지 못했어요. 다시 등록해 주세요.');return}
+  const im=$('#planImg');im.src=url;
+  const meta=$('#planMeta');
+  if(meta)meta.textContent=esc(p.aptName||p.name||'')+(p.planMeta&&p.planMeta.hasExplicitDimensions?' · 도면 치수 직접 인식':' · 비율 추정');
+  setPlanZoom(1);
+  const dlg=$('#planDialog');if(dlg&&!dlg.open)dlg.showModal();
+}
+function bindPlanModal(){
+  const sp=$('#showPlan');if(sp)sp.onclick=openPlanModal;
+  const zi=$('#planZoomIn');if(zi)zi.onclick=()=>setPlanZoom(planZoom+0.5);
+  const zo=$('#planZoomOut');if(zo)zo.onclick=()=>setPlanZoom(planZoom-0.5);
+  const zf=$('#planZoomFit');if(zf)zf.onclick=()=>setPlanZoom(1);
+  const cl=$('#planClose');if(cl)cl.onclick=()=>$('#planDialog').close();
+}
 function bindFurn(){
   const p=project(),r=room();if(!p||!r)return;
   const fs=$('#fselect'),pl=$('#place');
@@ -1266,8 +1550,9 @@ $('#newFurniture').onclick=()=>$('#furnitureDialog').showModal();
 $('#projectForm').onsubmit=e=>{
   e.preventDefault();
   const f=new FormData(e.target);
-  const p={id:uid(),name:f.get('name'),area:f.get('area'),aptName:f.get('aptName'),aptSize:f.get('aptSize'),date:f.get('date'),memo:f.get('memo'),entryWidth:900,
-    rooms:[{id:uid(),name:'거실',w:4000,d:3500,items:[],door:{wall:'bottom',pos:.5,width:800,swing:'in',hinge:'start'}}]};
+  const p={id:uid(),name:f.get('name'),area:f.get('area'),aptName:f.get('aptName'),aptSize:f.get('aptSize'),date:f.get('date'),memo:f.get('memo'),entryWidth:850,
+    entry:{w:850,h:2000},elevator:{use:true,w:1000,d:1200,h:2100},stairs:true,crane:false,
+    rooms:[{id:uid(),name:'거실',w:4000,d:3500,items:[],win:{},out:{},winW:1400,door:{wall:'bottom',pos:.5,width:800,swing:'in',hinge:'start'}}]};
   data.projects.unshift(p);save();render();e.target.reset();$('#projectDialog').close();openProject(p.id);
 };
 $('#furnitureForm').onsubmit=e=>{
